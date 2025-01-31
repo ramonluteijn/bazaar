@@ -1,0 +1,38 @@
+.idea
+.vscode
+.DS_Store
+Thumbs.db
+.well-known
+concept500*.zip
+
+###> symfony/laravel stuff
+.env
+.env.backup
+.env.production
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+/initdb.d
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+
+### PhpUnit stuff
+.phpunit
+.phpunit.result.cache
+phpunit-report.xml
+.phpunit.cache
+
+### npm/node stuff
+/node_modules
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/.fleet
