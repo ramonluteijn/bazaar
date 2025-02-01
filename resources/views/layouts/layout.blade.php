@@ -2,14 +2,15 @@
 <html>
 <head>
     <title>APP NAME | @yield('title')</title>
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
     <x-header />
 
-    <div class="container">
+    <main class="col-12">
         @yield('content')
-    </div>
+    </main>
 
     <x-footer />
 </body>

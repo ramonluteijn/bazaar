@@ -17,4 +17,6 @@ Route::group(['middleware' => 'RedirectIfAuthenticated'], function () {
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/dashboard', [AccountController::class, 'dashboard'])->name('dashboard');
+Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function () {
+    Route::get('/dashboard', [AccountController::class, 'dashboard'])->name('dashboard');
+});

@@ -69,3 +69,5 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 # Vragen
 - is bedrijf een aparte rol of is dit de particuliere of zakelijke adverteerder?
+- wat is het verschil tussen 4 advertenties aanmaken en 4 verhuur advertenties aanmaken?
+- is er buiten de pdf export nog een verschil tussen de particuliere en zakelijke adverteerder?
