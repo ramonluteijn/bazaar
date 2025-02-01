@@ -2,7 +2,7 @@
     <nav class="container mx-auto">
         <div class="row flex h-full items-center">
             <div class="mr-4 h-full items-center flex">
-                <a href="{{route('home')}}" class="text-white text-4xl">{{ENV('app_name')}}</a>
+                <a href="{{route('home')}}" class="text-white text-4xl">{{config('app.name')}}</a>
             </div>
             <div class="items-center flex w-full">
                 <ul class="list-none flex">
@@ -13,7 +13,7 @@
                     </li>
                     <li class="flex justify-center">
                         <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('login')}}">
-                            <span>Home</span>
+                            <span>Login</span>
                         </a>
                     </li>
                 </ul>

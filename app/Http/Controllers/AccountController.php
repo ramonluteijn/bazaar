@@ -11,4 +11,9 @@ class AccountController extends Controller
         $user = Auth::user();
         return view('account.dashboard', ['user' => $user]);
     }
+
+    public function CustomPage()
+    {
+        return view('account.custom-page');
+    }
 }

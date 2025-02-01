@@ -31,7 +31,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard');
+            return to_route('dashboard');
         }
 
         return back()->withErrors([
@@ -59,5 +59,6 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->intended('dashboard');    }
+        return to_route('dashboard');
+    }
 }

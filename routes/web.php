@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,4 +20,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function () {
     Route::get('/dashboard', [AccountController::class, 'dashboard'])->name('dashboard');
+    Route::get('/custom-page', [AccountController::class, 'customPage'])->name('custom-page');
 });
+
+Route::get('/pages/{parent?}/{child?}/{grandchild?}', [PageController::class, 'index'])->name('pages');
