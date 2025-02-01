@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 Route::group(['middleware' => 'RedirectIfAuthenticated'], function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -15,3 +16,5 @@ Route::group(['middleware' => 'RedirectIfAuthenticated'], function () {
 });
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/dashboard', [AccountController::class, 'dashboard'])->name('dashboard');

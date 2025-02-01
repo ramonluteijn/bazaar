@@ -5,8 +5,12 @@
 </head>
 
 <body>
+    <x-header />
+
     <div class="container">
         @yield('content')
     </div>
+
+    <x-footer />
 </body>
 </html>
