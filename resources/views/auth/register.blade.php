@@ -19,6 +19,11 @@
         <input type="password" name="password" id="password" required />
         <label for="password_confirmation">Confirm Password</label>
         <input type="password" name="password_confirmation" id="password_confirmation" required />
+        <select name="role" id="role">
+            <option value="user">User</option>
+            <option value="private_advertiser">Private advertiser</option>
+            <option value="business_advertiser">Business advertiser</option>
+        </select>
         <input type="submit" value="Register">
     </form>
 @stop

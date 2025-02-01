@@ -8,9 +8,9 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'RedirectIfAuthenticated'], function () {
-    Route::get('/showLoginForm', [AuthController::class, 'showLoginForm'])->name('showloginform');
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
-    Route::get('/showregisterform', [AuthController::class, 'showRegisterForm'])->name('showregisterform');
+    Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
     Route::post('/register', [AuthController::class, 'register'])->name('register');
 });
 
