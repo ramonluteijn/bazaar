@@ -3,7 +3,7 @@
 @section('title', 'Login')
 
 @section('content')
-    <div class="pt-[75px] pb-[100px] min-h-[calc(100vh-50px)] flex items-center justify-center">
+    <div class="pb-[100px] min-h-[calc(100vh-50px-75px)] flex items-center justify-center">
         <div class="w-full max-w-md">
             <form method="POST" action="{{ route('login') }}" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 @csrf
