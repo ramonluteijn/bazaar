@@ -17,15 +17,8 @@ return new class extends Migration
             $table->string('type');
             $table->string('title')->nullable();
             $table->text('content')->nullable();
-            $table->string('author')->nullable();
             $table->text('image')->nullable();
-            $table->text('video')->nullable();
             $table->text('background_color')->nullable();
-            $table->string('button_link')->nullable();
-            $table->string('site_link')->nullable();
-            $table->string('link_text')->nullable();
-            $table->integer('amount')->nullable();
-            $table->integer('order')->default(0);
             $table->timestamps();
         });
     }

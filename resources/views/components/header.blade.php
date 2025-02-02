@@ -1,4 +1,4 @@
-<header class="h-[75px] bg-amber-400 w-full flex items-center z-50 fixed">
+<header class="h-[75px] bg-amber-400 w-full flex items-center z-50 fixed top-0">
     <nav class="container mx-auto">
         <div class="row flex h-full items-center">
             <div class="mr-4 h-full items-center flex">
@@ -18,7 +18,7 @@
                     </li>
                 </ul>
                 <ul>
-{{--                    icons or profile stuff--}}
+                    {{--                    icons or profile stuff--}}
                 </ul>
             </div>
         </div>

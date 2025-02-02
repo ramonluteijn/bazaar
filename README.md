@@ -73,3 +73,4 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - is er buiten de pdf export nog een verschil tussen de particuliere en zakelijke adverteerder?
 - alleen laptop grote of dient het ook responsive te zijn?
 - in hoeverre moet de site vertaald worden? 1 invoerveld waar de gebruiker in juiste taal invoert of meerdere velden voor alle beschikbare talen?
+- wat is de bedoeling met afbeeldingen? random locale of uploaden?
