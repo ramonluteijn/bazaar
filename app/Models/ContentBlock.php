@@ -28,7 +28,6 @@ class ContentBlock extends Model
     protected $casts = [
         'type' => ContentBlockTypeEnum::class,
         'image' => 'array',
-        'video' => 'array',
     ];
 
     public function pages() : belongsTo

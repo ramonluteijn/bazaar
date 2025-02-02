@@ -18,8 +18,6 @@
         <x-blocks.gallery :title="$block->title" :images="$block->galleryImages"/>
     @elseif($block->type->name === 'HERO')
         <x-blocks.hero :title="$block->title" :button_text="$block->link_text" :button_link="$block->button_link" :image="$block->textBlockImage"  :background="$block->background_color"/>
-    @elseif($block->type->name === 'TEXT_PRODUCT')
-        <x-blocks.text-product :title="$block->title" :content="$block->content" :product="$block->product"/>
     @endif
 @endforeach
 
