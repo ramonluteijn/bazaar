@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Models\ContentBlock;
 use App\Models\ContentPage;
 use App\Rules\UrlCreation;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class PageService
@@ -12,6 +13,7 @@ class PageService
     {
         $validated = $this->validateCustomPage($request);
         $page = $request->route('id') ? ContentPage::find($request->route('id')) : new ContentPage();
+        $page->user_id = Auth::id();
         $page->fill($validated);
         $page->save();
 
@@ -26,6 +28,11 @@ class PageService
             $block->background_color = $blockData['background_color'] ?? null;
             $block->save();
         }
+    }
+
+    public function getCustomPageWithBlocks($id)
+    {
+        return ContentPage::with('blocks')->find($id);
     }
 
     private function validateCustomPage($request)

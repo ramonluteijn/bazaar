@@ -68,9 +68,10 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 <hr>
 
 # Vragen
-- is bedrijf een aparte rol of is dit de particuliere of zakelijke adverteerder?
-- wat is het verschil tussen 4 advertenties aanmaken en 4 verhuur advertenties aanmaken?
+- is bedrijf een aparte rol of is dit de particuliere of zakelijke adverteerder -> bedrijf is de zakelijke adverteerder
+- wat is het verschil tussen 4 advertenties aanmaken en 4 verhuur advertenties aanmaken? -> 4 verkoop, 4 verhuur
 - is er buiten de pdf export nog een verschil tussen de particuliere en zakelijke adverteerder?
-- alleen laptop grote of dient het ook responsive te zijn?
-- in hoeverre moet de site vertaald worden? 1 invoerveld waar de gebruiker in juiste taal invoert of meerdere velden voor alle beschikbare talen?
-- wat is de bedoeling met afbeeldingen? random locale of uploaden?
+- alleen laptop grote of dient het ook responsive te zijn? -> niet per se
+- in hoeverre moet de site vertaald worden? 1 invoerveld waar de gebruiker in juiste taal invoert of meerdere velden voor alle beschikbare talen? -> standaard tekst vertalen
+- wat is de bedoeling met afbeeldingen? random locale of uploaden? -> mogelijkheid tot uploaden
+- in hoeverre moeten de pages customisable zijn? echt blokken kunnen kiezen, slepen of alleen switches en tekst invoeren? -> klein cms waar de gebruiker gewoon wat dingetjes kan doen zoals kleurtjes en stukken tekst aanpassen,

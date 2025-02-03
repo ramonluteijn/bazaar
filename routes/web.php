@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function () {
     Route::get('/dashboard', [AccountController::class, 'dashboard'])->name('dashboard');
     Route::get('/custom-page', [AccountController::class, 'customPage'])->name('custom-page');
     Route::post('/custom-page', [AccountController::class, 'saveCustomPage'])->name('custom-page.store');
+    Route::put('/custom-page/{id}', [AccountController::class, 'saveCustomPage'])->name('custom-page.update');
 });
 
 Route::get('/pages/{parent?}/{child?}/{grandchild?}', [PageController::class, 'index'])->name('pages');

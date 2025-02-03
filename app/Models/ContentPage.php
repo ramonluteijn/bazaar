@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ContentPage extends Model
@@ -25,6 +26,11 @@ class ContentPage extends Model
 
     public function blocks() : HasMany
     {
-        return $this->hasMany(ContentBlock::class, 'content_page_id')->orderBy('order');
+        return $this->hasMany(ContentBlock::class, 'content_page_id');
+    }
+
+    public function user() : belongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

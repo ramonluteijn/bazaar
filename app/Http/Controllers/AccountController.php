@@ -20,12 +20,16 @@ class AccountController extends Controller
         return view('account.dashboard', ['user' => $user]);
     }
 
-    public function CustomPage()
+    public function customPage(Request $request)
     {
-        return view('account.custom-page');
+        $user = Auth::user();
+        $page = $this->pageService->getCustomPageWithBlocks($user->id);
+
+
+        return view('account.custom-page', compact('page'));
     }
 
-    public function SaveCustomPage(Request $request)
+    public function saveCustomPage(Request $request)
     {
         $this->pageService->saveCustomPage($request);
         return redirect()->route('custom-page');
