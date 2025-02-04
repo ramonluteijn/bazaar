@@ -18,7 +18,20 @@
                     </li>
                 </ul>
                 <ul>
-{{--                    icons or profile stuff--}}
+                    {{--                    icons or profile stuff--}}
+                    <nav class="lang-selector">
+                        <div class="wrapper">
+                            <ul class="w-[55px]">
+                                @foreach(config('app.available_locales') as $locale => $name)
+                                    <li>
+                                        <a href="{{ route('change-locale', $locale) }}" class="{{ app()->getLocale() === $locale ? 'active' : '' }}">
+                                            <img class="lang-flag" src="{{@asset('images/'.$locale.'.png')}}" alt="{{ $name }}">
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </nav>
                 </ul>
             </div>
         </div>
