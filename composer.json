@@ -9,9 +9,11 @@
         "php": "^8.2",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9",
+        "livewire/livewire": "^3.5",
         "spatie/laravel-permission": "^6.10"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.14",
         "fakerphp/faker": "^1.23",
         "laravel/breeze": "*",
         "laravel/pail": "^1.1",

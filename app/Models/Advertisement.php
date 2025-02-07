@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Enums\AdvertisementType;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Advertisement extends Model
 {
@@ -12,14 +12,17 @@ class Advertisement extends Model
         'description',
         'price',
         'image',
-    ];
-
-    protected $casts = [
-        'type' => AdvertisementType::class
+        'type',
+        'user_id'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return Storage::url($this->image);
     }
 }

@@ -22,9 +22,14 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function () {
     Route::get('/dashboard', [AccountController::class, 'dashboard'])->name('dashboard');
     Route::get('/advertisements', [AdvertisementController::class, 'index'])->name('advertisements.index');
-    Route::get('/{id}', [AdvertisementController::class, 'advertisement'])->name('advertisement.show');
-    Route::put('/update/{id}', [AdvertisementController::class, 'updateAdvertisement'])->name('advertisement.update');
-    Route::delete('/delete/{id}', [AdvertisementController::class, 'deleteAdvertisement'])->name('advertisement.delete');
+    Route::prefix( '/advertisement')->group(function () {
+        Route::get('/create', [AdvertisementController::class, 'createAdvertisement'])->name('advertisement.create');
+        Route::post('/store', [AdvertisementController::class, 'storeAdvertisement'])->name('advertisement.store');
+
+        Route::get('/{id}', [AdvertisementController::class, 'advertisement'])->name('advertisement.show');
+        Route::put('/update/{id}', [AdvertisementController::class, 'updateAdvertisement'])->name('advertisement.update');
+        Route::delete('/delete/{id}', [AdvertisementController::class, 'deleteAdvertisement'])->name('advertisement.delete');
+    });
 });
 
 Route::group(['middleware' => 'web'], function () {

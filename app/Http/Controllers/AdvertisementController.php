@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advertisement;
+use App\Services\AdvertisementService;
+use Illuminate\Http\Request;
 
 class AdvertisementController extends Controller
 {
+    private AdvertisementService $advertisementService;
+    private array $types = ['sale', 'hire'];
+    public function __construct(AdvertisementService $advertisementService)
+    {
+        $this->advertisementService = $advertisementService;
+    }
+
     public function index()
     {
         $advertisements = Advertisement::where("user_id", auth()->id())->get();
@@ -15,20 +24,29 @@ class AdvertisementController extends Controller
     public function advertisement($id)
     {
         $advertisement = Advertisement::findOrFail($id);
-        return view('account.advertisement', ['advertisement' => $advertisement]);
+        return view('account.advertisement', ['advertisement' => $advertisement, 'types' => $this->types]);
     }
 
-    public function updateAdvertisement($id)
+    public function updateAdvertisement(Request $request, $id)
     {
-        $advertisement = Advertisement::findOrFail($id);
-        $advertisement->update(request()->all());
+        $this->advertisementService->updateAdvertisement($request, $id);
+        return redirect()->route('advertisements.index');
+    }
+
+    public function createAdvertisement()
+    {
+        return view('account.advertisement', ['advertisement' => null, 'types' => $this->types]);
+    }
+
+    public function storeAdvertisement(Request $request)
+    {
+        $this->advertisementService->storeAdvertisement($request);
         return redirect()->route('advertisements.index');
     }
 
     public function deleteAdvertisement($id)
     {
-        $advertisement = Advertisement::findOrFail($id);
-        $advertisement->delete();
+        $this->advertisementService->deleteAdvertisement($id);
         return redirect()->route('advertisements.index');
     }
 }

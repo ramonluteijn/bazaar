@@ -3,8 +3,5 @@
 @section('title', 'Advertisement')
 
 @section('content')
-    <div>
-        <h1>Advertisement</h1>
-        @dd($advertisement)
-    </div>
+    @livewire('advertisement-form', ['advertisementObject' => $advertisement, 'typesObject' => $types])
 @stop
