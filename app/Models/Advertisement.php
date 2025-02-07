@@ -13,7 +13,8 @@ class Advertisement extends Model
         'price',
         'image',
         'type',
-        'user_id'
+        'user_id',
+        'expires_at',
     ];
 
     public function user()

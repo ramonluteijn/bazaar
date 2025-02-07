@@ -13,6 +13,6 @@
         <input type="number" name="{{ $name }}" value="{{ $value }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" {{ $required ? 'required' : '' }} wire:model="{{ $name }}">
     @endif
     @error($name)
-    <span class="text-red-500 text-xs italic">{{ $message }}</span>
+        <span class="text-red-500 text-xs italic">{{ $message }}</span>
     @enderror
 </div>

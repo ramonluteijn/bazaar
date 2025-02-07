@@ -14,7 +14,8 @@
                         <x-forms.textarea name="description" :class="'min-h-[100px] max-h-[300px]'">{{ $advertisementObject->description ?? '' }}</x-forms.textarea>
                         <x-forms.input-number name="price" :required="true" :defer="true" value="{{ $advertisementObject->price ?? '' }}"/>
                         <x-forms.input-select name="type" :required="true" :defer="true" :list="$types" value="{{ $advertisementObject->type ?? '' }}"/>
-                        <x-forms.input-file name="image"/>
+                        <x-forms.input-date name="expires_at" :required="true" :defer="true" value="{{ $advertisementObject->expires_at ?? '' }}"/>
+                        <x-forms.input-file name="image" :title="$advertisementObject->title.' image' ?? ''" value="{{ $advertisementObject->image ?? '' }}"/>
                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">{{ isset($advertisementObject) ? 'Update advertisement' : 'Add advertisement' }}</button>
                     </form>
                     @if(isset($advertisementObject))
