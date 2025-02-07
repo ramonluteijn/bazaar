@@ -2,15 +2,14 @@
 
 namespace App\Services;
 
+use App\Http\Requests\AdvertisementRequest;
 use App\Models\Advertisement;
-use Illuminate\Http\Request;
 
 class AdvertisementService
 {
-
-    public function updateAdvertisement(Request $request, $id)
+    public function updateAdvertisement(AdvertisementRequest $request, $id)
     {
-        $data = $this->validateAdvertisement($request);
+        $data = $request->validated();
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('/images', 'public');
         }
@@ -18,20 +17,9 @@ class AdvertisementService
         $advertisement->update($data);
     }
 
-    private function validateAdvertisement($request)
+    public function storeAdvertisement(AdvertisementRequest $request)
     {
-        return $request->validate([
-            'title' => 'required|max:255',
-            'price' => 'required|numeric|min:0|max:2147483647',
-            'description' => 'nullable|max:65535',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'type' => 'required|in:sale,hire',
-        ]);
-    }
-
-    public function storeAdvertisement(Request $request)
-    {
-        $data = $this->validateAdvertisement($request);
+        $data = $request->validated();
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('images', 'public');
         }

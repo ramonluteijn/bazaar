@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdvertisementRequest;
 use App\Models\Advertisement;
 use App\Services\AdvertisementService;
-use Illuminate\Http\Request;
 
 class AdvertisementController extends Controller
 {
@@ -27,7 +27,7 @@ class AdvertisementController extends Controller
         return view('account.advertisement', ['advertisement' => $advertisement, 'types' => $this->types]);
     }
 
-    public function updateAdvertisement(Request $request, $id)
+    public function updateAdvertisement(AdvertisementRequest $request, $id)
     {
         $this->advertisementService->updateAdvertisement($request, $id);
         return redirect()->route('advertisements.index');
@@ -38,7 +38,7 @@ class AdvertisementController extends Controller
         return view('account.advertisement', ['advertisement' => null, 'types' => $this->types]);
     }
 
-    public function storeAdvertisement(Request $request)
+    public function storeAdvertisement(AdvertisementRequest $request)
     {
         $this->advertisementService->storeAdvertisement($request);
         return redirect()->route('advertisements.index');
