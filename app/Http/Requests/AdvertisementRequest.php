@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\MaxAmountOfAdvertisementsRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +28,7 @@ class AdvertisementRequest extends FormRequest
             'price' => 'required|numeric|min:0|max:2147483647',
             'description' => 'nullable|max:65535',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'type' => 'required|in:sale,hire',
+            'type' => ['required','in:sale,hire', new MaxAmountOfAdvertisementsRule()],
         ];
     }
 
