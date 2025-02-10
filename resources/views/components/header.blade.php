@@ -12,10 +12,23 @@
                         </a>
                     </li>
                     <li class="flex justify-center">
-                        <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('login')}}">
-                            <span>Login</span>
+                        <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('shop')}}">
+                            <span>Shop</span>
                         </a>
                     </li>
+                    @if(auth()->check())
+                        <li class="flex justify-center">
+                            <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('logout')}}">
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    @else
+                        <li class="flex justify-center">
+                            <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('login')}}">
+                                <span>Login</span>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
                 <ul>
                     {{--                    icons or profile stuff--}}

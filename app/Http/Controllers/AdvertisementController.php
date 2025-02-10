@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AdvertisementRequest;
 use App\Models\Advertisement;
 use App\Services\AdvertisementService;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Writer\PngWriter;
 
 class AdvertisementController extends Controller
 {
@@ -48,5 +50,21 @@ class AdvertisementController extends Controller
     {
         $this->advertisementService->deleteAdvertisement($id);
         return redirect()->route('advertisements.index');
+    }
+
+    public function showFromId($id)
+    {
+        $advertisement = Advertisement::where('id', $id)->firstOrFail();
+        $qrCode = new Builder(
+            writer: new PngWriter(),
+            data: route('advertisement.read-from-id', ['id' => $id])
+        );
+
+        $qrCodeDataUri = $qrCode->build()->getDataUri();
+
+        return view('advertisement.show', [
+            'advertisement' => $advertisement,
+            'qrCode' => $qrCodeDataUri
+        ]);
     }
 }

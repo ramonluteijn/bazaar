@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\ShopController;
 use App\View\Components\Header;
 use Illuminate\Support\Facades\Route;
 
@@ -36,4 +37,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('change-locale/{locale}', [Header::class, 'changeLocale'])->name('change-locale');
 });
 
-Route::get('/advertisements/{id}', [AdvertisementController::class, 'showFromId'])->name('advertisement.read-from-id');
+Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+
+Route::get('/advertisement/{id}', [AdvertisementController::class, 'showFromId'])->name('advertisement.read-from-id');
