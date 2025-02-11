@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function () {
     Route::prefix( '/advertisement')->group(function () {
         Route::get('/create', [AdvertisementController::class, 'createAdvertisement'])->name('advertisement.create');
         Route::post('/store', [AdvertisementController::class, 'storeAdvertisement'])->name('advertisement.store');
+        Route::post('/advertisements/upload', [AdvertisementController::class, 'uploadAdvertisements'])->name('advertisements.upload');
 
         Route::get('/{id}', [AdvertisementController::class, 'advertisement'])->name('advertisement.show');
         Route::put('/update/{id}', [AdvertisementController::class, 'updateAdvertisement'])->name('advertisement.update');

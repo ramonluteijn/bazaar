@@ -7,6 +7,7 @@ use App\Models\Advertisement;
 use App\Services\AdvertisementService;
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Writer\PngWriter;
+use Illuminate\Http\Request;
 
 class AdvertisementController extends Controller
 {
@@ -66,5 +67,11 @@ class AdvertisementController extends Controller
             'advertisement' => $advertisement,
             'qrCode' => $qrCodeDataUri
         ]);
+    }
+
+    public function uploadAdvertisements(Request $request)
+    {
+        $this->advertisementService->uploadAdvertisements($request);
+        return redirect()->route('advertisements.index');
     }
 }

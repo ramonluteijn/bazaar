@@ -18,6 +18,19 @@
                     </div>
                 </a>
             @endforeach
+
+            <div class="mt-4">
+                <h1 class="text-2xl font-bold mb-4">Upload Advertisements</h1>
+                <form action="{{ route('advertisements.upload') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="csv_file" class="block text-sm font-medium text-gray-700">CSV File</label>
+                        <input type="file" name="csv_file" id="csv_file" class="mt-1 block w-full">
+                    </div>
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Upload</button>
+                </form>
+
+            </div>
         </div>
     </div>
 @stop

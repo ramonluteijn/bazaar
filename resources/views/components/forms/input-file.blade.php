@@ -9,7 +9,7 @@
     </label>
     @if($value)
         <div class="mb-2">
-            <a href="{{ asset('storage/' . $value) }}" target="_blank" class="text-blue-500">{{ $title }}</a>
+            <a href="{{ asset('storage/images/' . $value) }}" target="_blank" class="text-blue-500">{{ $title }}</a>
         </div>
     @endif
     <input type="file" name="{{ $name }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" {{ $required ? 'required' : '' }}/>
