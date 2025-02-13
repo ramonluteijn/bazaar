@@ -18,6 +18,10 @@
                     </li>
                     @if(auth()->check())
                         <li class="flex justify-center">
+                            <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('dashboard')}}">
+                                <span>Account</span>
+                            </a>
+                        <li class="flex justify-center">
                             <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('logout')}}">
                                 <span>Logout</span>
                             </a>

@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class AdvertisementController extends Controller
 {
     private AdvertisementService $advertisementService;
-    private array $types = ['sale', 'hire'];
+    private array $types = ['sale', 'hire', 'bid'];
     public function __construct(AdvertisementService $advertisementService)
     {
         $this->advertisementService = $advertisementService;

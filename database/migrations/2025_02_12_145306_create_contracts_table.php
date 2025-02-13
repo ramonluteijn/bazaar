@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('advertisements', function (Blueprint $table) {
+        Schema::create('contracts', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->string('title');
+            $table->foreignId('business_advertiser_id')->nullable();
+            $table->foreignId('owner_id');
+            $table->string('title')->nullable();
             $table->text('description')->nullable();
-            $table->string('image')->nullable();
-            $table->integer('price');
-            $table->foreignId('user_id')->constrained();
-            $table->date('expires_at');
+            $table->date('signed_at')->nullable();
+            $table->string('status')->default('pending');
+            $table->string('contract')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('advertisements');
+        Schema::dropIfExists('contract');
     }
 };

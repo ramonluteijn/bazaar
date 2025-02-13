@@ -1,5 +1,5 @@
 <div wire:key="advertisement-{{ $advertisement->id }}" class="bg-white shadow-md rounded overflow-hidden mb-4">
-    <img src="{{ $advertisement->image_url }}" alt="Advertisement Image" class="w-full h-auto">
+    <img src="{{ asset($advertisement->image_url) }}" alt="Advertisement Image" class="w-full h-auto">
     <div class="px-8 pt-6 pb-8 text-center">
         <h5 class="text-xl font-bold mb-2">{{ $advertisement->title }}</h5>
         <p class="text-gray-700 mb-4">{{ Str::of($advertisement->description)->words(10, '...') }}</p>
