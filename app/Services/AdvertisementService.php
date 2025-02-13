@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Requests\AdvertisementRequest;
 use App\Models\Advertisement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdvertisementService
 {
@@ -12,7 +13,12 @@ class AdvertisementService
     {
         $data = $request->validated();
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('/images', 'public');
+            $file = $request->file('image');
+            $filePath = 'images/' . $file->getClientOriginalName();
+            if (!Storage::disk('public')->exists($filePath)) {
+                $filePath = $file->storeAs('images', $file->getClientOriginalName(), 'public');
+            }
+            $data['image'] = $filePath;
         }
         $advertisement = Advertisement::findOrFail($id);
         $advertisement->update($data);
@@ -22,7 +28,12 @@ class AdvertisementService
     {
         $data = $request->validated();
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('images', 'public');
+            $file = $request->file('image');
+            $filePath = 'images/' . $file->getClientOriginalName();
+            if (!Storage::disk('public')->exists($filePath)) {
+                $filePath = $file->storeAs('images', $file->getClientOriginalName(), 'public');
+            }
+            $data['image'] = $filePath;
         }
         $data['user_id'] = auth()->id();
         Advertisement::create($data);

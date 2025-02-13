@@ -4,7 +4,7 @@
             <div class="bg-white shadow-md rounded-lg p-6">
                 <div class="flex flex-col md:flex-row">
                     <div class="md:w-1/2 relative">
-                        <img src="{{ $advertisement->image_url }}" alt="{{ $advertisement->title }}" class="w-full max-w-[500px] max-h-[500px] object-cover mb-4 rounded-lg">
+                        <img src="{{ asset($advertisement->image_url) }}" alt="{{ $advertisement->title }}" class="w-full max-w-[500px] max-h-[500px] object-cover mb-4 rounded-lg">
                         <img src="{{ $qrCode }}" alt="QR Code for {{ $advertisement->title }}" class="absolute top-0 right-0 w-16 h-16 m-2 rounded-lg">
                     </div>
                     <div class="md:w-1/2 md:pl-6">

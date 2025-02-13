@@ -28,7 +28,7 @@ class AdvertisementRequest extends FormRequest
             'price' => 'required|numeric|min:0|max:2147483647',
             'description' => 'nullable|max:65535',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'type' => ['required','in:sale,hire', new MaxAmountOfAdvertisementsRule()],
+            'type' => ['required','in:sale,hire,bid', new MaxAmountOfAdvertisementsRule()],
             'expires_at' => 'date|after:today',
         ];
     }
