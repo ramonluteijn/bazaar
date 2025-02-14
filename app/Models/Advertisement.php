@@ -24,6 +24,9 @@ class Advertisement extends Model
 
     public function getImageUrlAttribute()
     {
+        if ($this->image === null) {
+            return 'images/no-image.png';
+        }
         return Storage::url($this->image);
     }
 }

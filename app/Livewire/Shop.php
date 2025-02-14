@@ -37,10 +37,10 @@ class Shop extends Component
                 $query->orderBy('price', 'asc');
                 break;
             case 'new_to_old':
-                $query->orderBy('updated_at', 'asc');
+                $query->orderBy('id', 'asc');
                 break;
             case 'old_to_new':
-                $query->orderBy('updated_at', 'desc');
+                $query->orderBy('id', 'desc');
                 break;
         }
         return $query->get();
