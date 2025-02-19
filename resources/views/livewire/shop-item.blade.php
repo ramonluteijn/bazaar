@@ -1,4 +1,7 @@
 <div wire:key="advertisement-{{ $advertisement->id }}" class="bg-white shadow-md rounded overflow-hidden mb-4">
+    @dump($advertisement)
+    {{$advertisement->id}}
+    <p>Advertisement ID: {{ $advertisement->id }}</p>
     <img src="{{ asset($advertisement->image_url) }}" alt="Advertisement Image" class="w-full h-auto">
     <div class="px-8 pt-6 pb-8 text-center">
         <h5 class="text-xl font-bold mb-2">{{ $advertisement->title }}</h5>

@@ -3,11 +3,11 @@
     <div class="container mx-auto px-4 py-8">
         <div class="col-6 p-0">
             <div class="float-end d-flex sorting gap-3">
-                <select class="form-select shadow-none" wire:model.live="sortOrder">
-                    <option value="new_to_old">{{__('New to old')}}</option>
-                    <option value="old_to_new">{{__('Old to new')}}</option>
-                    <option value="high_to_low">{{__('High to low')}}</option>
-                    <option value="low_to_high">{{__('Low to high')}}</option>
+                <select class="form-select shadow-none" wire:model.live="sorting">
+                    <option value="newest">New to old</option>
+                    <option value="oldest">Old to New</option>
+                    <option value="highlow">High to low</option>
+                    <option value="lowhigh">Low to high</option>
                 </select>
             </div>
         </div>
@@ -20,6 +20,9 @@
                     @livewire('shop-item', ['advertisement' => $advertisement], key('advertisement-'.$advertisement->id))
                 @endforeach
             @endif
+        </div>
+        <div class="mt-4">
+            {{ $advertisements->links() }}
         </div>
     </div>
 </div>

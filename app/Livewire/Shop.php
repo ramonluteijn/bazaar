@@ -2,47 +2,33 @@
 
 namespace App\Livewire;
 
-use App\Models\Advertisement;
+use App\Dto\AdvertisementFilterDto;
+use App\Services\AdvertisementFilterService;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
 class Shop extends Component
 {
-    public $advertisements;
     public $advertisers;
-    public $sortOrder = 'new_to_old';
+    public string $sorting = 'newest';
 
     public function render()
     {
-        $this->advertisements = $this->advertisementOrder();
+        $advertisementQuery = $this->filterAdvertisements()->paginate(1);
         return view('livewire.shop', [
-            'advertisements' => $this->advertisements,
+            'advertisements' => $advertisementQuery,
             'advertisers' => $this->advertisers
         ]);
     }
 
-    public function mount()
-    {
 
+    private function filterAdvertisements(): Builder
+    {
+        $advertisementFilterDTO = new AdvertisementFilterDto([
+            'sorting' => $this->sorting,
+        ]);
+
+        return (new AdvertisementFilterService($advertisementFilterDTO))->apply();
     }
 
-    public function advertisementOrder()
-    {
-        $query = Advertisement::where('expires_at', '>', now());
-
-        switch ($this->sortOrder) {
-            case 'high_to_low':
-                $query->orderBy('price', 'desc');
-                break;
-            case 'low_to_high':
-                $query->orderBy('price', 'asc');
-                break;
-            case 'new_to_old':
-                $query->orderBy('id', 'asc');
-                break;
-            case 'old_to_new':
-                $query->orderBy('id', 'desc');
-                break;
-        }
-        return $query->get();
-    }
 }

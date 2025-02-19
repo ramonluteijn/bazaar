@@ -27,7 +27,7 @@ class NewItems extends Component
     public function render()
     {
         return view('livewire.new-items',[
-            'advertisements' => Advertisement::orderBy('id', 'desc')->take($this->amount)->get(['id', 'title', 'description', 'price', 'image', 'type', 'user_id', 'expires_at']),
+            'advertisements' => Advertisement::where('expires_at', '>', now())->orderBy('id', 'desc')->take($this->amount)->get(['id', 'title', 'description', 'price', 'image', 'type', 'user_id', 'expires_at']),
         ]);
     }
 }

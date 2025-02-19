@@ -2,19 +2,10 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-
-class ShopItem extends Component
+class ShopItem extends AdvertisementInterface
 {
-    public $advertisement;
-
     public function render()
     {
         return view('livewire.shop-item');
-    }
-
-    public function mount($advertisement)
-    {
-        $this->advertisement = $advertisement;
     }
 }
