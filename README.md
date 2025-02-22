@@ -75,3 +75,9 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - in hoeverre moet de site vertaald worden? 1 invoerveld waar de gebruiker in juiste taal invoert of meerdere velden voor alle beschikbare talen? -> standaard tekst vertalen
 - wat is de bedoeling met afbeeldingen? random locale of uploaden? -> mogelijkheid tot uploaden
 - in hoeverre moeten de pages customisable zijn? echt blokken kunnen kiezen, slepen of alleen switches en tekst invoeren? -> klein cms waar de gebruiker gewoon wat dingetjes kan doen zoals kleurtjes en stukken tekst aanpassen,
+- wat moet er in het contract staan, en hoe moet deze worden opgeslagen? -> normaal stukje tekst etc, oplsaan op local storage.
+- wat moet er in de zakelijke registratie worden neergezet voor exporteren? -> ""
+- wat betekend de maximaal 4 biedingen aanmaken?  -> advertenties om op te bieden.
+
+- hoe zit het met het kopen / huren van een advertentie, moet er naar betaal pagina etc worden doorgelinkt? -> 
+- hoe zit het met de bieden optie? ->

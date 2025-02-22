@@ -3,13 +3,21 @@
 namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Services\ContractService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    private ContractService $contractService;
+    public function __construct(ContractService $contractService)
+    {
+        $this->contractService = $contractService;
+    }
+
     public function showLoginForm()
     {
         return view('auth.login');
@@ -39,15 +47,9 @@ class AuthController extends Controller
         ]);
     }
 
-    public function register(Request $request)
+    public function register(UserRequest $request)
     {
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|string|in:admin,user',
-        ]);
+        $request->validated();
 
         $user = User::create([
             'name' => $request->name,
@@ -58,6 +60,10 @@ class AuthController extends Controller
         $user->assignRole($request->role);
 
         Auth::login($user);
+
+        if ($request->role === 'business_advertiser') {
+            $this->contractService->createContract($request);
+        }
 
         return to_route('dashboard');
     }

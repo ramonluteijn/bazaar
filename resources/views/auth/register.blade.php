@@ -5,7 +5,7 @@
 @section('content')
     <div class="pb-[100px] min-h-[calc(100vh-50px-75px)] flex items-center justify-center">
         <div class="w-full max-w-md">
-            <form method="POST" action="{{ route('register') }}" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <form method="POST" action="{{ route('register.save') }}" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 @csrf
                 <div class="mb-4">
                     <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name</label>
@@ -16,13 +16,18 @@
                     <input type="email" name="email" id="email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
                     @if ($errors->has('email'))
                         <span class="text-red-500 text-xs italic">
-                                <strong>{{ $errors->first('email') }}</strong>
-                            </span>
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
                     @endif
                 </div>
                 <div class="mb-4">
                     <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
                     <input type="password" name="password" id="password" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    @if ($errors->has('password'))
+                        <span class="text-red-500 text-xs italic">
+                            <strong>{{ $errors->first('password') }}</strong>
+                        </span>
+                    @endif
                 </div>
                 <div class="mb-4">
                     <label for="password_confirmation" class="block text-gray-700 text-sm font-bold mb-2">Confirm Password</label>
@@ -35,6 +40,11 @@
                         <option value="private_advertiser">Private advertiser</option>
                         <option value="business_advertiser">Business advertiser</option>
                     </select>
+                    @if ($errors->has('role'))
+                        <span class="text-red-500 text-xs italic">
+                            <strong>{{ $errors->first('role') }}</strong>
+                        </span>
+                    @endif
                 </div>
                 <div class="flex items-center justify-between">
                     <a href="{{route('login')}}" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Login here</a>
