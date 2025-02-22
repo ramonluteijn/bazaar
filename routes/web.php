@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShopController;
 use App\View\Components\Header;
 use Illuminate\Support\Facades\Route;
@@ -23,11 +24,12 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function () {
     Route::get('/dashboard', [AccountController::class, 'dashboard'])->name('dashboard');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/order/{id}', [OrderController::class, 'order'])->name('order.show');
     Route::prefix('/advertisements')->group(function () {
         Route::get('/', [AdvertisementController::class, 'index'])->name('advertisements.index');
         Route::post('/upload', [AdvertisementController::class, 'uploadAdvertisements'])->name('advertisements.upload');
     });
-
     Route::prefix( '/advertisement')->group(function () {
         Route::get('/create', [AdvertisementController::class, 'createAdvertisement'])->name('advertisement.create');
         Route::post('/store', [AdvertisementController::class, 'storeAdvertisement'])->name('advertisement.store');
