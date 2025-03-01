@@ -4,7 +4,7 @@
 
 @section('content')
 <div>
-    <x-hero />
+    <x-blocks.hero />
     @livewire('new-items', ['title' => 'New Items', 'amount' => 3, 'link' => route('shop'), 'linkText' => 'View all products'])
 </div>
 @stop

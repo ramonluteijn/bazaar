@@ -6,14 +6,10 @@
         <x-blocks.txt-image-block :title="$block->title" :content="$block->content" :image="$block->textBlockImage"/>
     @elseif($block->type->name === 'TEXT')
         <x-blocks.text-block :title="$block->title" :content="$block->content" :button_text="$block->link_text" :button_link="$block->button_link"/>
-    @elseif($block->type->name === 'TEXT_HORIZONTAL')
-        <x-blocks.text-block :title="$block->title" :content="$block->content" :horizontal="true"/>
     @elseif($block->type->name === 'QUOTE')
         <x-blocks.quote-block :title="$block->title"/>
     @elseif($block->type->name === 'CTA')
         <x-blocks.cta :title="$block->title" :content="$block->content" :button_text="$block->link_text" :button_link="$block->button_link" :image="$block->textBlockImage" :background="$block->background_color"/>
-    @elseif($block->type->name === 'NEW_ITEMS')
-        @livewire('new-items-component', ['title' => $block->title ?? null, 'amount' => $block->amount, 'link' => $block->button_link ?? null, 'linkText' => $block->link_text ?? null])
     @elseif($block->type->name === 'GALLERY')
         <x-blocks.gallery :title="$block->title" :images="$block->galleryImages"/>
     @elseif($block->type->name === 'HERO')

@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('content_page_id')->constrained()->onDelete('cascade');
             $table->string('type');
+            $table->boolean('active')->default(false);
             $table->string('title')->nullable();
-            $table->text('content')->nullable();
-            $table->text('image')->nullable();
-            $table->text('background_color')->nullable();
+            $table->string('text')->nullable();
+            $table->string('image')->nullable();
+            $table->string('button_text')->nullable();
+            $table->string('button_link')->nullable();
             $table->timestamps();
         });
     }

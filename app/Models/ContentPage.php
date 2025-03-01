@@ -21,7 +21,15 @@ class ContentPage extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];s
+     protected $fillable = [
+         'user_id',
+         'url',
+         'title',
+         'header_font',
+         'body_font',
+         'primary_color',
+         'secondary_color',
+     ];
     // protected $hidden = [];
 
     public function blocks() : HasMany

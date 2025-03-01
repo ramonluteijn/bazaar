@@ -1,16 +1,15 @@
 <div class="bg-white p-6 rounded-lg shadow-lg">
     <ul class="space-y-4">
         <li>
-            <a href="{{ route('dashboard') }}" class="block px-4 py-3 text-gray-800 hover:bg-gray-100 rounded-lg transition duration-200">Dashboard</a>
+            <a href="{{ route('dashboard') }}" class="block px-4 py-3 {{ url()->current() == route('dashboard') ? 'text-blue-500 bg-gray-200' : 'text-gray-800' }} hover:bg-gray-100 rounded-lg transition duration-200">Dashboard</a>
+        <li>
+            <a href="{{ route('advertisements.index') }}" class="block px-4 py-3 {{ url()->current() == route('advertisements.index') ? 'text-blue-500 bg-gray-200' : 'text-gray-800' }} hover:bg-gray-100 rounded-lg transition duration-200">Advertisements</a>
         </li>
         <li>
-            <a href="{{ route('advertisements.index') }}" class="block px-4 py-3 text-gray-800 hover:bg-gray-100 rounded-lg transition duration-200">Advertisements</a>
+            <a href="{{ route('contracts.index') }}" class="block px-4 py-3 {{ url()->current() == route('contracts.index') ? 'text-blue-500 bg-gray-200' : 'text-gray-800' }} hover:bg-gray-100 rounded-lg transition duration-200">Contracts</a>
         </li>
         <li>
-            <a href="{{ route('contracts.index') }}" class="block px-4 py-3 text-gray-800 hover:bg-gray-100 rounded-lg transition duration-200">Contracts</a>
-        </li>
-        <li>
-            <a href="{{ route('custom-page') }}">Custom page</a>
+            <a href="{{ route('custom-page') }}" class="block px-4 py-3 {{ url()->current() == route('custom-page') ? 'text-blue-500 bg-gray-200' : 'text-gray-800' }} hover:bg-gray-100 rounded-lg transition duration-200">Custom page</a>
         </li>
 
         @if(Auth::user()->hasRole('owner') || Auth::user()->hasRole('admin'))

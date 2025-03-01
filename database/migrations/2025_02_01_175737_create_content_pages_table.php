@@ -16,6 +16,10 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('url')->unique();
             $table->string('title');
+            $table->string('header_font')->nullable();
+            $table->string('body_font')->nullable();
+            $table->string('primary_color')->nullable();
+            $table->string('secondary_color')->nullable();
             $table->timestamps();
         });
     }

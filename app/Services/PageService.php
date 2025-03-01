@@ -1,9 +1,9 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\ContentBlock;
 use App\Models\ContentPage;
-use App\Rules\UrlCreation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
@@ -17,15 +17,32 @@ class PageService
         $page->fill($validated);
         $page->save();
 
-        // Save blocks
-        foreach ($request->input('blocks', []) as $blockData) {
-            $block = new ContentBlock();
-            $block->content_page_id = $page->id;
-            $block->type = $blockData['type'];
-            $block->title = $blockData['title'] ?? null;
-            $block->content = $blockData['content'] ?? null;
-            $block->image = $blockData['image'] ?? null;
-            $block->background_color = $blockData['background_color'] ?? null;
+        // Define the boolean fields
+        $booleanFields = ['hero', 'text', 'testimonial', 'cta', 'quote', 'text_image', 'gallery'];
+
+        $blockFields = [
+            'text' => ['title', 'text', 'button_text', 'button_link'],
+            'testimonial' => ['title', 'text'],
+            'cta' => ['title', 'text', 'button_text', 'button_link'],
+            'quote' => ['text'],
+            'text_image' => ['title', 'text', 'image', 'button_text', 'button_link'],
+            'gallery' => ['title', 'image'],
+            'hero' => ['title', 'text', 'image', 'button_text', 'button_link'],
+        ];
+
+        foreach ($booleanFields as $field) {
+            $block = ContentBlock::firstOrNew([
+                'content_page_id' => $page->id,
+                'type' => $field,
+            ]);
+            $block->active = $request->input($field) === 'on';
+
+            if (isset($blockFields[$field])) {
+                foreach ($blockFields[$field] as $blockField) {
+                    $block->$blockField = $request->input("{$field}_{$blockField}");
+                }
+            }
+
             $block->save();
         }
     }
@@ -39,7 +56,9 @@ class PageService
     {
         return $request->validate([
             'title' => 'required',
-            'url' => ['required', Rule::unique('content_pages')->ignore($request->route('id')), 'regex:/^\S*$/', new UrlCreation()],
+            'url' => ['required', Rule::unique('content_pages')->ignore($request->route('id')), 'regex:/^\S*$/'],
+            'primary_color' => 'nullable|hex_color',
+            'secondary_color' => 'nullable|hex_color',
         ]);
     }
 }

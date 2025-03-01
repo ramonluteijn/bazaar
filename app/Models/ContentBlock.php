@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\ContentBlockTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,9 +23,15 @@ class ContentBlock extends Model
     // protected $fillable = [];
     // protected $hidden = [];
 
+    protected $fillable = [
+        'content_page_id',
+        'type',
+        'active'
+    ];
+
+
 
     protected $casts = [
-        'type' => ContentBlockTypeEnum::class,
         'image' => 'array',
     ];
 
