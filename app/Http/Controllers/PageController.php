@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Advertisement;
 use App\Models\ContentPage;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,9 @@ class PageController extends Controller
         if ($pages->url === 'home') {
             return to_route('home');
         }
-        return view('pages.custom', ['pages' => $pages]);
+
+        $advertisements = Advertisement::where('user_id', $pages->user_id)->get();
+
+        return view('pages.custom', ['pages' => $pages, 'advertisements' => $advertisements]);
     }
 }

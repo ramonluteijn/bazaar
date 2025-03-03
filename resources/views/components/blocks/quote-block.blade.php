@@ -1,7 +1,7 @@
 @props(['title'])
 
-<div class="container block quote">
-    <div class="row mx-auto text-center">
-        <h1>{{$title}}</h1>
+<div class="container mx-auto text-center py-10">
+    <div class="row">
+        <h1 class="text-4xl font-bold">{{ $title }}</h1>
     </div>
 </div>

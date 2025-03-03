@@ -20,9 +20,9 @@
                             @endif
                             <x-forms.input-field type="text" name="title" :required="true" value="{{ $advertisement->title ?? '' }}"/>
                             <x-forms.input-textarea name="description" :class="'min-h-[100px] max-h-[300px]'">{{ $advertisement->description ?? '' }}</x-forms.input-textarea>
-                            <x-forms.input-field type="number" name="price" :required="true" :defer="true" value="{{ $advertisement->price ?? '' }}"/>
-                            <x-forms.input-select name="type" :required="true" :defer="true" :list="$types" value="{{ $advertisement->type ?? '' }}"/>
-                            <x-forms.input-field type="date" name="expires_at" :required="true" :defer="true" value="{{ $advertisement->expires_at ?? '' }}"/>
+                            <x-forms.input-field type="number" name="price" :required="true" value="{{ $advertisement->price ?? '' }}"/>
+                            <x-forms.input-select name="type" :required="true" :list="$types" value="{{ $advertisement->type ?? '' }}"/>
+                            <x-forms.input-field type="date" name="expires_at" :required="true" value="{{ $advertisement->expires_at ?? '' }}"/>
                             <x-forms.input-file name="image" :title="($advertisement->title ?? '')" value="{{ $advertisement->image ?? '' }}"/>
                             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">{{ isset($advertisement) ? 'Update advertisement' : 'Add advertisement' }}</button>
                         </form>

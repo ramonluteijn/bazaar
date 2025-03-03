@@ -29,12 +29,6 @@ class ContentBlock extends Model
         'active'
     ];
 
-
-
-    protected $casts = [
-        'image' => 'array',
-    ];
-
     public function pages() : belongsTo
     {
         return $this->belongsTo(ContentPage::class, 'content_page_id');

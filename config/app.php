@@ -127,4 +127,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'google_fonts' => env('GOOGLE_FONTS'),
+
 ];

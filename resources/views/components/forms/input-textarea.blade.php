@@ -7,8 +7,8 @@
         @endif
     </label>
     <textarea name="{{ $name }}" id="{{ $name }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline {{ $class }}"{{ $required ? "required" : "" }}>
-    {{ $slot }}
-  </textarea>
+        {{ $slot }}
+    </textarea>
     @error($name)
     <span class="text-red-500 text-xs italic">{{ $message }}</span>
     @enderror

@@ -16,8 +16,8 @@
                 </option>
             @endforeach
         @else
-            @foreach ($list as $key => $item)
-                <option value="{{ $key }}" {{ $key == $value ? "selected" : "" }}>
+            @foreach ($list as $item)
+                <option value="{{ $item }}" {{ $item == $value ? "selected" : "" }}>
                     {{ $item }}
                 </option>
             @endforeach

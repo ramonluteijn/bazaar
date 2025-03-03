@@ -23,9 +23,10 @@ class AccountController extends Controller
     public function customPage()
     {
         $user = Auth::user();
+        $fonts = collect($this->pageService->getGoogleFonts())->pluck('family');
         $page = $this->pageService->getCustomPageWithBlocks($user->id);
 
-        return view('account.custom-page', ['page' => $page]);
+        return view('account.custom-page', ['page' => $page, 'fonts' => $fonts]);
     }
 
     public function saveCustomPage(Request $request)
