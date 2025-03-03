@@ -16,6 +16,11 @@
                             <span>Shop</span>
                         </a>
                     </li>
+                    <li class="flex justify-center">
+                        <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('return.show')}}">
+                            <span>Return</span>
+                        </a>
+                    </li>
                     @if(auth()->check())
                         <li class="flex justify-center">
                             <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('dashboard')}}">

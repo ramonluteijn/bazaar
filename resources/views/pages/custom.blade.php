@@ -6,7 +6,6 @@
     <div>
         @if($pages->blocks[0]->active)
             <x-block-renderer :pages="$pages"/>
-        @dump($advertisements)
 {{--             shop --}}
         @else
             {{-- shop --}}
