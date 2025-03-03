@@ -6,6 +6,7 @@ use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\ShopController;
 use App\View\Components\Header;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -49,6 +50,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function () {
 
         Route::get('/download/{id}', [ContractController::class, 'downloadContract'])->name('contract.download');
     });
+    Route::get('/custom-page', [AccountController::class, 'customPage'])->name('custom-page');
+    Route::post('/custom-page', [AccountController::class, 'saveCustomPage'])->name('custom-page.store');
+    Route::put('/custom-page/{id}', [AccountController::class, 'saveCustomPage'])->name('custom-page.update');
 });
 
 Route::group(['middleware' => 'web'], function () {
@@ -58,3 +62,5 @@ Route::group(['middleware' => 'web'], function () {
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 
 Route::get('/advertisement/{id}', [AdvertisementController::class, 'showFromId'])->name('advertisement.read-from-id');
+
+Route::get('/pages/{parent?}/{child?}/{grandchild?}', [PageController::class, 'index'])->name('pages');

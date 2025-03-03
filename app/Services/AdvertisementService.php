@@ -12,15 +12,15 @@ class AdvertisementService
     public function updateAdvertisement(AdvertisementRequest $request, $id)
     {
         $data = $request->validated();
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filePath = 'images/' . $file->getClientOriginalName();
-            if (!Storage::disk('public')->exists($filePath)) {
-                $filePath = $file->storeAs('images', $file->getClientOriginalName(), 'public');
-            }
-            $data['image'] = $filePath;
-        }
         $advertisement = Advertisement::findOrFail($id);
+        if ($request->hasFile('image')) {
+            $imageData = ImageService::StoreImage($request, 'image');
+            if ($imageData) {
+                $data = array_merge($data, $imageData);
+            }
+        } else {
+            $data['image'] = $advertisement->image;
+        }
         $advertisement->update($data);
     }
 
@@ -28,12 +28,10 @@ class AdvertisementService
     {
         $data = $request->validated();
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filePath = 'images/' . $file->getClientOriginalName();
-            if (!Storage::disk('public')->exists($filePath)) {
-                $filePath = $file->storeAs('images', $file->getClientOriginalName(), 'public');
+            $imageData = ImageService::StoreImage($request, 'image');
+            if ($imageData) {
+                $data = array_merge($data, $imageData);
             }
-            $data['image'] = $filePath;
         }
         $data['user_id'] = auth()->id();
         Advertisement::create($data);
