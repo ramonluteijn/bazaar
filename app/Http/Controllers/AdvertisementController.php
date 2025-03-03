@@ -56,6 +56,7 @@ class AdvertisementController extends Controller
     public function showFromId($id)
     {
         $advertisement = Advertisement::where('id', $id)->firstOrFail();
+        $relatedAdvertisements = Advertisement::where('user_id', $advertisement->user_id)->where('id', '!=', $id)->take(3)->get();
         $qrCode = new Builder(
             writer: new PngWriter(),
             data: route('advertisement.read-from-id', ['id' => $id])
@@ -65,7 +66,8 @@ class AdvertisementController extends Controller
 
         return view('advertisement.show', [
             'advertisement' => $advertisement,
-            'qrCode' => $qrCodeDataUri
+            'qrCode' => $qrCodeDataUri,
+            'relatedAdvertisements' => $relatedAdvertisements,
         ]);
     }
 
