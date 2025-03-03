@@ -11,6 +11,12 @@
         <li>
             <a href="{{ route('custom-page') }}" class="block px-4 py-3 {{ url()->current() == route('custom-page') ? 'text-blue-500 bg-gray-200' : 'text-gray-800' }} hover:bg-gray-100 rounded-lg transition duration-200">Custom page</a>
         </li>
+        <li>
+            <a href="{{ route('settings.index') }}" class="block px-4 py-3 {{ url()->current() == route('settings.index') ? 'text-blue-500 bg-gray-200' : 'text-gray-800' }} hover:bg-gray-100 rounded-lg transition duration-200">Return settings</a>
+        </li>
+        <li>
+            <a href="{{ route('return.index') }}" class="block px-4 py-3 {{ url()->current() == route('return.index') ? 'text-blue-500 bg-gray-200' : 'text-gray-800' }} hover:bg-gray-100 rounded-lg transition duration-200">Returns</a>
+        </li>
 
         @if(Auth::user()->hasRole('owner') || Auth::user()->hasRole('admin'))
         @elseif(Auth::user()->hasRole('private_advertiser') || Auth::user()->hasRole('admin') || Auth::user()->hasRole('owner'))

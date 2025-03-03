@@ -4,6 +4,8 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\ReturnController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ShopController;
 use App\View\Components\Header;
 use App\Http\Controllers\PageController;
@@ -53,6 +55,17 @@ Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function () {
     Route::get('/custom-page', [AccountController::class, 'customPage'])->name('custom-page');
     Route::post('/custom-page', [AccountController::class, 'saveCustomPage'])->name('custom-page.store');
     Route::put('/custom-page/{id}', [AccountController::class, 'saveCustomPage'])->name('custom-page.update');
+    Route::get('/return', [ReturnController::class, 'index'])->name('return.index');
+
+    Route::prefix('/settings')->group(function () {
+        Route::get('/create', [SettingController::class, 'create'])->name('settings.create');
+        Route::post('/store', [SettingController::class, 'store'])->name('settings.store');
+
+        Route::get('/', [SettingController::class, 'index'])->name('settings.index');
+        Route::get('/{id}', [SettingController::class, 'show'])->name('settings.show');
+        Route::put('/update/{id}', [SettingController::class, 'update'])->name('settings.update');
+        Route::delete('/delete/{id}', [SettingController::class, 'delete'])->name('settings.delete');
+    });
 });
 
 Route::group(['middleware' => 'web'], function () {
@@ -64,3 +77,8 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/advertisement/{id}', [AdvertisementController::class, 'showFromId'])->name('advertisement.read-from-id');
 
 Route::get('/pages/{parent?}/{child?}/{grandchild?}', [PageController::class, 'index'])->name('pages');
+
+Route::group(['prefix' => 'return'], function () {
+    Route::get('/show', [ReturnController::class, 'show'])->name('return.show');
+    Route::post('/store', [ReturnController::class, 'store'])->name('return.store');
+});

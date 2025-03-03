@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class ContentBlock extends Model
 {
@@ -32,5 +33,13 @@ class ContentBlock extends Model
     public function pages() : belongsTo
     {
         return $this->belongsTo(ContentPage::class, 'content_page_id');
+    }
+
+    public function getImageUrlAttribute()
+    {
+        if ($this->image === null) {
+            return '';
+        }
+        return Storage::url($this->image);
     }
 }
