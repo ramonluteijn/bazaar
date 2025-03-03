@@ -8,6 +8,7 @@ class Advertisement extends Component
 {
     public $advertisement;
     public $qrCode;
+    public $relatedAdvertisements;
 
     public function render()
     {

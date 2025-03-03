@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Requests\AdvertisementRequest;
 use App\Models\Advertisement;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -65,5 +66,12 @@ class AdvertisementService
                 'expires_at' => $row['expires_at'],
             ]);
         }
+    }
+
+    public function getAdvertisers()
+    {
+        return User::whereHas("roles", function($q){
+            $q->where("name", "private_advertiser")->orWhere("name", "business_advertiser");
+        })->get();
     }
 }
