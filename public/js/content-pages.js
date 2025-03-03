@@ -28,13 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
             blockFields.querySelector(`[for="${blockType}_image"]`).style.display = 'none';
         }
 
-        // if (blockType === 'text_image') {
-        //     // blockFields.querySelector(`[name="${blockType}_button_text"]`).style.display = 'none';
-        //     // blockFields.querySelector(`[for="${blockType}_button_text"]`).style.display = 'none';
-        //     // blockFields.querySelector(`[name="${blockType}_button_link"]`).style.display = 'none';
-        //     // blockFields.querySelector(`[for="${blockType}_button_link"]`).style.display = 'none';
-        // }
-
         switchInput.addEventListener('change', function () {
             blockFields.style.display = this.checked ? 'block' : 'none';
             blockFields.style.border = this.checked ? '1px solid black' : 'none';

@@ -9,7 +9,5 @@
         <x-blocks.cta :title="$block->title" :content="$block->text" :button_text="$block->button_text" :button_link="$block->button_link" :image="$block->image_url"/>
     @elseif($block->type === 'quote' && $block->active)
         <x-blocks.quote-block :title="$block->title"/>
-    @elseif($block->type === 'text_image' && $block->active)
-        <x-blocks.txt-image-block :title="$block->title" :content="$block->text" :image="$block->image_url"/>
     @endif
 @endforeach

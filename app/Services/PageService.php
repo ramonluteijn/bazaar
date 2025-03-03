@@ -19,13 +19,12 @@ class PageService
         $page->save();
 
         // Define the boolean fields
-        $booleanFields = ['hero', 'text', 'cta', 'quote', 'text_image'];
+        $booleanFields = ['hero', 'text', 'cta', 'quote'];
 
         $blockFields = [
             'text' => ['title', 'text', 'button_text', 'button_link'],
             'cta' => ['title', 'text', 'button_text', 'button_link'],
             'quote' => ['title'],
-            'text_image' => ['title', 'text', 'image', 'button_text', 'button_link'],
             'hero' => ['title', 'text', 'image', 'button_text', 'button_link'],
         ];
 
