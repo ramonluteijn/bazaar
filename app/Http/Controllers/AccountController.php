@@ -2,36 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\PageService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\View\View;
 
-class AccountController extends Controller
+class AccountController
 {
-    private PageService $pageService;
-    public function __construct(PageService $pageService)
-    {
-        $this->pageService = $pageService;
-    }
-
-    public function Dashboard()
+    public function index(): View
     {
         $user = Auth::user();
-        return view('account.dashboard', ['user' => $user]);
-    }
-
-    public function customPage()
-    {
-        $user = Auth::user();
-        $fonts = collect($this->pageService->getGoogleFonts())->pluck('family');
-        $page = $this->pageService->getCustomPageWithBlocks($user->id);
-
-        return view('account.custom-page', ['page' => $page, 'fonts' => $fonts]);
-    }
-
-    public function saveCustomPage(Request $request)
-    {
-        $this->pageService->saveCustomPage($request);
-        return redirect()->route('custom-page');
+        return view('account.index', ['user' => $user]);
     }
 }

@@ -6,11 +6,10 @@ use App\Http\Requests\AdvertisementRequest;
 use App\Models\Advertisement;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class AdvertisementService
 {
-    public function updateAdvertisement(AdvertisementRequest $request, $id)
+    public function updateAdvertisement(AdvertisementRequest $request, $id): void
     {
         $data = $request->validated();
         $advertisement = Advertisement::findOrFail($id);
@@ -25,7 +24,7 @@ class AdvertisementService
         $advertisement->update($data);
     }
 
-    public function storeAdvertisement(AdvertisementRequest $request)
+    public function storeAdvertisement(AdvertisementRequest $request): void
     {
         $data = $request->validated();
         if ($request->hasFile('image')) {
@@ -38,14 +37,14 @@ class AdvertisementService
         Advertisement::create($data);
     }
 
-    public function deleteAdvertisement($id)
+    public function deleteAdvertisement($id): void
     {
         Advertisement::findOrFail($id)->delete();
     }
 
-    public function uploadAdvertisements(Request $request)
+    public function uploadAdvertisements(Request $request): void
     {
-        $data = $request->validate([
+        $request->validate([
             'csv_file' => 'required|mimes:csv,txt'
         ]);
 

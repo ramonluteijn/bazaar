@@ -21,13 +21,17 @@ class ContentBlock extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
     // protected $hidden = [];
 
     protected $fillable = [
         'content_page_id',
         'type',
-        'active'
+        'active',
+        'title',
+        'text',
+        'image',
+        'button_text',
+        'button_link',
     ];
 
     public function pages() : belongsTo
@@ -35,7 +39,7 @@ class ContentBlock extends Model
         return $this->belongsTo(ContentPage::class, 'content_page_id');
     }
 
-    public function getImageUrlAttribute()
+    public function getImageUrlAttribute(): string
     {
         if ($this->image === null) {
             return '';

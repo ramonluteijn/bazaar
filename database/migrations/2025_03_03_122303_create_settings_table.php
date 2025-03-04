@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('key');
-            $table->text('description');
             $table->decimal('percentage', 5, 2);
             $table->timestamps();
         });

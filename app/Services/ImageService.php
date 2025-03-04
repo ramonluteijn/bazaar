@@ -2,11 +2,13 @@
 
 namespace App\Services;
 
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Support\Facades\Storage;
 
 class ImageService
 {
-    public static function StoreImage($request, $image)
+    public static function StoreImage($request, $image): array
     {
         $data = [];
         if ($request->hasFile($image)) {
@@ -18,5 +20,15 @@ class ImageService
             $data[$image] = $filePath;
         }
         return $data;
+    }
+
+    public static function getQrCode($id): string
+    {
+        $qrCode = new Builder(
+            writer: new PngWriter(),
+            data: route('advertisement.read-from-id', ['id' => $id])
+        );
+
+        return $qrCode->build()->getDataUri();
     }
 }

@@ -10,6 +10,7 @@ class ReturnProduct extends Model
         'name',
         'email',
         'title',
+        'description',
         'image',
         'wear'
     ];

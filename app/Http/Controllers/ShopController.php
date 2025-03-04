@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Advertisement;
 use App\Services\AdvertisementService;
+use Illuminate\Contracts\View\View;
 
-class ShopController extends Controller
+class ShopController
 {
     private AdvertisementService $advertisementService;
 
@@ -14,10 +15,10 @@ class ShopController extends Controller
         $this->advertisementService = $advertisementService;
     }
 
-    public function index()
+    public function index(): View
     {
         $advertisers = $this->advertisementService->getAdvertisers();
         $advertisements = Advertisement::all()->where('expires_at' , '>', now());
-        return view('shop.shop', ['advertisers' => $advertisers, 'advertisements' => $advertisements]);
+        return view('shop.index', ['advertisers' => $advertisers, 'advertisements' => $advertisements]);
     }
 }

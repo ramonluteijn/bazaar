@@ -6,19 +6,16 @@ use App\Models\ContentBlock;
 use App\Models\ContentPage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Validation\Rule;
-
 class PageService
 {
-    public function saveCustomPage($request)
+    public function saveCustomPage($request): void
     {
-        $validated = $this->validateCustomPage($request);
+        $data = $request->validated();
         $page = $request->route('id') ? ContentPage::find($request->route('id')) : new ContentPage();
         $page->user_id = Auth::id();
-        $page->fill($validated);
+        $page->fill($data);
         $page->save();
 
-        // Define the boolean fields
         $booleanFields = ['hero', 'text', 'cta', 'quote'];
 
         $blockFields = [
@@ -49,7 +46,6 @@ class PageService
                     }
                 }
             }
-
             $block->save();
         }
     }
@@ -59,28 +55,13 @@ class PageService
         return ContentPage::with('blocks')->find($id);
     }
 
-    private function validateCustomPage($request)
-    {
-        return $request->validate([
-            'title' => 'required',
-            'url' => ['required', Rule::unique('content_pages')->ignore($request->route('id')), 'regex:/^\S*$/'],
-            'header_font' => 'nullable',
-            'body_font' => 'nullable',
-            'primary_color' => 'nullable|hex_color',
-            'secondary_color' => 'nullable|hex_color',
-        ]);
-    }
-
     public function getGoogleFonts()
     {
         $apiKey = config('app.google_fonts');
-
         $response = Http::get("https://www.googleapis.com/webfonts/v1/webfonts?key={$apiKey}");
-
         if ($response->successful()) {
             return $response->json()['items'];
         }
-
         return [];
     }
 }
