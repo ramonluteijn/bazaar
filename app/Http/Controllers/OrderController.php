@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Services\OrderService;
 
-class OrderController extends Controller
+class OrderController
 {
     private OrderService $orderService;
 
@@ -17,13 +17,13 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::all();
-        return view('account.orders', ['orders' => $orders]);
+        return view('order.index', ['orders' => $orders]);
     }
 
-    public function order($id)
+    public function show($id)
     {
         $order = Order::findOrFail($id);
-        return view('account.order', ['order' => $order]);
+        return view('orders.show', ['order' => $order]);
     }
 
     public function createOrder()
