@@ -31,7 +31,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login');
+        return to_route('login.show');
     }
 
     public function login(Request $request)
@@ -39,12 +39,12 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return to_route('dashboard');
+            return to_route('dashboard.show');
         }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
-        ]);
+        ])->withInput();
     }
 
     public function register(UserRequest $request)
@@ -65,6 +65,6 @@ class AuthController extends Controller
             $this->contractService->createContract($request);
         }
 
-        return to_route('dashboard');
+        return to_route('dashboard.show');
     }
 }

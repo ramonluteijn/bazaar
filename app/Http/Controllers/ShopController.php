@@ -18,6 +18,6 @@ class ShopController extends Controller
     {
         $advertisers = $this->advertisementService->getAdvertisers();
         $advertisements = Advertisement::all()->where('expires_at' , '>', now());
-        return view('shop.shop', ['advertisers' => $advertisers, 'advertisements' => $advertisements]);
+        return view('shop.index', ['advertisers' => $advertisers, 'advertisements' => $advertisements]);
     }
 }

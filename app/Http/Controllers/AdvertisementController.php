@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class AdvertisementController extends Controller
 {
     private AdvertisementService $advertisementService;
-    private array $types = ['sale', 'hire', 'bid'];
+    private array $types = ['sale' => 'sale', 'hire' => 'hire', 'bid' => 'bid'];
     public function __construct(AdvertisementService $advertisementService)
     {
         $this->advertisementService = $advertisementService;
@@ -21,36 +21,36 @@ class AdvertisementController extends Controller
     public function index()
     {
         $advertisements = Advertisement::where("user_id", auth()->id())->get();
-        return view('account.advertisements', ['advertisements' => $advertisements]);
+        return view('advertisement.index', ['advertisements' => $advertisements]);
     }
 
     public function advertisement($id)
     {
         $advertisement = Advertisement::findOrFail($id);
-        return view('account.advertisement', ['advertisement' => $advertisement, 'types' => $this->types]);
+        return view('advertisement.show', ['advertisement' => $advertisement, 'types' => $this->types]);
     }
 
     public function updateAdvertisement(AdvertisementRequest $request, $id)
     {
         $this->advertisementService->updateAdvertisement($request, $id);
-        return redirect()->route('advertisements.index');
+        return to_route('advertisements.index');
     }
 
     public function createAdvertisement()
     {
-        return view('account.advertisement', ['advertisement' => null, 'types' => $this->types]);
+        return view('advertisement.show', ['advertisement' => null, 'types' => $this->types]);
     }
 
     public function storeAdvertisement(AdvertisementRequest $request)
     {
         $this->advertisementService->storeAdvertisement($request);
-        return redirect()->route('advertisements.index');
+        return to_route('advertisements.index');
     }
 
     public function deleteAdvertisement($id)
     {
         $this->advertisementService->deleteAdvertisement($id);
-        return redirect()->route('advertisements.index');
+        return to_route('advertisements.index');
     }
 
     public function showFromId($id)
@@ -64,7 +64,7 @@ class AdvertisementController extends Controller
 
         $qrCodeDataUri = $qrCode->build()->getDataUri();
 
-        return view('advertisement.show', [
+        return view('advertisement.show-from-id', [
             'advertisement' => $advertisement,
             'qrCode' => $qrCodeDataUri,
             'relatedAdvertisements' => $relatedAdvertisements,
@@ -74,6 +74,6 @@ class AdvertisementController extends Controller
     public function uploadAdvertisements(Request $request)
     {
         $this->advertisementService->uploadAdvertisements($request);
-        return redirect()->route('advertisements.index');
+        return to_route('advertisements.index');
     }
 }

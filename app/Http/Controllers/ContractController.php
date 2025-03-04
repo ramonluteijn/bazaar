@@ -19,18 +19,18 @@ class ContractController extends Controller
     public function index()
     {
         $contracts = Contract::all();
-        return view('account.contracts', ['contracts' => $contracts]);
+        return view('contract.index', ['contracts' => $contracts]);
     }
 
     public function contract($id)
     {
         $contract = Contract::findOrFail($id);
-        return view('account.contract', ['contract' => $contract, 'types' => $this->types]);
+        return view('contract.show', ['contract' => $contract, 'types' => $this->types]);
     }
 
     public function createContract()
     {
-        return view('account.contract', ['types' => $this->types]);
+        return view('contract.show', ['types' => $this->types]);
     }
 
     public function storeContract(ContractRequest $request)
@@ -42,7 +42,7 @@ class ContractController extends Controller
     public function updateContract(ContractRequest $request, $id)
     {
         $this->contractService->updateContract($request, $id);
-        return to_route('contract.show', $id);
+        return to_route('contracts.show', $id);
     }
 
     public function deleteContract($id)

@@ -11,7 +11,7 @@
             <div class="w-full md:w-3/4 p-4">
                 <h1 class="text-2xl font-bold mb-4">{{ isset($page) ? 'Edit Custom Page' : 'Create Custom Page' }}</h1>
                 <p class="mb-4">This is a custom page that you can {{ isset($page) ? 'edit' : 'create' }} for your users.</p>
-                <form action="{{ isset($page) ? route('custom-page.update', $page->id) : route('custom-page.store') }}" enctype="multipart/form-data" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <form action="{{ isset($page) ? route('pages.update', $page->id) : route('pages.store') }}" enctype="multipart/form-data" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                     @csrf
                     @if(isset($page))
                         @method('PUT')
@@ -19,7 +19,9 @@
                     <div class="mb-4">
                         <x-forms.input-field type="text" :name="'title'" :value="$page->title ?? ''"/>
                         <x-forms.input-field type="text" :name="'url'" :value="$page->url ?? ''"/>
-                        <a href="{{ isset($page) ? route('pages', $page->url) : '' }}" target="_blank" class="text-blue-500 mb-4 inline-block">View Page</a>
+                        @if(isset($page))
+                            <a href="{{route('pages.show', $page->url)}}" target="_blank" class="text-blue-500 mb-4 inline-block">View Page</a>
+                        @endif
                         <x-forms.input-select :name="'header_font'" :list="$fonts" :value="$page->header_font ?? ''"/>
                         <x-forms.input-select :name="'body_font'" :list="$fonts" :value="$page->body_font ?? ''"/>
                         <x-forms.input-field type="color" :name="'primary_color'" :value="$page->primary_color ?? ''" class="py-0 px-0"/>
