@@ -1,32 +1,20 @@
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.block-fields').forEach(function (blockFields) {
-        const blockType = blockFields.getAttribute('data-block-type');
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.block-fields').forEach(blockFields => {
+        const blockType = blockFields.dataset.blockType;
         const switchInput = document.querySelector(`input[name="${blockType}"]`);
 
-        if (switchInput.checked) {
-            blockFields.style.display = 'block';
-        }
+        if (switchInput.checked) blockFields.style.display = 'block';
 
-        if(blockType === 'hero') {
-            blockFields.querySelector(`[name="${blockType}_text"]`).style.display = 'none';
-            blockFields.querySelector(`[for="${blockType}_text"]`).style.display = 'none';
-        }
+        const elementsToHide = {
+            hero: ['_text'],
+            text: ['_image'],
+            quote: ['_text', '_button_text', '_button_link', '_image']
+        };
 
-        if (blockType === 'text') {
-            blockFields.querySelector(`[name="${blockType}_image"]`).style.display = 'none';
-            blockFields.querySelector(`[for="${blockType}_image"]`).style.display = 'none';
-        }
-
-        if (blockType === 'quote') {
-            blockFields.querySelector(`[name="${blockType}_text"]`).style.display = 'none';
-            blockFields.querySelector(`[for="${blockType}_text"]`).style.display = 'none';
-            blockFields.querySelector(`[name="${blockType}_button_text"]`).style.display = 'none';
-            blockFields.querySelector(`[for="${blockType}_button_text"]`).style.display = 'none';
-            blockFields.querySelector(`[name="${blockType}_button_link"]`).style.display = 'none';
-            blockFields.querySelector(`[for="${blockType}_button_link"]`).style.display = 'none';
-            blockFields.querySelector(`[name="${blockType}_image"]`).style.display = 'none';
-            blockFields.querySelector(`[for="${blockType}_image"]`).style.display = 'none';
-        }
+        (elementsToHide[blockType] || []).forEach(suffix => {
+            blockFields.querySelector(`[name="${blockType}${suffix}"]`).style.display = 'none';
+            blockFields.querySelector(`[for="${blockType}${suffix}"]`).style.display = 'none';
+        });
 
         switchInput.addEventListener('change', function () {
             blockFields.style.display = this.checked ? 'block' : 'none';
