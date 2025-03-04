@@ -3,6 +3,9 @@
 namespace App\Livewire;
 
 use App\Models\Advertisement;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Livewire\Component;
 
 class Shop extends Component
@@ -11,7 +14,7 @@ class Shop extends Component
     public $advertisers;
     public $sortOrder = 'new_to_old';
 
-    public function render()
+    public function render(): View|Factory|Application
     {
         $this->advertisements = $this->advertisementOrder();
         return view('livewire.shop', [

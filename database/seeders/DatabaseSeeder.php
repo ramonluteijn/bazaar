@@ -28,14 +28,14 @@ class DatabaseSeeder extends Seeder
         $user = new User();
         $user->name = 'Admin';
         $user->email = 'admin@bazaar.nl';
-        $user->password = '$2y$12$RRFILOFFad.VuxS44qX7I.mUJxb1cqlO8exnjs9oqXRGpZi0XIqJW';
+        $user->password = Hash::make('test1234');
         $user->save();
         $user->assignRole('admin');
 
         $user = new User();
         $user->name = 'Owner';
         $user->email = 'owner@bazaar.nl';
-        $user->password = '$2y$12$RRFILOFFad.VuxS44qX7I.mUJxb1cqlO8exnjs9oqXRGpZi0XIqJW';
+        $user->password = Hash::make('test1234');
         $user->save();
         $user->assignRole('owner');
     }

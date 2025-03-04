@@ -14,6 +14,6 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        return Auth::check() ? to_route('dashboard') : to_route('login');
+        return Auth::check() ? to_route('dashboard.show') : to_route('login.show');
     }
 }

@@ -10,26 +10,26 @@ use Spatie\LaravelPdf\Facades\Pdf;
 
 class ContractService
 {
-    public function updateContract(ContractRequest $request, $id)
+    public function updateContract(ContractRequest $request, $id): void
     {
         $data = $request->validated();
         $contract = Contract::findOrFail($id);
         $contract->update($data);
     }
 
-    public function storeContract(ContractRequest $request)
+    public function storeContract(ContractRequest $request): void
     {
         $data = $request->validated();
         $data['owner_id'] = User::role('owner')->first()->id;
         Contract::create($data);
     }
 
-    public function deleteContract($id)
+    public function deleteContract($id): void
     {
         Contract::findOrFail($id)->delete();
     }
 
-    public function downloadContract($id)
+    public function downloadContract($id): Pdf
     {
         $contract = Contract::findOrFail($id);
 
@@ -45,7 +45,7 @@ class ContractService
     }
 
 
-    public function createContract(Request $request)
+    public function createContract(Request $request): void
     {
         $data = $request->validate([
             'title' => 'nullable|string',

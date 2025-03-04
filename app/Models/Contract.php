@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Contract extends Model
 {
@@ -16,12 +17,12 @@ class Contract extends Model
         'contract',
     ];
 
-    public function businessAdvertiser()
+    public function businessAdvertiser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'business_advertiser_id');
     }
 
-    public function owner()
+    public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'owner_id');
     }

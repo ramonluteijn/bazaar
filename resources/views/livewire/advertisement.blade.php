@@ -1,6 +1,6 @@
 <div class="pb-[100px] min-h-[calc(100vh-50px-75px)] flex items-center justify-center">
     <div class="w-full container">
-        <div class="p-4">
+        <div class="">
             <div class="bg-white shadow-md rounded-lg p-6">
                 <div class="flex flex-col md:flex-row">
                     <div class="md:w-1/2 relative">
@@ -26,6 +26,14 @@
                     <h2 class="text-2xl font-bold mb-2">Description</h2>
                     <p class="text-gray-700">{{ $advertisement->description }}</p>
                 </div>
+            </div>
+        </div>
+        <div class="mt-6 text-center">
+            <h2 class="text-2xl font-bold mb-4">Related Advertisements</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach($relatedAdvertisements as $relatedAdvertisement)
+                    @livewire('shop-item', ['advertisement' => $relatedAdvertisement], key('advertisement-'.$relatedAdvertisement->id))
+                @endforeach
             </div>
         </div>
     </div>

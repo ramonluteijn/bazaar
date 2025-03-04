@@ -3,17 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advertisement;
-use App\Models\User;
+use App\Services\AdvertisementService;
+use Illuminate\Contracts\View\View;
 
-class ShopController extends Controller
+class ShopController
 {
-    public function index()
-    {
-        $advertisers = User::whereHas("roles", function($q){
-            $q->where("name", "private_advertiser")->orWhere("name", "business_advertiser");
-        })->get();
+    private AdvertisementService $advertisementService;
 
+    public function __construct(AdvertisementService $advertisementService)
+    {
+        $this->advertisementService = $advertisementService;
+    }
+
+    public function index(): View
+    {
+        $advertisers = $this->advertisementService->getAdvertisers();
         $advertisements = Advertisement::all()->where('expires_at' , '>', now());
-        return view('shop.shop', ['advertisers' => $advertisers, 'advertisements' => $advertisements]);
+        return view('shop.index', ['advertisers' => $advertisers, 'advertisements' => $advertisements]);
     }
 }

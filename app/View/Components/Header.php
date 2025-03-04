@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\Component;
 
 class Header extends Component
@@ -24,7 +25,7 @@ class Header extends Component
         return view('components.header');
     }
 
-    public function changeLocale(string $locale)
+    public function changeLocale(string $locale): RedirectResponse
     {
         if (!array_key_exists($locale, config('app.available_locales'))) {
             abort(400);

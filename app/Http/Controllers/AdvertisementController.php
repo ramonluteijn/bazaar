@@ -5,73 +5,71 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AdvertisementRequest;
 use App\Models\Advertisement;
 use App\Services\AdvertisementService;
-use Endroid\QrCode\Builder\Builder;
-use Endroid\QrCode\Writer\PngWriter;
+use App\Services\ImageService;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class AdvertisementController extends Controller
+class AdvertisementController
 {
     private AdvertisementService $advertisementService;
-    private array $types = ['sale', 'hire', 'bid'];
+    private array $types = ['sale' => 'sale', 'hire' => 'hire', 'bid' => 'bid'];
     public function __construct(AdvertisementService $advertisementService)
     {
         $this->advertisementService = $advertisementService;
     }
 
-    public function index()
+    public function index(): View
     {
         $advertisements = Advertisement::where("user_id", auth()->id())->get();
-        return view('account.advertisements', ['advertisements' => $advertisements]);
+        return view('advertisement.index', ['advertisements' => $advertisements]);
     }
 
-    public function advertisement($id)
+    public function show($id): View
     {
         $advertisement = Advertisement::findOrFail($id);
-        return view('account.advertisement', ['advertisement' => $advertisement, 'types' => $this->types]);
+        return view('advertisement.show', ['advertisement' => $advertisement, 'types' => $this->types]);
     }
 
-    public function updateAdvertisement(AdvertisementRequest $request, $id)
+    public function update(AdvertisementRequest $request, $id): RedirectResponse
     {
         $this->advertisementService->updateAdvertisement($request, $id);
-        return redirect()->route('advertisements.index');
+        return to_route('advertisements.index');
     }
 
-    public function createAdvertisement()
+    public function create(): View
     {
-        return view('account.advertisement', ['advertisement' => null, 'types' => $this->types]);
+        return view('advertisement.show', ['types' => $this->types]);
     }
 
-    public function storeAdvertisement(AdvertisementRequest $request)
+    public function store(AdvertisementRequest $request): RedirectResponse
     {
         $this->advertisementService->storeAdvertisement($request);
-        return redirect()->route('advertisements.index');
+        return to_route('advertisements.index');
     }
 
-    public function deleteAdvertisement($id)
+    public function delete($id): RedirectResponse
     {
         $this->advertisementService->deleteAdvertisement($id);
-        return redirect()->route('advertisements.index');
+        return to_route('advertisements.index');
     }
 
-    public function showFromId($id)
+    public function showFromId($id): View
     {
         $advertisement = Advertisement::where('id', $id)->firstOrFail();
-        $qrCode = new Builder(
-            writer: new PngWriter(),
-            data: route('advertisement.read-from-id', ['id' => $id])
-        );
+        $relatedAdvertisements = Advertisement::where('user_id', $advertisement->user_id)->where('id', '!=', $id)->take(3)->get();
+        $qrCodeDataUri = ImageService::getQrCode($id);
 
-        $qrCodeDataUri = $qrCode->build()->getDataUri();
-
-        return view('advertisement.show', [
+        return view('advertisement.show-from-id', [
             'advertisement' => $advertisement,
-            'qrCode' => $qrCodeDataUri
+            'qrCode' => $qrCodeDataUri,
+            'relatedAdvertisements' => $relatedAdvertisements,
         ]);
     }
 
-    public function uploadAdvertisements(Request $request)
+    public function upload(Request $request): RedirectResponse
     {
         $this->advertisementService->uploadAdvertisements($request);
-        return redirect()->route('advertisements.index');
+        return to_route('advertisements.index');
     }
 }
