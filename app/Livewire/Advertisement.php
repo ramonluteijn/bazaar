@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Illuminate\View\View;
 use Livewire\Component;
 
 class Advertisement extends Component
@@ -10,7 +11,7 @@ class Advertisement extends Component
     public $qrCode;
     public $relatedAdvertisements;
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.advertisement');
     }

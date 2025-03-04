@@ -25,26 +25,26 @@ Route::group(['middleware' => 'RedirectIfAuthenticated'], function () {
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function () {
-    Route::get('/dashboard', [AccountController::class, 'dashboard'])->name('dashboard.show');
+    Route::get('/dashboard', [AccountController::class, 'index'])->name('dashboard.show');
 
     Route::prefix('/advertisements')->group(function () {
         Route::get('/', [AdvertisementController::class, 'index'])->name('advertisements.index');
-        Route::get('/create', [AdvertisementController::class, 'createAdvertisement'])->name('advertisements.create');
-        Route::post('/store', [AdvertisementController::class, 'storeAdvertisement'])->name('advertisements.store');
-        Route::get('/{id}', [AdvertisementController::class, 'advertisement'])->name('advertisements.show');
-        Route::put('/update/{id}', [AdvertisementController::class, 'updateAdvertisement'])->name('advertisements.update');
-        Route::delete('/delete/{id}', [AdvertisementController::class, 'deleteAdvertisement'])->name('advertisements.delete');
-        Route::post('/upload', [AdvertisementController::class, 'uploadAdvertisements'])->name('advertisements.upload');
+        Route::get('/create', [AdvertisementController::class, 'create'])->name('advertisements.create');
+        Route::post('/store', [AdvertisementController::class, 'store'])->name('advertisements.store');
+        Route::get('/{id}', [AdvertisementController::class, 'show'])->name('advertisements.show');
+        Route::put('/update/{id}', [AdvertisementController::class, 'update'])->name('advertisements.update');
+        Route::delete('/delete/{id}', [AdvertisementController::class, 'delete'])->name('advertisements.delete');
+        Route::post('/upload', [AdvertisementController::class, 'upload'])->name('advertisements.upload');
     });
 
     Route::prefix('/contracts')->group(function () {
         Route::get('/', [ContractController::class, 'index'])->name('contracts.index');
-        Route::get('/create', [ContractController::class, 'createContract'])->name('contracts.create');
-        Route::post('/store', [ContractController::class, 'storeContract'])->name('contracts.store');
-        Route::get('/{id}', [ContractController::class, 'contract'])->name('contracts.show');
-        Route::put('/update/{id}', [ContractController::class, 'updateContract'])->name('contracts.update');
-        Route::delete('/delete/{id}', [ContractController::class, 'deleteContract'])->name('contracts.delete');
-        Route::get('/download/{id}', [ContractController::class, 'downloadContract'])->name('contracts.download');
+        Route::get('/create', [ContractController::class, 'create'])->name('contracts.create');
+        Route::post('/store', [ContractController::class, 'store'])->name('contracts.store');
+        Route::get('/{id}', [ContractController::class, 'show'])->name('contracts.show');
+        Route::put('/update/{id}', [ContractController::class, 'update'])->name('contracts.update');
+        Route::delete('/delete/{id}', [ContractController::class, 'delete'])->name('contracts.delete');
+        Route::get('/download/{id}', [ContractController::class, 'download'])->name('contracts.download');
     });
 
     Route::prefix('/settings')->group(function () {

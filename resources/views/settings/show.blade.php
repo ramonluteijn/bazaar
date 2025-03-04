@@ -19,7 +19,6 @@
                             @csrf
                             @endif
                             <x-forms.input-field type="text" name="name" :required="true" value="{{ $setting->name ?? '' }}"/>
-                            <x-forms.input-textarea name="description" :class="'min-h-[100px] max-h-[300px]'" :required="true">{{ $setting->description ?? '' }}</x-forms.input-textarea>
                             <x-forms.input-field type="number" name="percentage" :required="true" value="{{ $setting->percentage ?? '' }}" :step="0.01"/>
                             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">{{ isset($setting) ? 'Update setting' : 'Add setting' }}</button>
                         </form>

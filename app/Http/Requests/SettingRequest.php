@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class SettingRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class SettingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Auth::user()->hasRole('owner') || Auth::user()->hasRole('admin');
     }
 
     /**
@@ -23,7 +24,6 @@ class SettingRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'description' => 'required|max:65535',
             'percentage' => 'required|numeric|between:0,100'
         ];
     }
@@ -39,8 +39,6 @@ class SettingRequest extends FormRequest
             'name.required' => 'Name is required',
             'name.string' => 'Name must be a string',
             'name.max' => 'Name must not be greater than 255 characters',
-            'description.required' => 'Description is required',
-            'description.max' => 'Description must not be greater than 65535 characters',
             'percentage.required' => 'Percentage is required',
             'percentage.numeric' => 'Percentage must be a number',
             'percentage.between' => 'Percentage must be between 0 and 100'
