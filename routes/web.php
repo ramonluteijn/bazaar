@@ -9,6 +9,8 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ShopController;
 use App\View\Components\Header;
 use App\Http\Controllers\PageController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -75,4 +77,28 @@ Route::get('/pages/{parent?}/{child?}/{grandchild?}', [PageController::class, 's
 Route::group(['prefix' => 'return'], function () {
     Route::get('/show', [ReturnController::class, 'show'])->name('return.show');
     Route::post('/store', [ReturnController::class, 'store'])->name('return.store');
+});
+
+Route::get('/setup', function () {
+    $credentials = [
+        'email' => 'user@user.com',
+        'password' => 'password'
+    ];
+
+    if (!Auth::attempt($credentials)) {
+        $user = new \App\Models\User();
+        $user->name = 'user';
+        $user->email = $credentials['email'];
+        $user->password = Hash::make($credentials['password']);
+        $user->save();
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            $basicToken = $user->createToken('basic', ['read'])->plainTextToken;
+            return [
+                'user' => $basicToken,
+            ];
+        }
+    }
 });
