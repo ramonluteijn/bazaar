@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReviewRequest;
+use App\Models\User;
 use App\Services\ReviewService;
 use Illuminate\Http\Request;
 
@@ -13,9 +15,22 @@ class ReviewController
         $this->reviewService = $reviewService;
     }
 
-    public function index(Request $request)
+
+    public function store(ReviewRequest $request)
     {
-        $reviews = $this->reviewService->getReviews($request->all());
-        return response()->json($reviews);
+        $this->reviewService->createReview($request);
+        return redirect()->back();
+    }
+
+    public function show($id)
+    {
+        $reviews = $this->reviewService->getReviewsUser($id);
+        $user = User::find($id)->Select(['name', 'id'])->first();
+        return view('reviews.show', compact('reviews', 'user'));
+    }
+
+    public function delete($id){
+        $this->reviewService->deleteReview($id);
+        return redirect()->back();
     }
 }

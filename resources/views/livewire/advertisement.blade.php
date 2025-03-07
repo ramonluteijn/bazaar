@@ -14,8 +14,7 @@
                             <span class="text-sm text-gray-500">{{ $advertisement->type }}</span>
                         </div>
                         <div class="text-sm text-gray-500 mb-4">
-                            <p>Posted by: {{ $advertisement->user->name }}</p>
-                            <p>Expires at: {{ $advertisement->expires_at }}</p>
+                            <p>Posted by: <a href="{{ route('user.profile', $advertisement->user->id) }}" class="text-blue-500 hover:underline">{{ $advertisement->user->name }}</a></p>                            <p>Expires at: {{ $advertisement->expires_at }}</p>
                         </div>
                         <button class="bg-blue-500 text-white px-4 py-2 rounded-lg">Contact Seller</button>
                     </div>
@@ -26,6 +25,7 @@
                 </div>
             </div>
         </div>
+
         <div class="mt-6 text-center">
             <h2 class="text-2xl font-bold mb-4">Related Advertisements</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -34,5 +34,8 @@
                 @endforeach
             </div>
         </div>
+
+        <x-reviews.reviews :reviews="$reviews"/>
+        <x-reviews.review-form :advertisement_id="$advertisement->id"/>
     </div>
 </div>
