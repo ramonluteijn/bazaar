@@ -6,6 +6,7 @@ use App\Http\Requests\AdvertisementRequest;
 use App\Models\Advertisement;
 use App\Services\AdvertisementService;
 use App\Services\ImageService;
+use App\Services\ReviewService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,10 +14,12 @@ use Illuminate\Http\Request;
 class AdvertisementController
 {
     private AdvertisementService $advertisementService;
+    private ReviewService $reviewService;
     private array $types = ['sale' => 'sale', 'hire' => 'hire', 'bid' => 'bid'];
-    public function __construct(AdvertisementService $advertisementService)
+    public function __construct(AdvertisementService $advertisementService, ReviewService $reviewService)
     {
         $this->advertisementService = $advertisementService;
+        $this->reviewService = $reviewService;
     }
 
     public function index(): View
@@ -60,10 +63,13 @@ class AdvertisementController
         $relatedAdvertisements = Advertisement::where('user_id', $advertisement->user_id)->where('id', '!=', $id)->take(3)->get();
         $qrCodeDataUri = ImageService::getQrCode($id);
 
+        $reviews = $this->reviewService->getReviewsAdvertisement($id);
+
         return view('advertisement.show-from-id', [
             'advertisement' => $advertisement,
             'qrCode' => $qrCodeDataUri,
             'relatedAdvertisements' => $relatedAdvertisements,
+            'reviews' => $reviews,
         ]);
     }
 
