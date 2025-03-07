@@ -63,7 +63,7 @@ class AdvertisementController
         $relatedAdvertisements = Advertisement::where('user_id', $advertisement->user_id)->where('id', '!=', $id)->take(3)->get();
         $qrCodeDataUri = ImageService::getQrCode($id);
 
-        $reviews = $this->reviewService->getReviewsAdvertisement($id);
+        $reviews = $this->reviewService->getAdvertismentReviews($id);
 
         return view('advertisement.show-from-id', [
             'advertisement' => $advertisement,
