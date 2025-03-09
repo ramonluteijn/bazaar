@@ -19,6 +19,10 @@
                         <button class="bg-blue-500 text-white px-4 py-2 rounded-lg">Contact Seller</button>
                     </div>
                 </div>
+                <div class="mt-4">
+                    <x-heart-wishlist :advertisement="$advertisement"/>
+                </div>
+
                 <div class="mt-6">
                     <h2 class="text-2xl font-bold mb-2">Description</h2>
                     <p class="text-gray-700">{{ $advertisement->description }}</p>

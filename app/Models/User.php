@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -57,5 +58,8 @@ class User extends Authenticatable
     public function pages(): HasOne
     {
         return $this->hasOne(ContentPage::class, 'user_id');
+    }
+    public function fetchWishlistProducts(): BelongsToMany{
+        return $this->belongsToMany(Advertisement::class, 'wishlists','user_id', 'advertisement_id');
     }
 }
