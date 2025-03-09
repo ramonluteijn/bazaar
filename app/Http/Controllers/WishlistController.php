@@ -18,8 +18,12 @@ class WishlistController
 
     public function index(){
 
-        $wishlist = Auth::user()->fetchWishlistProducts();
-
+        $wishlist = Auth::user()->fetchWishlistProducts;
         return view('livewire.wishlist-show', ['wishlist' => $wishlist]);
+    }
+
+    public function delete($id){
+        Auth::user()->fetchWishlistProducts()->detach($id);
+        return redirect()->back();
     }
 }

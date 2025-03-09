@@ -8,7 +8,7 @@ use App\Models\Advertisement;
 class ItemInterface extends Component
 {
     protected WishlistService $wishlistService;
-    protected Advertisement $advertisement;
+    public Advertisement $advertisement;
 
     public function boot(WishlistService $wishlistService)
     {

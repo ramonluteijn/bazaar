@@ -30,7 +30,11 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function () {
     Route::get('/dashboard', [AccountController::class, 'index'])->name('dashboard.show');
-    Route::get('/wishlist',[WishlistController::class,'index'])->name('wishlist.index');
+
+    Route::prefix('/wishlist')->group(function () {
+        Route::get('/',[WishlistController::class,'index'])->name('wishlist.index');
+        Route::delete('/delete/{advertisement}', [WishlistController::class, 'delete'])->name('wishlist.delete');
+    });
 
     Route::prefix('/advertisements')->group(function () {
         Route::get('/', [AdvertisementController::class, 'index'])->name('advertisements.index');
