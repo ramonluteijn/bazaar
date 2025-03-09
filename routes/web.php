@@ -10,6 +10,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ShopController;
 use App\View\Components\Header;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function () {
     Route::get('/dashboard', [AccountController::class, 'index'])->name('dashboard.show');
+    Route::get('/wishlist',[WishlistController::class,'index'])->name('wishlist.index');
 
     Route::prefix('/advertisements')->group(function () {
         Route::get('/', [AdvertisementController::class, 'index'])->name('advertisements.index');
@@ -68,6 +70,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function () {
     Route::delete('/review/delete/{id}', [ReviewController::class, 'delete'])->name('reviews.delete');
 
 });
+
 
 Route::prefix('/reviews')->group(function () {
     Route::post('/store', [ReviewController::class, 'store'])->name('reviews.store');
