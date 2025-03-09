@@ -6,6 +6,7 @@ use App\Services\AdvertisementService;
 use App\Services\WishlistService;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class WishlistController
 {
@@ -17,7 +18,7 @@ class WishlistController
 
     public function index(){
 
-        $wishlist = $this->wishlistService->getWishlist(auth()->id());
+        $wishlist = Auth::user()->fetchWishlistProducts();
 
         return view('livewire.wishlist-show', ['wishlist' => $wishlist]);
     }

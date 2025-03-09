@@ -3,15 +3,16 @@
 namespace App\Services;
 
 use App\Models\Wishlist;
+use Illuminate\Support\Facades\Auth;
 
 class WishlistService
 {
-
-    public function getWishlist($user_id)
+    public function addWishlist( $advertisement_id)
     {
-        return Wishlist::where('user_id', $user_id)
-            ->with('advertisement')
-            ->get()
-            ->pluck('advertisement');
+        Auth::User()->fetchWishlistProducts()->attach($advertisement_id);
     }
+    public function removeWishlist($advertisement_id)
+    {
+        Auth::User()->fetchWishlistProducts()->detach($advertisement_id);
+        }
 }

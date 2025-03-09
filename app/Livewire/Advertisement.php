@@ -5,9 +5,8 @@ namespace App\Livewire;
 use Illuminate\View\View;
 use Livewire\Component;
 
-class Advertisement extends Component
+class Advertisement extends ItemInterface
 {
-    public $advertisement;
     public $qrCode;
     public $relatedAdvertisements;
     public $reviews;

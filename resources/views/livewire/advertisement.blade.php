@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="mt-4">
-                    @livewire('heart-wishlist', ['advertisementId' => $advertisement->id])
+                    <x-heart-wishlist :advertisement="$advertisement"/>
                 </div>
 
                 <div class="mt-6">
