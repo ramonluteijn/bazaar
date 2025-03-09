@@ -7,7 +7,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach($reviews as $review)
             <div class="bg-white shadow-md rounded-lg p-4 relative">
-                @if(Auth::user()->hasRole('owner') || Auth::user()->hasRole('admin'))
+                @if(Auth::check() && (Auth::user()->hasRole('owner') || Auth::user()->hasRole('admin')))
                     <form action="{{ route('reviews.delete', ['id' => $review->id]) }}" method="POST">
                         @csrf
                         @method('DELETE')
