@@ -11,8 +11,6 @@ use App\Http\Controllers\ShopController;
 use App\View\Components\Header;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\WishlistController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,7 +26,7 @@ Route::group(['middleware' => 'RedirectIfAuthenticated'], function () {
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function () {
+Route::group(['middleware' => 'Authenticate', 'prefix' => 'profile'], function () {
     Route::get('/dashboard', [AccountController::class, 'index'])->name('dashboard.show');
 
     Route::prefix('/wishlist')->group(function () {
