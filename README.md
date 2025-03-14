@@ -81,3 +81,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 - hoe zit het met het kopen / huren van een advertentie, moet er naar betaal pagina etc worden doorgelinkt? -> 
 - hoe zit het met de bieden optie? ->
+
+
+## api
+aanroepen van api bv: http://127.0.0.1:8000/api/v1/advertisements?type[eq]=bid

@@ -1,5 +1,5 @@
 <div>
-    <x-hero />
+    <x-blocks.hero />
     <div class="container mx-auto px-4 py-8">
         <div class="col-6 p-0">
             <div class="float-end d-flex sorting gap-3">

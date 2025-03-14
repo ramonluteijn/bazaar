@@ -28,7 +28,7 @@ class AdvertisementRequest extends FormRequest
             'price' => 'required|numeric|min:0|max:2147483647',
             'description' => 'nullable|max:65535',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'type' => ['required','in:sale,hire,bid', new MaxAmountOfAdvertisementsRule()],
+            'type' => ['required', new MaxAmountOfAdvertisementsRule()],
             'expires_at' => 'date|after:today',
         ];
     }
@@ -52,7 +52,6 @@ class AdvertisementRequest extends FormRequest
             'image.mimes' => 'Image must be a jpeg, png, jpg, gif, or svg',
             'image.max' => 'Image is too large',
             'type.required' => 'Type is required',
-            'type.in' => 'Type must be sale or hire',
             'expires_at.date' => 'Expires at must be a date',
             'expires_at.after' => 'Expires at must be after today',
         ];

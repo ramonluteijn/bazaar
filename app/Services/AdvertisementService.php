@@ -4,49 +4,47 @@ namespace App\Services;
 
 use App\Http\Requests\AdvertisementRequest;
 use App\Models\Advertisement;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class AdvertisementService
 {
-    public function updateAdvertisement(AdvertisementRequest $request, $id)
+    public function updateAdvertisement(AdvertisementRequest $request, $id): void
     {
         $data = $request->validated();
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filePath = 'images/' . $file->getClientOriginalName();
-            if (!Storage::disk('public')->exists($filePath)) {
-                $filePath = $file->storeAs('images', $file->getClientOriginalName(), 'public');
-            }
-            $data['image'] = $filePath;
-        }
         $advertisement = Advertisement::findOrFail($id);
+        if ($request->hasFile('image')) {
+            $imageData = ImageService::StoreImage($request, 'image');
+            if ($imageData) {
+                $data = array_merge($data, $imageData);
+            }
+        } else {
+            $data['image'] = $advertisement->image;
+        }
         $advertisement->update($data);
     }
 
-    public function storeAdvertisement(AdvertisementRequest $request)
+    public function storeAdvertisement(AdvertisementRequest $request): void
     {
         $data = $request->validated();
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filePath = 'images/' . $file->getClientOriginalName();
-            if (!Storage::disk('public')->exists($filePath)) {
-                $filePath = $file->storeAs('images', $file->getClientOriginalName(), 'public');
+            $imageData = ImageService::StoreImage($request, 'image');
+            if ($imageData) {
+                $data = array_merge($data, $imageData);
             }
-            $data['image'] = $filePath;
         }
         $data['user_id'] = auth()->id();
         Advertisement::create($data);
     }
 
-    public function deleteAdvertisement($id)
+    public function deleteAdvertisement($id): void
     {
         Advertisement::findOrFail($id)->delete();
     }
 
-    public function uploadAdvertisements(Request $request)
+    public function uploadAdvertisements(Request $request): void
     {
-        $data = $request->validate([
+        $request->validate([
             'csv_file' => 'required|mimes:csv,txt'
         ]);
 
@@ -67,5 +65,12 @@ class AdvertisementService
                 'expires_at' => $row['expires_at'],
             ]);
         }
+    }
+
+    public function getAdvertisers()
+    {
+        return User::whereHas("roles", function($q){
+            $q->where("name", "private_advertiser")->orWhere("name", "business_advertiser");
+        })->get();
     }
 }
