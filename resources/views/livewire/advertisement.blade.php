@@ -16,9 +16,15 @@
                         <div class="text-sm text-gray-500 mb-4">
                             <p>Posted by: <a href="{{ route('user.profile', $advertisement->user->id) }}" class="text-blue-500 hover:underline">{{ $advertisement->user->name }}</a></p>                            <p>Expires at: {{ $advertisement->expires_at }}</p>
                         </div>
-                        <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute bottom-0 w-full h-[50px]">
-                            add to cart
-                        </button>
+                        @auth
+                            <button wire:click="addToCart({{ $advertisement->id }})" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute bottom-0 w-full h-[50px]">
+                                Add to cart
+                            </button>
+                        @else
+                            <a href="{{ route('login.show') }}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute bottom-0 w-full h-[50px] text-center">
+                                Add to cart
+                            </a>
+                        @endauth
                     </div>
                 </div>
                 <div class="mt-4">

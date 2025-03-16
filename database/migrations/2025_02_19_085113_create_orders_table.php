@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('state');
             $table->string('country');
-            $table->text('comment');
+            $table->text('comment')->nullable();
             $table->integer('total');
             $table->string('status');
             $table->timestamps();

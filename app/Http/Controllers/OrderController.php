@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderRequest;
 use App\Models\Order;
 use App\Services\OrderService;
+use Illuminate\Support\Facades\Cookie;
 
 class OrderController
 {
@@ -22,8 +24,8 @@ class OrderController
 
     public function show($id)
     {
-        $order = Order::findOrFail($id);
-        return view('orders.show', ['order' => $order]);
+        $order = Order::with('orderDetails.advertisement')->findOrFail($id);
+        return view('order.show', ['order' => $order]);
     }
 
     public function createOrder()
@@ -31,9 +33,10 @@ class OrderController
         return view('account.order');
     }
 
-    public function storeOrder(OrderRequest $request)
+    public function store(OrderRequest $request)
     {
         $this->orderService->storeOrder($request);
+        Cookie::queue(Cookie::forget('basket'));
         return to_route('orders.index');
     }
 }
