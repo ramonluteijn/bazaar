@@ -7,7 +7,7 @@ use App\Models\Contract;
 use App\Services\ContractService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Spatie\LaravelPdf\Facades\Pdf;
+use Spatie\LaravelPdf\PdfBuilder;
 
 class ContractController
 {
@@ -54,7 +54,7 @@ class ContractController
         return to_route('contracts.index');
     }
 
-    public function download($id): Pdf
+    public function download($id): PdfBuilder
     {
         return $this->contractService->downloadContract($id);
     }

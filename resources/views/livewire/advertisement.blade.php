@@ -14,20 +14,24 @@
                             <span class="text-xl font-semibold text-green-600">${{ $advertisement->price }}</span>
                         </div>
                         <div class="text-sm text-gray-500 mb-4">
-                            <p>Posted by: {{ $advertisement->user->name }}</p>
-                            <p>Expires at: {{ $advertisement->expires_at }}</p>
+                            <p>Posted by: <a href="{{ route('user.profile', $advertisement->user->id) }}" class="text-blue-500 hover:underline">{{ $advertisement->user->name }}</a></p>                            <p>Expires at: {{ $advertisement->expires_at }}</p>
                         </div>
                         <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute bottom-0 w-full h-[50px]">
                             add to cart
                         </button>
                     </div>
                 </div>
+                <div class="mt-4">
+                    <x-heart-wishlist :advertisement="$advertisement"/>
+                </div>
+
                 <div class="mt-6">
                     <h2 class="text-2xl font-bold mb-2">Description</h2>
                     <p class="text-gray-700">{{ $advertisement->description }}</p>
                 </div>
             </div>
         </div>
+
         <div class="mt-6 text-center">
             <h2 class="text-2xl font-bold mb-4">Related Advertisements</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -36,5 +40,8 @@
                 @endforeach
             </div>
         </div>
+
+        <x-reviews.reviews :reviews="$reviews"/>
+        <x-reviews.review-form :advertisement_id="$advertisement->id"/>
     </div>
 </div>

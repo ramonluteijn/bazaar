@@ -6,7 +6,9 @@ use App\Http\Requests\ContractRequest;
 use App\Models\Contract;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\LaravelPdf\PdfBuilder;
 use Spatie\LaravelPdf\Facades\Pdf;
+
 
 class ContractService
 {
@@ -29,13 +31,16 @@ class ContractService
         Contract::findOrFail($id)->delete();
     }
 
-    public function downloadContract($id): Pdf
+    public function downloadContract($id): PdfBuilder
     {
         $contract = Contract::findOrFail($id);
 
         $fileName = $contract->title;
         if ($contract->businessAdvertiser) {
             $fileName .= '_'.$contract->businessAdvertiser->name;
+        }
+        if ($contract->title == '') {
+            $fileName = 'Contract_'.$contract->businessAdvertiser->name;
         }
 
         return Pdf::view('pdfs.contract', ['contract' => $contract])

@@ -82,3 +82,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - hoeveel advertenties in 1 order? -> meerdere producten mogelijk
 
 - hoe zit het met de bieden optie? -> 
+
+
+## api
+aanroepen van api bv: http://127.0.0.1:8000/api/v1/advertisements?type[eq]=bid

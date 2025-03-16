@@ -3,5 +3,5 @@
 @section('title', $advertisement->title)
 
 @section('content')
-    @livewire('advertisement', ['advertisement' => $advertisement, 'qrCode' => $qrCode, 'relatedAdvertisements' => $relatedAdvertisements], key($advertisement->id))
+    @livewire('advertisement', ['advertisement' => $advertisement, 'qrCode' => $qrCode, 'reviews' => $reviews,'relatedAdvertisements' => $relatedAdvertisements], key($advertisement->id))
 @stop

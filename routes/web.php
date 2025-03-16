@@ -5,11 +5,15 @@ use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\ReturnController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShopController;
 use App\View\Components\Header;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\WishlistController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,6 +31,11 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function () {
     Route::get('/dashboard', [AccountController::class, 'index'])->name('dashboard.show');
+
+    Route::prefix('/wishlist')->group(function () {
+        Route::get('/',[WishlistController::class,'index'])->name('wishlist.index');
+        Route::delete('/delete/{advertisement}', [WishlistController::class, 'delete'])->name('wishlist.delete');
+    });
 
     Route::prefix('/orders')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('orders.index');
@@ -68,6 +77,13 @@ Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function () {
     });
 
     Route::get('/return', [ReturnController::class, 'index'])->name('return.index');
+    Route::delete('/review/delete/{id}', [ReviewController::class, 'delete'])->name('reviews.delete');
+
+});
+
+Route::prefix('/reviews')->group(function () {
+    Route::post('/store', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::get('/{id}', [ReviewController::class, 'show'])->name('user.profile');
 });
 
 Route::group(['middleware' => 'web'], function () {

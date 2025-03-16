@@ -7,9 +7,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Livewire\Component;
 
-class ShopItem extends Component
+class ShopItem extends ItemInterface
 {
-    public $advertisement;
 
     public function render(): View|Factory|Application
     {
