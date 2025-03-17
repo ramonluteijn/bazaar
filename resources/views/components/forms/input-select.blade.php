@@ -1,29 +1,51 @@
-@props(["name", "required" => false, "list" => [], "enum" => null, "value", "class" => ""])
+@props([
+  "name",
+  "required" => false,
+  "list" => [],
+  "enum" => null,
+  "value" => "",
+  "class" => "",
+  "label" => "",
+  "default" => "",
+  'onchange' => ''
+])
 
 <div class="mb-4">
-    <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ $name }}">
-        {{ \Illuminate\Support\Str::of($name)->kebab()->replace("_", " ")->ucfirst() }}
+    <label class="block text-gray-700 text-sm font-bold mb-1" for="{{ $name }}">
+        {{ \Illuminate\Support\Str::of($label)->kebab()->replace("-", " ")->ucfirst() }}
         @if ($required)
-            <span class="text-red-500">*</span>
+            <span class="">*</span>
         @endif
     </label>
-    <select name="{{ $name }}" id="{{ $name }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline {{ $class }}"{{ $required ? "required" : "" }}>
-        <option value="">Select a {{ $name }}</option>
-        @if ($enum)
-            @foreach ($enum::cases() as $item)
-                <option value="{{ $item->value }}"{{ $item->name == $value ? "selected" : "" }}>
-                    {{ $item->name }}
-                </option>
-            @endforeach
-        @else
-            @foreach ($list as $key => $item)
-                <option value="{{ $key }}" {{ $item == $value ? "selected" : "" }}>
-                    {{ $item }}
-                </option>
-            @endforeach
-        @endif
-    </select>
+
+    <div class="relative">
+        <select
+            onchange="{{ $onchange }}"
+            name="{{ $name }}"
+            id="{{ $name }}"
+            class="border border-gray-400 bg-white rounded-md w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-500 appearance-none pr-8 {{ $class }}"
+            {{ $required ? "required" : "" }}
+        >
+            <option value="">{{ $default != '' ? $default : 'Selecteer een '.strtolower($label) }}</option>
+            @if ($enum)
+                @foreach ($enum::cases() as $item)
+                    <option
+                        value="{{ strtoupper($item->value) }}"
+                        {{ $item->value == $value ? "selected" : "" }}
+                    >
+                        {{ __($item->value) }}
+                    </option>
+                @endforeach
+            @else
+                @foreach ($list as $key => $item)
+                    <option value="{{ $key }}" {{ $key == $value ? "selected" : "" }}>
+                        {{ ucfirst(strtolower(__($item))) }}
+                    </option>
+                @endforeach
+            @endif
+        </select>
+    </div>
     @error($name)
-    <span class="text-red-500 text-xs italic">{{ $message }}</span>
+    <span class="text-xs italic">{{ $message }}</span>
     @enderror
 </div>
