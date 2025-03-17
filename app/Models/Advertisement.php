@@ -23,6 +23,8 @@ class Advertisement extends Model
         'type',
         'user_id',
         'expires_at',
+        'collection_date',
+        'return_date',
     ];
 
     public function user(): BelongsTo

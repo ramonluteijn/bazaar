@@ -21,6 +21,10 @@
                         <p class="text-gray-700">Price: ${{ number_format($detail->advertisement->price, 2) }}</p>
                         <p class="text-gray-700">Quantity: {{ $detail->amount }}</p>
                         <p class="text-gray-700">Total Price: ${{ number_format($detail->advertisement->price * $detail->amount, 2) }}</p>
+                        @if($detail->advertisement->type === 'hire')
+                            <p class="text-gray-700">Collection Date: {{ $detail->advertisement->collection_date }}</p>
+                            <p class="text-gray-700">Return Date: {{ $detail->advertisement->return_date }}</p>
+                        @endif
                     </div>
                 </li>
             @endforeach
