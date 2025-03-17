@@ -4,6 +4,9 @@
             <a href="{{ route('dashboard.show') }}" class="block px-4 py-3 {{ url()->current() == route('dashboard.show') ? 'text-blue-500 bg-gray-200' : 'text-gray-800' }} hover:bg-gray-100 rounded-lg transition duration-200">Dashboard</a>
         </li>
         <li>
+            <a href="{{ route('orders.index') }}" class="block px-4 py-3 text-gray-800 hover:bg-gray-100 rounded-lg transition duration-200">Orders</a>
+        </li>
+        <li>
             <a href="{{ route('wishlist.index') }}" class="block px-4 py-3 {{ url()->current() == route('wishlist.index') ? 'text-blue-500 bg-gray-200' : 'text-gray-800' }} hover:bg-gray-100 rounded-lg transition duration-200">Wishlist</a>
         </li>
         @if(Auth::user()->hasRole('owner') || Auth::user()->hasRole('admin'))
@@ -28,8 +31,6 @@
             </li>
         @endif
         {{-- Uncomment the following lines if needed --}}
-
         {{-- <li><a href="{{ route('agenda.show') }}" class="block px-4 py-3 text-gray-800 hover:bg-gray-100 rounded-lg transition duration-200">Agenda</a></li> --}}
-        {{-- <li><a href="{{ route('orders.show') }}" class="block px-4 py-3 text-gray-800 hover:bg-gray-100 rounded-lg transition duration-200">Orders</a></li> --}}
     </ul>
 </div>

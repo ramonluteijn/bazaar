@@ -55,6 +55,14 @@
                         </div>
                     </nav>
                 </ul>
+
+                @if(auth()->check())
+                <div class="ml-auto">
+                    @livewire('cart')
+                </div>
+               @endif
+
+
             </div>
         </div>
     </nav>
