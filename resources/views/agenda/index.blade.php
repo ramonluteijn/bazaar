@@ -10,9 +10,12 @@
             </div>
             <div class="w-full md:w-3/4 p-4">
                 <h1 class="text-2xl font-bold mb-4">Your Agenda</h1>
-                @if($orders->isEmpty())
-                    <p class="mb-5">No orders found.</p>
-                @else
+
+                <form method="GET" action="{{ route(Route::currentRouteName()) }}" class="mb-5" onchange="this.form.submit()">
+                     <x-forms.input-select :onchange="'this.form.submit()'" label="Agenda"  name="selectTable" :list="$tables" value="{{ request('selectTable') }}"/>
+                </form>
+
+                @if($orders)
                     <h3 class="font-bold">My orders</h3>
                     <div class="overflow-x-auto mb-5">
                         <table class="min-w-full bg-white">
@@ -44,6 +47,10 @@
                 @endif
                 @if($advertisements)
                     <h3 class="font-bold">My advertisements</h3>
+                    <form method="GET" action="{{ route(Route::currentRouteName()) }}" class="mb-5" onchange="this.form.submit()">
+                        <x-forms.input-select :onchange="'this.form.submit()'" label="type"  name="selectType" :list="$types" value="{{ request('selectType') }}"/>
+                        <input type="hidden" name="selectTable" value="{{ request('selectTable') }}">
+                    </form>
                     <div class="overflow-x-auto">
                         <table class="min-w-full bg-white">
                             <thead>
@@ -52,6 +59,10 @@
                                 <th class="py-2 px-4 border-b">Type</th>
                                 <th class="py-2 px-4 border-b">Created Date</th>
                                 <th class="py-2 px-4 border-b">Expiration Date</th>
+                                @if(request('selectType') == 'hire')
+                                    <th class="py-2 px-4 border-b">Collection Date</th>
+                                    <th class="py-2 px-4 border-b">Return Date</th>
+                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -61,6 +72,10 @@
                                     <td class="py-2 px-4 border-b">{{ $advertisement->type }}</td>
                                     <td class="py-2 px-4 border-b">{{ $advertisement->created_at }}</td>
                                     <td class="py-2 px-4 border-b">{{ $advertisement->expires_at }}</td>
+                                    @if($advertisement->type == 'hire')
+                                        <td class="py-2 px-4 border-b">{{ $advertisement->collection_date }}</td>
+                                        <td class="py-2 px-4 border-b">{{ $advertisement->return_date }}</td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>
