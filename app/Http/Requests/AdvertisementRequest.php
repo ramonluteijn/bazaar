@@ -30,6 +30,8 @@ class AdvertisementRequest extends FormRequest
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'type' => ['required', new MaxAmountOfAdvertisementsRule()],
             'expires_at' => 'date|after:today',
+            'collection_date' => 'nullable|date|after:today',
+            'return_date' => 'nullable|date|after:collection_date',
         ];
     }
 
@@ -54,6 +56,10 @@ class AdvertisementRequest extends FormRequest
             'type.required' => 'Type is required',
             'expires_at.date' => 'Expires at must be a date',
             'expires_at.after' => 'Expires at must be after today',
+            'collection_date.date' => 'Collection date must be a date',
+            'collection_date.after' => 'Collection date must be after today',
+            'return_date.date' => 'Return date must be a date',
+            'return_date.after' => 'Return date must be after collection date',
         ];
     }
 }
