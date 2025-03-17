@@ -59,7 +59,7 @@
                                 <th class="py-2 px-4 border-b">Type</th>
                                 <th class="py-2 px-4 border-b">Created Date</th>
                                 <th class="py-2 px-4 border-b">Expiration Date</th>
-                                @if(request('selectType') == 'hire')
+                                @if(request('selectType') == 'hire' || request('selectType') == '')
                                     <th class="py-2 px-4 border-b">Collection Date</th>
                                     <th class="py-2 px-4 border-b">Return Date</th>
                                 @endif
@@ -72,7 +72,7 @@
                                     <td class="py-2 px-4 border-b">{{ $advertisement->type }}</td>
                                     <td class="py-2 px-4 border-b">{{ $advertisement->created_at }}</td>
                                     <td class="py-2 px-4 border-b">{{ $advertisement->expires_at }}</td>
-                                    @if($advertisement->type == 'hire')
+                                    @if($advertisement->type == 'hire' || request('selectType') == '')
                                         <td class="py-2 px-4 border-b">{{ $advertisement->collection_date }}</td>
                                         <td class="py-2 px-4 border-b">{{ $advertisement->return_date }}</td>
                                     @endif

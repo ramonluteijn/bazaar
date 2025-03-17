@@ -31,7 +31,7 @@
         @endif
         @if(Auth::user()->hasRole('business_advertiser') || Auth::user()->hasRole('admin') || Auth::user()->hasRole('owner'))
             <li>
-                <a href="{{ route('pages.index') }}" class="block px-4 py-3 {{ url()->current() == route('pages.index') ? 'text-blue-500 bg-gray-200' : 'text-gray-800' }} hover:bg-gray-100 rounded-lg transition duration-200">Custom page</a>
+                <a href="{{ route('pages.show') }}" class="block px-4 py-3 {{ url()->current() == route('pages.show') ? 'text-blue-500 bg-gray-200' : 'text-gray-800' }} hover:bg-gray-100 rounded-lg transition duration-200">Custom page</a>
             </li>
         @endif
         {{-- Uncomment the following lines if needed --}}

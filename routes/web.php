@@ -81,7 +81,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function () {
     });
 
     Route::prefix('/pages')->group(function () {
-        Route::get('/', [PageController::class, 'index'])->name('pages.index');
+        Route::get('/show', [PageController::class, 'show'])->name('pages.show');
         Route::post('/store', [PageController::class, 'store'])->name('pages.store');
         Route::put('/{id}', [PageController::class, 'store'])->name('pages.update');
     });
@@ -106,7 +106,11 @@ Route::group(['middleware' => 'web'], function () {
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/advertisement/{id}', [AdvertisementController::class, 'showFromId'])->name('advertisement.read-from-id');
-Route::get('/pages/{parent?}/{child?}/{grandchild?}', [PageController::class, 'show'])->name('pages.show');
+
+Route::group(['prefix' => 'pages'], function () {
+    Route::get('/', [PageController::class, 'index'])->name('pages.index');
+    Route::get('/{parent?}/{child?}/{grandchild?}', [PageController::class, 'showFromUrl'])->name('pages.read-from-url');
+});
 
 Route::group(['prefix' => 'return'], function () {
     Route::get('/show', [ReturnController::class, 'show'])->name('return.show');
