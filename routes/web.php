@@ -3,10 +3,12 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\BasketController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\ReturnController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShopController;
 use App\View\Components\Header;
 use App\Http\Controllers\PageController;
@@ -35,6 +37,19 @@ Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function () {
         Route::get('/',[WishlistController::class,'index'])->name('wishlist.index');
         Route::delete('/delete/{advertisement}', [WishlistController::class, 'delete'])->name('wishlist.delete');
     });
+
+    Route::prefix('/orders')->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('orders.index');
+        Route::get('/{id}', [OrderController::class, 'show'])->name('orders.show');
+        Route::post('/store', [OrderController::class, 'store'])->name('orders.store');
+
+    });
+    Route::prefix('/basket')->group(function () {
+        Route::get('/show', [BasketController::class, 'show'])->name('basket.show');
+        Route::put('/update/{id}', [BasketController::class, 'update'])->name('basket.update');
+        Route::get('/checkout', [BasketController::class, 'checkout'])->name('basket.checkout');
+    });
+
 
     Route::prefix('/advertisements')->group(function () {
         Route::get('/', [AdvertisementController::class, 'index'])->name('advertisements.index');
