@@ -21,6 +21,11 @@
                             <span>Return</span>
                         </a>
                     </li>
+                    <li class="flex justify-center">
+                        <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('pages.index')}}">
+                            <span>Pages</span>
+                        </a>
+                    </li>
                     @if(auth()->check())
                         <li class="flex justify-center">
                             <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('dashboard.show')}}">
