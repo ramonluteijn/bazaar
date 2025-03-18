@@ -3,21 +3,9 @@
 @section('title', __('Shop'))
 
 @section('content')
-{{--    @livewire('shop',['advertisements' => $advertisements, 'advertisers' => $advertisers])--}}
     <div>
         <x-blocks.hero />
         <div class="container mx-auto px-4 py-8">
-{{--            <div class="col-6 p-0">--}}
-{{--                <div class="float-end d-flex sorting gap-3">--}}
-{{--                    <select class="form-select shadow-none">--}}
-{{--                        <option value="newest">New to old</option>--}}
-{{--                        <option value="oldest">Old to New</option>--}}
-{{--                        <option value="highlow">High to low</option>--}}
-{{--                        <option value="lowhigh">Low to high</option>--}}
-{{--                    </select>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
             <form method="GET" action="{{ route(Route::currentRouteName()) }}" class="mb-5" onchange="this.form.submit()">
                 <x-forms.input-select :onchange="'this.form.submit()'" label="{{__('Sorting')}}" name="selectSorting" :list="$types" value="{{ request('selectSorting') }}"/>
             </form>
