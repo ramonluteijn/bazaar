@@ -83,4 +83,18 @@ class AdvertisementService
     {
         return Advertisement::query()->where('user_id', auth()->id())->where('type', $type)->paginate(10, ['*'], 'adsPage');
     }
+
+    public function getSortedAdvertisements($type)
+    {
+        switch ($type) {
+            case 'newest':
+                return Advertisement::where('expires_at', '>', now())->orderBy('created_at', 'desc')->paginate(1);
+            case 'oldest':
+                return Advertisement::where('expires_at', '>', now())->orderBy('created_at', 'asc')->paginate(1);
+            case 'highest':
+                return Advertisement::where('expires_at', '>', now())->orderBy('price', 'desc')->paginate(1);
+            case 'lowest':
+                return Advertisement::where('expires_at', '>', now())->orderBy('price', 'asc')->paginate(1);
+        }
+    }
 }
