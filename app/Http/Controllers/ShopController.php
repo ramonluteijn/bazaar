@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ShopController
 {
     private AdvertisementService $advertisementService;
-    private $types = ['newest' => 'New to old', 'oldest' => 'Old to New', 'highest' => 'High to low', 'lowest' => 'Low to high'];
+    private $types = ['newest' => 'New to old', 'oldest' => 'Old to new', 'highest' => 'High to low', 'lowest' => 'Low to high'];
 
     public function __construct(AdvertisementService $advertisementService)
     {

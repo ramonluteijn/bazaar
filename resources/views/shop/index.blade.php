@@ -7,7 +7,7 @@
         <x-blocks.hero />
         <div class="container mx-auto px-4 py-8">
             <form method="GET" action="{{ route(Route::currentRouteName()) }}" class="mb-5" onchange="this.form.submit()">
-                <x-forms.input-select :onchange="'this.form.submit()'" label="{{__('Sorting')}}" name="selectSorting" :list="$types" value="{{ request('selectSorting') }}"/>
+                <x-forms.input-select :onchange="'this.form.submit()'" label="{{__('sorting')}}" name="selectSorting" :list="$types" value="{{ request('selectSorting') }}"/>
             </form>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
