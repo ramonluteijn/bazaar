@@ -12,7 +12,7 @@
             <x-forms.input-field name="delivery_address" label="{{__('delivery address')}}" :required="true" />
             <x-forms.input-field name="phone" label="{{__('phone')}}" :required="true" />
             <x-forms.input-field name="email" label="{{__('email')}}" type="email" :required="true" />
-            <x-forms.input-field name="zip" label="{{__('zip')}}":required="true" />
+            <x-forms.input-field name="zip" label="{{__('zip')}}" :required="true" />
             <x-forms.input-field name="city" label="{{__('city')}}" :required="true" />
             <x-forms.input-field name="state" label="{{__('state')}}" :required="true" />
             <x-forms.input-field name="country" label="{{__('country')}}" :required="true" />

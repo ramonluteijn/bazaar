@@ -43,14 +43,16 @@
             </div>
         </div>
 
-        <div class="mt-6 text-center">
-            <h2 class="text-2xl font-bold mb-4">{{__('Related Advertisements')}}</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach($relatedAdvertisements as $relatedAdvertisement)
-                    @livewire('shop-item', ['advertisement' => $relatedAdvertisement], key('advertisement-'.$relatedAdvertisement->id))
-                @endforeach
+        @if($relatedAdvertisements->count() >0 )
+            <div class="mt-6 text-center">
+                <h2 class="text-2xl font-bold mb-4">{{__('Related Advertisements')}}</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    @foreach($relatedAdvertisements as $relatedAdvertisement)
+                        @livewire('shop-item', ['advertisement' => $relatedAdvertisement], key('advertisement-'.$relatedAdvertisement->id))
+                    @endforeach
+                </div>
             </div>
-        </div>
+        @endif
 
         <x-reviews.reviews :reviews="$reviews"/>
         <x-reviews.review-form :advertisement_id="$advertisement->id"/>
