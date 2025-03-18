@@ -37,19 +37,19 @@ class ReturnRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Name is required',
-            'name.string' => 'Name must be a string',
-            'name.max' => 'Name must not be greater than 255 characters',
-            'email.required' => 'Email is required',
-            'email.email' => 'Email must be a valid email address',
-            'email.max' => 'Email must not be greater than 255 characters',
-            'title.string' => 'Title must be a string',
-            'title.max' => 'Title must not be greater than 255 characters',
-            'title.required' => 'Title is required',
-            'image.required' => 'Image is required',
-            'image.image' => 'Image must be an image',
-            'image.mimes' => 'Image must be a file of type: jpeg, png, jpg, gif, svg',
-            'image.max' => 'Image must not be greater than 2048 kilobytes',
+            'name.required' => __('Name is required'),
+            'name.string' => __('Name must be a string'),
+            'name.max' => __('Name must not be greater than 255 characters'),
+            'email.required' => __('Email is required'),
+            'email.email' => __('Email must be a valid email address'),
+            'email.max' => __('Email must not be greater than 255 characters'),
+            'title.string' => __('Title must be a string'),
+            'title.max' => __('Title must not be greater than 255 characters'),
+            'title.required' => __('Title is required'),
+            'image.required' => __('Image is required'),
+            'image.image' => __('Image must be an image'),
+            'image.mimes' => __('Image must be a file of type: jpeg, png, jpg, gif, svg'),
+            'image.max' => __('Image must not be greater than 2048 kilobytes'),
         ];
     }
 }

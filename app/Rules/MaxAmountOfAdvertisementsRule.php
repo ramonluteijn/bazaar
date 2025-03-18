@@ -31,7 +31,7 @@ class MaxAmountOfAdvertisementsRule implements ValidationRule
             ->count();
 
         if ($advertisementCount >= $this->maxAmountOfAdvertisements) {
-            $fail("You can't have more than {$this->maxAmountOfAdvertisements} advertisements of type {$type}.");
+            $fail(__("You can't have more than (amount) advertisements of type (type).", ["amount" => $this->maxAmountOfAdvertisements, "type" => $type]));
         }
     }
 }

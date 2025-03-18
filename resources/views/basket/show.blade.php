@@ -1,10 +1,10 @@
 ﻿@extends('layouts.layout')
 
-@section('title', 'Your Basket')
+@section('title', __('Your Basket'))
 
 @section('content')
     <div class="container mx-auto p-4 min-h-[calc(100vh-50px-75px)]">
-        <h1 class="text-2xl font-bold mb-4">Your Basket</h1>
+        <h1 class="text-2xl font-bold mb-4">{{__('Your Basket')}}</h1>
         <ul class="space-y-4">
             @php
                 $totalAmount = 0;
@@ -18,9 +18,9 @@
                     <div class="w-3/4">
                         <h2 class="text-xl font-bold">{{ $item['advertisement']->title }}</h2>
                         <p class="text-gray-700">{{ $item['advertisement']->description }}</p>
-                        <p class="text-gray-700">Price: ${{ $item['advertisement']->price }}</p>
-                        <p class="text-gray-700">Quantity: {{ $item['count'] }}</p>
-                        <p class="text-gray-700">Total: ${{ $item['advertisement']->price * $item['count'] }}</p>
+                        <p class="text-gray-700">{{__('Price')}}: ${{ $item['advertisement']->price }}</p>
+                        <p class="text-gray-700">{{__('Quantity')}}: {{ $item['count'] }}</p>
+                        <p class="text-gray-700">{{__('Total')}}: ${{ $item['advertisement']->price * $item['count'] }}</p>
                         <div class="flex space-x-2 mt-2">
                             <form action="{{ route('basket.update', $item['advertisement']->id) }}" method="POST">
                                 @csrf
@@ -38,7 +38,7 @@
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" name="action" value="delete">
-                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">Delete</button>
+                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">{{__('Delete')}}</button>
                             </form>
                         </div>
                     </div>
@@ -46,9 +46,9 @@
             @endforeach
         </ul>
         <div class="mt-4">
-            <h2 class="text-xl font-bold">Total Amount: ${{ $totalAmount }}</h2>
+            <h2 class="text-xl font-bold">{{__('Total Amount')}}: ${{ $totalAmount }}</h2>
             <form action="{{ route('basket.checkout') }}" method="GET">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">Checkout</button>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">{{__('Checkout')}}</button>
             </form>
         </div>
     </div>

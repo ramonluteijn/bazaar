@@ -31,7 +31,7 @@ class OrderRequest extends FormRequest
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
             'country' => 'required|string|max:255',
-            'comment' => 'nullable|string|max:65535',
+            'comment' => 'nullable|max:65535',
         ];
     }
 
@@ -43,27 +43,26 @@ class OrderRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'A name is required',
-            'address.required' => 'An address is required',
-            'delivery_address.required' => 'A delivery address is required',
-            'phone.required' => 'A phone number is required',
-            'email.required' => 'An email is required',
-            'zip.required' => 'A zip code is required',
-            'city.required' => 'A city is required',
-            'state.required' => 'A state is required',
-            'country.required' => 'A country is required',
-            'total.required' => 'A total amount is required',
-            'status.required' => 'A status is required',
-            'name.string' => 'Name must be a string',
-            'address.string' => 'Address must be a string',
-            'delivery_address.string' => 'Delivery address must be a string',
-            'phone.string' => 'Phone number must be a string',
-            'email.email' => 'Email must be a valid email address',
-            'zip.string' => 'Zip code must be a string',
-            'city.string' => 'City must be a string',
-            'state.string' => 'State must be a string',
-            'country.string' => 'Country must be a string',
-            'comment.string' => 'Comment must be a string',
+            'name.required' => __('A name is required'),
+            'address.required' => __('An address is required'),
+            'delivery_address.required' => __('A delivery address is required'),
+            'phone.required' => __('A phone number is required'),
+            'email.required' => __('An email is required'),
+            'zip.required' => __('A zip code is required'),
+            'city.required' => __('A city is required'),
+            'state.required' => __('A state is required'),
+            'country.required' => __('A country is required'),
+            'total.required' => __('A total amount is required'),
+            'status.required' => __('A status is required'),
+            'name.string' => __('Name must be a string'),
+            'address.string' => __('Address must be a string'),
+            'delivery_address.string' => __('Delivery address must be a string'),
+            'phone.string' => __('Phone number must be a string'),
+            'email.email' => __('Email must be a valid email address'),
+            'zip.string' => __('Zip code must be a string'),
+            'city.string' => __('City must be a string'),
+            'state.string' => __('State must be a string'),
+            'country.string' => __('Country must be a string'),
         ];
     }
 }

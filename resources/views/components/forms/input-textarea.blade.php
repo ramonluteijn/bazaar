@@ -1,7 +1,7 @@
-@props(["name","required" => false,"class" => ""])
+@props(["name","required" => false,"class" => "", "label" => ""])
 <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ $name }}">
-        {{ \Illuminate\Support\Str::of($name)->kebab()->replace("_", " ")->ucfirst() }}
+        {{ \Illuminate\Support\Str::of($label)->kebab()->replace("_", " ")->ucfirst() }}
         @if ($required)
             <span class="text-red-500">*</span>
         @endif
