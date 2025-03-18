@@ -22,10 +22,10 @@
                             <form method="POST" action="{{ route('contracts.store') }}" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                                 @csrf
                                 @endif
-                                <x-forms.input-field type="text" name="title" label="{{__('title')}}" :required="true" value="{{ $contract->title ?? '' }}"/>
-                                <x-forms.input-textarea name="description" label="{{__('description')}}" :required="true" :class="'min-h-[100px] max-h-[300px]'">{{ $contract->description ?? '' }}</x-forms.input-textarea>
-                                <x-forms.input-select name="status" label="{{__('status')}}" :required="true" :list="$types" value="{{ $contract->status ?? '' }}"/>
-                                <x-forms.input-field type="date" name="signed_at" label="{{__('signed at')}}" :required="true" value="{{ $contract->signed_at ?? '' }}"/>
+                                <x-forms.input-field type="text" name="title" label="{{__('title')}}" :required="true" value="{{ old('title',$contract->title ?? '' )}}"/>
+                                <x-forms.input-textarea name="description" label="{{__('description')}}" :required="true" :class="'min-h-[100px] max-h-[300px]'">{{ old('description',$contract->description ?? '' )}}</x-forms.input-textarea>
+                                <x-forms.input-select name="status" label="{{__('status')}}" :required="true" :list="$types" value="{{ old('status',$contract->status ?? '' )}}"/>
+                                <x-forms.input-field type="date" name="signed_at" label="{{__('signed at')}}" :required="true" value="{{ old('signed_at',$contract->signed_at ?? '' )}}"/>
                                 <x-forms.input-file name="contract" label="{{__('contract')}}" :required="(isset($contract) ? false : true)" value="{{ $contract->contract ?? '' }}"/>
                                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">{{ isset($contract) ? __('Update contract') : __('Add contract') }}</button>
                             </form>

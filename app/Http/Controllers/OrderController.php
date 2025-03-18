@@ -25,17 +25,13 @@ class OrderController
         }
         else {
             if($request->has('selectType') && $request->selectType == 'incoming') {
-                $orders = Order::whereHas('orderDetails.advertisement', function ($query) {
-                    $query->where('user_id', auth()->id());
-                })->paginate(10);
+                $orders = $this->orderService->getIncomingOrders();
             }
             elseif($request->has('selectType') && $request->selectType == 'outgoing') {
-                $orders = Order::where('user_id', auth()->id())->paginate(10);
+                $orders = $this->orderService->getOutgoingOrders();
             }
             else {
-                $orders = Order::whereHas('orderDetails.advertisement', function ($query) {
-                    $query->where('user_id', auth()->id());
-                })->orWhere('user_id', auth()->id())->paginate(10);
+                $orders = $this->orderService->getOwnOrders();
             }
         }
         return view('order.index', ['orders' => $orders, 'types' => $this->types]);
