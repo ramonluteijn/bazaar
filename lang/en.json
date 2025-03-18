@@ -106,6 +106,10 @@
     "Delete setting": "Delete setting",
     "Outgoing": "Outgoing",
     "Incoming": "Incoming",
+    "hero": "Hero",
+    "text": "Text",
+    "cta" : "Call to action",
+    "quote": "Quote",
 
     "Select a (label)": "Select a :label",
     "title": "title",

@@ -52,7 +52,7 @@ class PageService
 
     public function getCustomPageWithBlocks($id)
     {
-        return ContentPage::with('blocks')->find($id);
+        return ContentPage::with('blocks')->where('user_id', $id)->first();
     }
 
     public function getGoogleFonts()

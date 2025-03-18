@@ -17,22 +17,22 @@
                         @method('PUT')
                     @endif
                     <div class="mb-4">
-                        <x-forms.input-field type="text" :name="'title'" label="{{__('title')}}" :value="$page->title ?? ''"/>
-                        <x-forms.input-field type="text" :name="'url'" label="{{__('url')}}" :value="$page->url ?? ''"/>
+                        <x-forms.input-field type="text" :name="'title'" label="{{__('title')}}" :required="true" :value="old('title',$page->title ?? '')"/>
+                        <x-forms.input-field type="text" :name="'url'" label="{{__('url')}}" :required="true" :value="old('url',$page->url ?? '')"/>
                         @if(isset($page))
                             <a href="{{route('pages.read-from-url', $page->url)}}" target="_blank" class="text-blue-500 mb-4 inline-block">{{__('View Page')}}</a>
                         @endif
-                        <x-forms.input-select :name="'header_font'" label="{{__('header font')}}" :list="$fonts" :value="$page->header_font ?? ''"/>
-                        <x-forms.input-select :name="'body_font'" label="{{__('body font')}}" :list="$fonts" label="body font" :value="$page->body_font ?? ''"/>
-                        <x-forms.input-field type="color" :name="'primary_color'" label="{{__('primary color')}}" :value="$page->primary_color ?? ''" class="py-0 px-0"/>
-                        <x-forms.input-field type="color" :name="'secondary_color'" label="{{__('secondary color')}}" :value="$page->secondary_color ?? ''" class="py-0 px-0"/>
+                        <x-forms.input-select :name="'header_font'" label="{{__('header font')}}" :list="$fonts" :value="old('header_font',$page->header_font ?? '')"/>
+                        <x-forms.input-select :name="'body_font'" label="{{__('body font')}}" :list="$fonts" label="body font" :value="old('body_font',$page->body_font ?? '')"/>
+                        <x-forms.input-field type="color" :name="'primary_color'" label="{{__('primary color')}}" :value="old('primary_color',$page->primary_color ?? '')" class="py-0 px-0"/>
+                        <x-forms.input-field type="color" :name="'secondary_color'" label="{{__('secondary color')}}" :value="old('secondary_color',$page->secondary_color ?? '')" class="py-0 px-0"/>
                     </div>
 
                     <div class="mt-12">
                         <h1 class="text-2xl font-bold mb-4">{{isset($page) ? __('Blocks') : __('Please create a page first to gain access to the blocks')}}</h1>
                         @if(isset($page->blocks))
                             @foreach($page->blocks as $block)
-                                <x-forms.input-switch name="{{$block->type}}" checked="{{$block->active}}" />
+                                <x-forms.input-switch name="{{$block->type}}" label="{{__($block->type)}}" checked="{{$block->active}}" />
                                 <div class="block-fields" data-block-type="{{$block->type}}" style="display: none;">
                                     <x-forms.input-field type="text" name="{{$block->type}}_title" label="{{__('title')}}" value="{{$block->title}}" />
                                     <x-forms.input-textarea name="{{$block->type}}_text" label="{{__('description')}}" class="mb-4">{{$block->text}}</x-forms.input-textarea>

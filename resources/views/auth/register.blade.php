@@ -11,7 +11,7 @@
                 <x-forms.input-field type="email" name="email" label="{{__('email')}}" :required="true" value="{{old('email')}}"/>
                 <x-forms.input-field type="password" name="password" label="{{__('password')}}" :required="true"/>
                 <x-forms.input-field type="password" name="password_confirmation" label="{{__('password confirmation')}}" :required="true"/>
-                <x-forms.input-select name="role" :list="['user' => 'User', 'private_advertiser' => 'Private advertiser', 'business_advertiser' => 'Business advertiser']" label="{{__('role')}}" value="{{old('role')}}" :required="true"/>
+                <x-forms.input-select name="role" :list="$roles" label="{{__('role')}}" value="{{old('role')}}" :required="true"/>
                 <div class="flex items-center justify-between">
                     <a href="{{route('login.show')}}" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">{{__('Login here')}}</a>
                     <input type="submit" value="{{__('Register')}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">

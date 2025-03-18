@@ -108,6 +108,10 @@
     "Incoming": "Inkomend",
     "outgoing": "Uitgaand",
     "incoming": "Inkomend",
+    "hero": "Hero",
+    "text": "Tekst",
+    "cta" : "Call to action",
+    "quote": "Quote",
 
     "Select a (label)": "Selecteer een :label",
     "title": "titel",

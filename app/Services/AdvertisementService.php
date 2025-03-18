@@ -73,4 +73,14 @@ class AdvertisementService
             $q->where("name", "private_advertiser")->orWhere("name", "business_advertiser");
         })->get();
     }
+
+    public function getOwnAdvertisements()
+    {
+        return Advertisement::query()->where('user_id', auth()->id())->paginate(10, ['*'], 'adsPage');
+    }
+
+    public function getOwnAdvertisementsByType($type)
+    {
+        return Advertisement::query()->where('user_id', auth()->id())->where('type', $type)->paginate(10, ['*'], 'adsPage');
+    }
 }
