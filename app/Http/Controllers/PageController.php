@@ -17,21 +17,28 @@ class PageController
     {
         $this->pageService = $pageService;
     }
+
     public function index(): View
+    {
+        $pages = ContentPage::with('user')->select(['title', 'url', 'user_id'])->get();
+        return view('pages.index', ['pages' => $pages]);
+    }
+
+    public function show(): View
     {
         $user = Auth::user();
         $fonts = collect($this->pageService->getGoogleFonts())->pluck('family', 'family');
         $page = $this->pageService->getCustomPageWithBlocks($user->id);
-        return view('pages.index', ['page' => $page, 'fonts' => $fonts]);
+        return view('pages.show', ['page' => $page, 'fonts' => $fonts]);
     }
 
     public function store(PageRequest $request): RedirectResponse
     {
         $this->pageService->saveCustomPage($request);
-        return to_route('pages.index');
+        return to_route('pages.show');
     }
 
-    public function show($parent = null, $child = null, $grandchild = null): RedirectResponse|View
+    public function showFromUrl($parent = null, $child = null, $grandchild = null): RedirectResponse|View
     {
         $url = request()->path();
         preg_match('/pages\/(.*)/', $url, $url);
@@ -42,6 +49,6 @@ class PageController
 
         $advertisements = Advertisement::where('user_id', $pages->user_id)->get();
 
-        return view('pages.show', ['pages' => $pages, 'advertisements' => $advertisements]);
+        return view('pages.show-from-url', ['pages' => $pages, 'advertisements' => $advertisements]);
     }
 }

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 class AuthController
 {
     private ContractService $contractService;
+    private array $roles = ['user' => 'User', 'private_advertiser' => 'Private advertiser', 'business_advertiser' => 'Business advertiser'];
     public function __construct(ContractService $contractService)
     {
         $this->contractService = $contractService;
@@ -26,7 +27,7 @@ class AuthController
 
     public function showRegisterForm(): View
     {
-        return view('auth.register');
+        return view('auth.register', ['roles' => $this->roles]);
     }
 
     public function logout(): RedirectResponse
@@ -44,7 +45,7 @@ class AuthController
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => __('The provided credentials do not match our records.'),
         ])->withInput();
     }
 

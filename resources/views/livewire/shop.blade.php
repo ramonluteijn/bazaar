@@ -14,7 +14,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             @if($advertisements->isEmpty())
-                <p>No advertisements found.</p>
+                <p>{{__('No advertisements found.')}}</p>
             @else
                 @foreach($advertisements as $advertisement)
                     @livewire('shop-item', ['advertisement' => $advertisement], key('advertisement-'.$advertisement->id))

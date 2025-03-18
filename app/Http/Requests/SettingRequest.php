@@ -36,12 +36,12 @@ class SettingRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Name is required',
-            'name.string' => 'Name must be a string',
-            'name.max' => 'Name must not be greater than 255 characters',
-            'percentage.required' => 'Percentage is required',
-            'percentage.numeric' => 'Percentage must be a number',
-            'percentage.between' => 'Percentage must be between 0 and 100'
+            'name.required' => __('Name is required'),
+            'name.string' => __('Name must be a string'),
+            'name.max' => __('Name must not be greater than 255 characters'),
+            'percentage.required' => __('Percentage is required'),
+            'percentage.numeric' => __('Percentage must be a number'),
+            'percentage.between' => __('Percentage must be between 0 and 100')
         ];
     }
 }

@@ -41,14 +41,14 @@ class PageRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => 'The title is required.',
-            'url.required' => 'The URL is required.',
-            'url.regex' => 'The URL must not contain spaces.',
-            'url.unique' => 'The URL is already in use.',
-            'header_font.nullable' => 'The header font must be a valid font.',
-            'body_font.nullable' => 'The body font must be a valid font.',
-            'primary_color.nullable' => 'The primary color must be a valid hex color.',
-            'secondary_color.nullable' => 'The secondary color must be a valid hex color.',
+            'title.required' => __('The title is required.'),
+            'url.required' => __('The URL is required.'),
+            'url.regex' => __('The URL must not contain spaces.'),
+            'url.unique' => __('The URL is already in use.'),
+            'header_font.nullable' => __('The header font must be a valid font.'),
+            'body_font.nullable' => __('The body font must be a valid font.'),
+            'primary_color.nullable' => __('The primary color must be a valid hex color.'),
+            'secondary_color.nullable' => __('The secondary color must be a valid hex color.'),
         ];
     }
 }
