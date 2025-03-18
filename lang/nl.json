@@ -104,6 +104,10 @@
     "Update setting": "Instelling aanpassen",
     "Add setting": "Instelling toevoegen",
     "Delete setting": "Instelling verwijderen",
+    "Outgoing": "Uitgaand",
+    "Incoming": "Inkomend",
+    "outgoing": "Uitgaand",
+    "incoming": "Inkomend",
 
     "Select a (label)": "Selecteer een :label",
     "title": "titel",
