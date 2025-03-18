@@ -37,21 +37,21 @@ class UserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Name is required',
-            'name.string' => 'Name must be a string',
-            'name.max' => 'Name is too long',
-            'email.required' => 'Email is required',
-            'email.string' => 'Email must be a string',
-            'email.email' => 'Email must be a valid email',
-            'email.max' => 'Email is too long',
-            'email.unique' => 'Email is already taken',
-            'password.required' => 'Password is required',
-            'password.string' => 'Password must be a string',
-            'password.min' => 'Password must be at least 8 characters',
-            'password.confirmed' => 'Passwords do not match',
-            'role.required' => 'Role is required',
-            'role.string' => 'Role must be a string',
-            'role.in' => 'Role must be user, business_advertiser, or private_advertiser',
+            'name.required' => __('Name is required'),
+            'name.string' => __('Name must be a string'),
+            'name.max' => __('Name is too long'),
+            'email.required' => __('Email is required'),
+            'email.string' => __('Email must be a string'),
+            'email.email' => __('Email must be a valid email'),
+            'email.max' => __('Email is too long'),
+            'email.unique' => __('Email is already taken'),
+            'password.required' => __('Password is required'),
+            'password.string' => __('Password must be a string'),
+            'password.min' => __('Password must be at least 8 characters'),
+            'password.confirmed' => __('Passwords do not match'),
+            'role.required' => __('Role is required'),
+            'role.string' => __('Role must be a string'),
+            'role.in' => __('Role must be user, business_advertiser, or private_advertiser'),
         ];
     }
 }

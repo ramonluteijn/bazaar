@@ -28,11 +28,6 @@ class OrderController
         return view('order.show', ['order' => $order]);
     }
 
-    public function createOrder()
-    {
-        return view('account.order');
-    }
-
     public function store(OrderRequest $request)
     {
         $this->orderService->storeOrder($request);

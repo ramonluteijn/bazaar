@@ -1,6 +1,6 @@
 ﻿@extends('layouts.layout')
 
-@section('title', 'Wishlist')
+@section('title', __('Wishlist'))
 
 @section('content')
     <div class="container mx-auto p-4 min-h-[calc(100vh-50px-75px)]">
@@ -9,7 +9,7 @@
                 <x-profile-menu/>
             </div>
             <div class="w-full md:w-3/4 p-4">
-                <h1 class="text-3xl font-bold mb-4">Wishlist</h1>
+                <h1 class="text-3xl font-bold mb-4">{{__('Wishlist')}}</h1>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
                     @foreach($wishlist as $advertisement)

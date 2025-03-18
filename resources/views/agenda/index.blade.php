@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Agenda')
+@section('title', __('Agenda'))
 
 @section('content')
     <div class="container mx-auto p-4 min-h-[calc(100vh-50px-75px)]">
@@ -9,23 +9,23 @@
                 <x-profile-menu />
             </div>
             <div class="w-full md:w-3/4 p-4">
-                <h1 class="text-2xl font-bold mb-4">Your Agenda</h1>
+                <h1 class="text-2xl font-bold mb-4">{{__('Your Agenda')}}</h1>
 
                 <form method="GET" action="{{ route(Route::currentRouteName()) }}" class="mb-5" onchange="this.form.submit()">
-                     <x-forms.input-select :onchange="'this.form.submit()'" label="Agenda"  name="selectTable" :list="$tables" value="{{ request('selectTable') }}"/>
+                     <x-forms.input-select :onchange="'this.form.submit()'" label="{{__('Agenda')}}" name="selectTable" :list="$tables" value="{{ request('selectTable') }}"/>
                 </form>
 
                 @if($orders)
-                    <h3 class="font-bold">My orders</h3>
+                    <h3 class="font-bold">{{__('My orders')}}</h3>
                     <div class="overflow-x-auto mb-5">
                         <table class="min-w-full bg-white">
                             <thead>
                             <tr class="text-left">
-                                <th class="py-2 px-4 border-b">Order ID</th>
-                                <th class="py-2 px-4 border-b">Advertisement Title</th>
-                                <th class="py-2 px-4 border-b">Order Date</th>
-                                <th class="py-2 px-4 border-b">Collection Date</th>
-                                <th class="py-2 px-4 border-b">Return Date</th>
+                                <th class="py-2 px-4 border-b">{{__('Order ID')}}</th>
+                                <th class="py-2 px-4 border-b">{{__('Advertisement Title')}}</th>
+                                <th class="py-2 px-4 border-b">{{__('Order Date')}}</th>
+                                <th class="py-2 px-4 border-b">{{__('Collection Date')}}</th>
+                                <th class="py-2 px-4 border-b">{{__('Return Date')}}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -46,22 +46,22 @@
                     </div>
                 @endif
                 @if($advertisements)
-                    <h3 class="font-bold">My advertisements</h3>
+                    <h3 class="font-bold">{{__('My advertisements')}}</h3>
                     <form method="GET" action="{{ route(Route::currentRouteName()) }}" class="mb-5" onchange="this.form.submit()">
-                        <x-forms.input-select :onchange="'this.form.submit()'" label="type"  name="selectType" :list="$types" value="{{ request('selectType') }}"/>
+                        <x-forms.input-select :onchange="'this.form.submit()'" label="{{__('type')}}"  name="selectType" :list="$types" value="{{ request('selectType') }}"/>
                         <input type="hidden" name="selectTable" value="{{ request('selectTable') }}">
                     </form>
                     <div class="overflow-x-auto">
                         <table class="min-w-full bg-white">
                             <thead>
                             <tr class="text-left">
-                                <th class="py-2 px-4 border-b">Advertisement Title</th>
-                                <th class="py-2 px-4 border-b">Type</th>
-                                <th class="py-2 px-4 border-b">Created Date</th>
-                                <th class="py-2 px-4 border-b">Expiration Date</th>
+                                <th class="py-2 px-4 border-b">{{__('Advertisement Title')}}</th>
+                                <th class="py-2 px-4 border-b">{{__('Type')}}</th>
+                                <th class="py-2 px-4 border-b">{{__('Created Date')}}</th>
+                                <th class="py-2 px-4 border-b">{{__('Expiration Date')}}</th>
                                 @if(request('selectType') == 'hire' || request('selectType') == '')
-                                    <th class="py-2 px-4 border-b">Collection Date</th>
-                                    <th class="py-2 px-4 border-b">Return Date</th>
+                                    <th class="py-2 px-4 border-b">{{__('Collection Date')}}</th>
+                                    <th class="py-2 px-4 border-b">{{__('Return Date')}}</th>
                                 @endif
                             </tr>
                             </thead>

@@ -15,7 +15,7 @@ class UrlCreation implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if(substr_count(request()->input('url'), '/') > 2){
-            $fail('The URL can only have 2 slashes.');
+            $fail(__('The URL can only have 2 slashes.'));
         }
     }
 }
