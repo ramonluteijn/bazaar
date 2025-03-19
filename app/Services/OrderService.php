@@ -38,6 +38,32 @@ class OrderService
             ];
             OrderDetail::create($orderDetailData);
         }
+    }
 
+    public function getHiredOrders()
+    {
+        $orders = Order::query()->whereHas('orderDetails.advertisement', function ($query) {
+            $query->where('type', 'hire');
+        })->where('user_id', auth()->id())->with('orderDetails.advertisement')->paginate(10, ['*'], 'ordersPage');
+        return $orders;
+    }
+
+    public function getIncomingOrders()
+    {
+        return Order::whereHas('orderDetails.advertisement', function ($query) {
+            $query->where('user_id', auth()->id());
+        })->paginate(10);
+    }
+
+    public function getOutgoingOrders()
+    {
+        return  Order::where('user_id', auth()->id())->paginate(10);
+    }
+
+    public function getOwnOrders()
+    {
+        return Order::whereHas('orderDetails.advertisement', function ($query) {
+            $query->where('user_id', auth()->id());
+        })->orWhere('user_id', auth()->id())->paginate(10);
     }
 }

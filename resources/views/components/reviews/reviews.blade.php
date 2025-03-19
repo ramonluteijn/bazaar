@@ -2,7 +2,7 @@
 
 <div class="mt-6">
     @if($reviews->count() > 0)
-        <h2 class="text-2xl font-bold mb-4">Reviews</h2>
+        <h2 class="text-2xl font-bold mb-4">{{__('Reviews')}}</h2>
     @endif
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach($reviews as $review)

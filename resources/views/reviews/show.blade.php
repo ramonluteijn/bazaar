@@ -1,6 +1,6 @@
 ﻿@extends('layouts.layout')
 
-@section('title', 'Review')
+@section('title', __('Review'))
 
 @section('content')
     <div class="container mx-auto p-4 min-h-[calc(100vh-50px-75px)]">

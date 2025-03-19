@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contract</title>
+    <title>{{__('Contract')}}</title>
     <style>
         html, body {
             height: 100%;
@@ -69,19 +69,19 @@
 <body>
 <div class="container">
     <div class="header">
-        <h1>Contract</h1>
+        <h1>{{__('Contract')}}</h1>
         <p>{{ $contract->title }}</p>
     </div>
     <div class="content">
         <p>{{ $contract->description }}</p>
     </div>
     <div class="signature">
-        <p>Signed by: <span class="signature_name">{{ $contract->businessAdvertiser->name ?? ' '}}</span></p>
+        <p>{{__('Signed by')}}: <span class="signature_name">{{ $contract->businessAdvertiser->name ?? ' '}}</span></p>
         <hr>
-        <p>Date: {{ $contract->signed_at }}</p>
+        <p>{{__('Date')}}: {{ $contract->signed_at }}</p>
     </div>
     <div class="footer">
-        <p>Contract ID: {{ $contract->id }}</p>
+        <p>{{__('Contract ID')}}: {{ $contract->id }}</p>
     </div>
 </div>
 </body>

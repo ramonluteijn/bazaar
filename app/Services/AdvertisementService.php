@@ -76,4 +76,29 @@ class AdvertisementService
             $q->where("name", "private_advertiser")->orWhere("name", "business_advertiser");
         })->get();
     }
+
+    public function getOwnAdvertisements()
+    {
+        return Advertisement::query()->where('user_id', auth()->id())->paginate(10, ['*'], 'adsPage');
+    }
+
+    public function getOwnAdvertisementsByType($type)
+    {
+        return Advertisement::query()->where('user_id', auth()->id())->where('type', $type)->paginate(10, ['*'], 'adsPage');
+    }
+
+    public function getSortedAdvertisements($type)
+    {
+        switch ($type) {
+            case 'newest':
+                return Advertisement::where('expires_at', '>', now())->orderBy('created_at', 'desc')->paginate(10);
+            case 'oldest':
+                return Advertisement::where('expires_at', '>', now())->orderBy('created_at', 'asc')->paginate(10);
+            case 'highest':
+                return Advertisement::where('expires_at', '>', now())->orderBy('price', 'desc')->paginate(10);
+            case 'lowest':
+                return Advertisement::where('expires_at', '>', now())->orderBy('price', 'asc')->paginate(10);
+        }
+        return Advertisement::where('expires_at', '>', now())->orderBy('created_at', 'desc')->paginate(10);
+    }
 }

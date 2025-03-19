@@ -24,7 +24,7 @@ class ContractRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'required|string|max:65535',
+            'description' => 'required|max:65535',
             'signed_at' => 'required|date',
             'status' => 'required|string|in:pending,signed,rejected',
             'contract' => 'nullable|file|mimes:pdf|max:2048',
@@ -39,20 +39,19 @@ class ContractRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => 'A title is required',
-            'description.required' => 'A description is required',
-            'signed_at.required' => 'A signed date is required',
-            'status.required' => 'A status is required',
-            'title.string' => 'Title must be a string',
-            'title.max' => 'Title is too long',
-            'description.string' => 'Description must be a string',
-            'description.max' => 'Description is too long',
-            'signed_at.date' => 'Signed date must be a valid date',
-            'status.string' => 'Status must be a string',
-            'status.in' => 'Status must be pending, signed, or rejected',
-            'contract.file' => 'Contract must be a file',
-            'contract.mimes' => 'Contract must be a pdf',
-            'contract.max' => 'Contract is too large',
+            'title.required' => __('A title is required'),
+            'description.required' => __('A description is required'),
+            'signed_at.required' => __('A signed date is required'),
+            'status.required' => __('A status is required'),
+            'title.string' => __('Title must be a string'),
+            'title.max' => __('Title is too long'),
+            'description.max' => __('Description is too long'),
+            'signed_at.date' => __('Signed date must be a valid date'),
+            'status.string' => __('Status must be a string'),
+            'status.in' => __('Status must be pending, signed, or rejected'),
+            'contract.file' => __('Contract must be a file'),
+            'contract.mimes' => __('Contract must be a pdf'),
+            'contract.max' => __('Contract is too large'),
         ];
     }
 }

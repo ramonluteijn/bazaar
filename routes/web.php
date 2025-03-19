@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdvertisementController;
+use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\BasketController;
 use App\Http\Controllers\ContractController;
@@ -40,14 +41,13 @@ Route::group(['middleware' => 'Authenticate', 'prefix' => 'profile'], function (
         Route::get('/', [OrderController::class, 'index'])->name('orders.index');
         Route::get('/{id}', [OrderController::class, 'show'])->name('orders.show');
         Route::post('/store', [OrderController::class, 'store'])->name('orders.store');
-
     });
+
     Route::prefix('/basket')->group(function () {
         Route::get('/show', [BasketController::class, 'show'])->name('basket.show');
         Route::put('/update/{id}', [BasketController::class, 'update'])->name('basket.update');
         Route::get('/checkout', [BasketController::class, 'checkout'])->name('basket.checkout');
     });
-
 
     Route::prefix('/advertisements')->group(function () {
         Route::get('/', [AdvertisementController::class, 'index'])->name('advertisements.index');
@@ -77,10 +77,15 @@ Route::group(['middleware' => 'Authenticate', 'prefix' => 'profile'], function (
         Route::put('/update/{id}', [SettingController::class, 'update'])->name('settings.update');
         Route::delete('/delete/{id}', [SettingController::class, 'delete'])->name('settings.delete');
     });
+
     Route::prefix('/pages')->group(function () {
-        Route::get('/', [PageController::class, 'index'])->name('pages.index');
+        Route::get('/show', [PageController::class, 'show'])->name('pages.show');
         Route::post('/store', [PageController::class, 'store'])->name('pages.store');
         Route::put('/{id}', [PageController::class, 'store'])->name('pages.update');
+    });
+
+    Route::prefix('/agenda')->group(function () {
+        Route::get('/', [AgendaController::class, 'index'])->name('agenda.index');
     });
 
     Route::get('/return', [ReturnController::class, 'index'])->name('return.index');
@@ -99,7 +104,11 @@ Route::group(['middleware' => 'web'], function () {
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/advertisement/{id}', [AdvertisementController::class, 'showFromId'])->name('advertisement.read-from-id');
-Route::get('/pages/{parent?}/{child?}/{grandchild?}', [PageController::class, 'show'])->name('pages.show');
+
+Route::group(['prefix' => 'pages'], function () {
+    Route::get('/', [PageController::class, 'index'])->name('pages.index');
+    Route::get('/{parent?}/{child?}/{grandchild?}', [PageController::class, 'showFromUrl'])->name('pages.read-from-url');
+});
 
 Route::group(['prefix' => 'return'], function () {
     Route::get('/show', [ReturnController::class, 'show'])->name('return.show');

@@ -8,39 +8,43 @@
                 <ul class="list-none flex">
                     <li class="flex justify-center">
                         <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('home.index')}}">
-                            <span>Home</span>
+                            <span>{{__('Home')}}</span>
                         </a>
                     </li>
                     <li class="flex justify-center">
                         <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('shop.index')}}">
-                            <span>Shop</span>
+                            <span>{{__('Shop')}}</span>
                         </a>
                     </li>
                     <li class="flex justify-center">
                         <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('return.show')}}">
-                            <span>Return</span>
+                            <span>{{__('Return')}}</span>
+                        </a>
+                    </li>
+                    <li class="flex justify-center">
+                        <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('pages.index')}}">
+                            <span>{{__('Pages')}}</span>
                         </a>
                     </li>
                     @if(auth()->check())
                         <li class="flex justify-center">
                             <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('dashboard.show')}}">
-                                <span>Account</span>
+                                <span>{{__('Account')}}</span>
                             </a>
                         <li class="flex justify-center">
                             <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('logout')}}">
-                                <span>Logout</span>
+                                <span>{{__('Logout')}}</span>
                             </a>
                         </li>
                     @else
                         <li class="flex justify-center">
                             <a class="flex justify-center w-full text-center align-middle p-3" href="{{route('login.show')}}">
-                                <span>Login</span>
+                                <span>{{__('Login')}}</span>
                             </a>
                         </li>
                     @endif
                 </ul>
                 <ul>
-                    {{--                    icons or profile stuff--}}
                     <nav class="lang-selector">
                         <div class="wrapper">
                             <ul class="w-[55px]">
@@ -61,7 +65,6 @@
                     @livewire('cart')
                 </div>
                @endif
-
 
             </div>
         </div>

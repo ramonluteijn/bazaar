@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Settings')
+@section('title', __('Settings'))
 
 @section('content')
     <div class="container mx-auto p-4 min-h-[calc(100vh-50px-75px)]">
@@ -12,11 +12,11 @@
                 <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
                     <thead class="bg-gray-200">
                     <tr>
-                        <th class="py-2 px-4 text-left">Name</th>
-                        <th class="py-2 px-4 text-left">Email</th>
-                        <th class="py-2 px-4 text-left">Title</th>
-                        <th class="py-2 px-4 text-left">Wear</th>
-                        <th class="py-2 px-4 text-left">Image</th>
+                        <th class="py-2 px-4 text-left">{{__('Name')}}</th>
+                        <th class="py-2 px-4 text-left">{{__('Email')}}</th>
+                        <th class="py-2 px-4 text-left">{{__('Title')}}</th>
+                        <th class="py-2 px-4 text-left">{{__('Wear')}}</th>
+                        <th class="py-2 px-4 text-left">{{__('Image')}}</th>
                     </tr>
                     </thead>
                     <tbody>
