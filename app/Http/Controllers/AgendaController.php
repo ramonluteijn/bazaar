@@ -35,7 +35,7 @@ class AgendaController
                 $advertisements = $this->advertisementService->getOwnAdvertisements();
             }
             else {
-                $this->advertisementService->getOwnAdvertisementsByType($request->selectType);
+                $advertisements = $this->advertisementService->getOwnAdvertisementsByType($request->selectType);
             }
         }
         return view('agenda.index', ['orders' => $orders ?? null, 'advertisements' => $advertisements ?? null, 'tables' => $tables, 'types' => $this->types]);
