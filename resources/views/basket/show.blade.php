@@ -32,7 +32,7 @@
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" name="action" value="increase">
-                                <button type="submit" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 rounded">+</button>
+                                <button type="submit" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 rounded" dusk="increase">+</button>
                             </form>
                             <form action="{{ route('basket.update', $item['advertisement']->id) }}" method="POST">
                                 @csrf
