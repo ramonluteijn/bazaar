@@ -9,7 +9,7 @@
             <x-profile-menu />
         </div>
         <div class="w-full md:w-3/4 p-4">
-            <h1 class="text-2xl font-bold mb-4">__('Setting')</h1>
+            <h1 class="text-2xl font-bold mb-4">{{__('Setting')}}</h1>
             @if(isset($setting))
                 <form method="POST" action="{{ route('settings.update', ['id' => $setting->id]) }}" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                     @method('PUT')
