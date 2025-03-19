@@ -88,13 +88,14 @@ class AdvertisementService
     {
         switch ($type) {
             case 'newest':
-                return Advertisement::where('expires_at', '>', now())->orderBy('created_at', 'desc')->paginate(1);
+                return Advertisement::where('expires_at', '>', now())->orderBy('created_at', 'desc')->paginate(10);
             case 'oldest':
-                return Advertisement::where('expires_at', '>', now())->orderBy('created_at', 'asc')->paginate(1);
+                return Advertisement::where('expires_at', '>', now())->orderBy('created_at', 'asc')->paginate(10);
             case 'highest':
-                return Advertisement::where('expires_at', '>', now())->orderBy('price', 'desc')->paginate(1);
+                return Advertisement::where('expires_at', '>', now())->orderBy('price', 'desc')->paginate(10);
             case 'lowest':
-                return Advertisement::where('expires_at', '>', now())->orderBy('price', 'asc')->paginate(1);
+                return Advertisement::where('expires_at', '>', now())->orderBy('price', 'asc')->paginate(10);
         }
+        return Advertisement::where('expires_at', '>', now())->orderBy('created_at', 'desc')->paginate(10);
     }
 }
