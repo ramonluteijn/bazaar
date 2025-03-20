@@ -46,6 +46,9 @@ class AdvertisementService
     {
         $request->validate([
             'csv_file' => 'required|mimes:csv,txt'
+        ], [
+            'csv_file.required' => 'The CSV file is required.',
+            'csv_file.mimes' => 'The CSV file must be a file of type: csv, txt.'
         ]);
 
         $file = $request->file('csv_file');

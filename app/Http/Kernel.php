@@ -34,7 +34,7 @@ class Kernel extends HttpKernel
 
     protected $routeMiddleware = [
         'RedirectIfAuthenticated' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'auth' => \App\Http\Middleware\Authenticate::class,
+        'Authenticate' => \App\Http\Middleware\Authenticate::class,
     ];
 
     /**

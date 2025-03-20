@@ -13,7 +13,7 @@
                 <x-forms.input-field type="text" name="title" label="{{__('title')}}" :required="true" value="{{old('title')}}" />
                 <x-forms.input-file name="image" :required="true" label="{{__('image')}}" value="{{old('image')}}"/>
                 @foreach($settings as $setting)
-                    <x-forms.input-switch :name="$setting->key" :checked="old($setting->key)"/>
+                    <x-forms.input-switch :name="$setting->key" label="{{$setting->name}}" :checked="old($setting->key)"/>
                 @endforeach
 
                 <div class="flex items-center justify-between mt-4">
