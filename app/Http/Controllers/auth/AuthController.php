@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\auth;
 
+use App\Http\Controllers\BasketController;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Services\ContractService;
@@ -41,6 +42,8 @@ class AuthController
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
+            $basketController = new BasketController();
+            $basketController->addExpiredBidsToCart();
             return to_route('dashboard.show');
         }
 

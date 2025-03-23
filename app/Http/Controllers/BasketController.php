@@ -43,4 +43,45 @@ class BasketController
         session(['basket' => $basket]);
         return view('basket.checkout');
     }
+
+    public function checkExpiredBids()
+    {
+        $userId = auth()->id();
+        $basket = json_decode(Cookie::get('basket'), true) ?? [];
+
+        $expiredBids = Advertisement::where('type', 'bid')
+            ->where('expires_at', '<', now())
+            ->whereHas('bids', function ($query) use ($userId) {
+                $query->where('user_id', $userId)
+                    ->orderBy('amount', 'desc')
+                    ->limit(1);
+            })
+            ->whereDoesntHave('orderDetails', function ($query) use ($userId) {
+                $query->where('user_id', $userId)
+                    ->whereDoesntHave('advertisement', function ($query) {
+                        $query->whereColumn('advertisement_id', 'advertisements.id');
+                    });
+            })
+            ->get()
+            ->filter(function ($advertisement) use ($basket) {
+                return !isset($basket[$advertisement->id]);
+            });
+
+        return $expiredBids;
+    }
+
+    public function addExpiredBidsToCart()
+    {
+        $expiredBids = $this->checkExpiredBids();
+        $basket = json_decode(Cookie::get('basket'), true) ?? [];
+
+        foreach ($expiredBids as $bid) {
+            $advertisementId = $bid->id;
+            if (!isset($basket[$advertisementId])) {
+                $basket[$advertisementId] = 1;
+            }
+        }
+
+        Cookie::queue('basket', json_encode($basket), 10080);
+    }
 }

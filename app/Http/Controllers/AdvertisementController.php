@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdvertisementRequest;
+use App\Http\Requests\BidRequest;
 use App\Models\Advertisement;
 use App\Services\AdvertisementService;
+use App\Services\BidService;
 use App\Services\ImageService;
 use App\Services\ReviewService;
 use Illuminate\Contracts\View\View;
@@ -15,11 +17,14 @@ class AdvertisementController
 {
     private AdvertisementService $advertisementService;
     private ReviewService $reviewService;
+    private BidService $bidService;
+
     private array $types = ['sale' => 'sale', 'hire' => 'hire', 'bid' => 'bid'];
-    public function __construct(AdvertisementService $advertisementService, ReviewService $reviewService)
+    public function __construct(AdvertisementService $advertisementService, ReviewService $reviewService, BidService $bidService)
     {
         $this->advertisementService = $advertisementService;
         $this->reviewService = $reviewService;
+        $this->bidService = $bidService;
     }
 
     public function index(): View
@@ -65,6 +70,7 @@ class AdvertisementController
 
         $reviews = $this->reviewService->getReviewsAdvertisement($id);
 
+
         return view('advertisement.show-from-id', [
             'advertisement' => $advertisement,
             'qrCode' => $qrCodeDataUri,
@@ -77,5 +83,19 @@ class AdvertisementController
     {
         $this->advertisementService->uploadAdvertisements($request);
         return to_route('advertisements.index');
+    }
+
+    public function bid(BidRequest $request): RedirectResponse
+    {
+        try {
+            $this->bidService->placeBid(
+                $request->advertisement_id,
+                $request->user()->id,
+                $request->bid_amount
+            );
+            return redirect()->back()->with('success', __('Bid placed successfully.'));
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['bid_amount' => $e->getMessage()]);
+        }
     }
 }

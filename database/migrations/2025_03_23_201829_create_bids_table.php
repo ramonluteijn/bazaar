@@ -11,16 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('advertisements', function (Blueprint $table) {
+        Schema::create('bids', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->string('image')->nullable();
-            $table->integer('price');
-            $table->integer('buyout_price')->nullable();
             $table->foreignId('user_id')->constrained();
-            $table->dateTime('expires_at');
+            $table->foreignId('advertisement_id')->constrained();
+            $table->decimal('amount', 10, 2);
             $table->timestamps();
         });
     }
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('advertisements');
+        Schema::dropIfExists('bids');
     }
 };
