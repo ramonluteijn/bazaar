@@ -15,6 +15,7 @@ class ContractService
     public function updateContract(ContractRequest $request, $id): void
     {
         $data = $request->validated();
+        $data['contract'] = $request->file('contract')->storeAs('contracts', 'Contract-'.$data['title']."-".date('d-m-Y'), 'public');
         $contract = Contract::findOrFail($id);
         $contract->update($data);
     }
@@ -22,6 +23,7 @@ class ContractService
     public function storeContract(ContractRequest $request): void
     {
         $data = $request->validated();
+        $data['contract'] = $request->file('contract')->storeAs('contracts', 'Contract-'.$data['title']."-".date('d-m-Y'), 'public');
         $data['owner_id'] = User::role('owner')->first()->id;
         Contract::create($data);
     }
