@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\UrlCreation;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -25,7 +26,7 @@ class PageRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'url' => ['required', 'regex:/^\S*$/', Rule::unique('content_pages')->ignore($this->route('id'))],
+            'url' => ['required', 'regex:/^\S*$/', Rule::unique('content_pages')->ignore($this->route('id')),new UrlCreation()],
             'header_font' => 'nullable',
             'body_font' => 'nullable',
             'primary_color' => 'nullable|hex_color',
