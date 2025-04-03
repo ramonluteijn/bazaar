@@ -5,17 +5,23 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PageRequest;
 use App\Models\Advertisement;
 use App\Models\ContentPage;
+use App\Services\AdvertisementService;
 use App\Services\PageService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PageController
 {
     private PageService $pageService;
-    public function __construct(PageService $pageService)
+    private AdvertisementService $advertisementService;
+    private $types = ['newest' => 'New to old', 'oldest' => 'Old to new', 'highest' => 'High to low', 'lowest' => 'Low to high'];
+    private $adTypes = ['hire' => 'hire', 'sale' => 'sale', 'bid' => 'bid'];
+    public function __construct(PageService $pageService, AdvertisementService $advertisementService)
     {
         $this->pageService = $pageService;
+        $this->advertisementService = $advertisementService;
     }
 
     public function index(): View
@@ -38,7 +44,7 @@ class PageController
         return to_route('pages.show');
     }
 
-    public function showFromUrl($parent = null, $child = null, $grandchild = null): RedirectResponse|View
+    public function showFromUrl(Request $request, $parent = null, $child = null, $grandchild = null): RedirectResponse|View
     {
         $url = request()->path();
         preg_match('/pages\/(.*)/', $url, $url);
@@ -47,8 +53,15 @@ class PageController
             return to_route('home.index');
         }
 
-        $advertisements = Advertisement::where('user_id', $pages->user_id)->get();
+        $advertisements = $this->advertisementService->getSortedAdvertisements($request->selectSorting ?? 'newest')->where('user_id', $pages->user_id);
 
-        return view('pages.show-from-url', ['pages' => $pages, 'advertisements' => $advertisements]);
+        if ($request->has('type') && $request->type != '') {
+            $advertisements = $advertisements->where('type', $request->type);
+        }
+
+        $advertisements = $advertisements->paginate(12)->appends(request()->query());
+        $bindings = array_keys($request->query(), $url);
+
+        return view('pages.show-from-url', ['pages' => $pages, 'advertisements' => $advertisements, 'types' => $this->types, 'adTypes' => $this->adTypes, 'bindings' => $bindings]);
     }
 }

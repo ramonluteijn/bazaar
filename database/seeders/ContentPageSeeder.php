@@ -23,9 +23,13 @@ class ContentPageSeeder extends Seeder
                 'user_id' => $user->id,
             ]);
 
-            ContentBlock::factory(3)->create([
-                'content_page_id' => $contentPage->id,
-            ]);
+            $types = ['text', 'cta', 'hero', 'quote'];
+            foreach ($types as $type) {
+                ContentBlock::factory()->create([
+                    'content_page_id' => $contentPage->id,
+                    'type' => $type,
+                ]);
+            }
         }
     }
 }

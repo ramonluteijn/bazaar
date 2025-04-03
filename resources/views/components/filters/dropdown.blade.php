@@ -7,7 +7,7 @@
   "params" => []
 ])
 
-<form method="GET" action="{{ route(Route::currentRouteName()) }}">
+<form method="GET" action="{{ url()->current() }}">
     @foreach($params as $paramMame)
         @if($paramMame === $name)
             @continue
