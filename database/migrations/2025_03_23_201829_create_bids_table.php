@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('advertisement_id')->constrained();
-            $table->decimal('amount', 10, 2);
+            $table->unsignedBigInteger('amount');
             $table->timestamps();
         });
     }

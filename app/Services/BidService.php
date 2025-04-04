@@ -31,6 +31,7 @@ class BidService
             }
         }
 
+
         return DB::transaction(function () use ($advertisementId, $userId, $bidAmount) {
             return Bid::create([
                 'advertisement_id' => $advertisementId,
