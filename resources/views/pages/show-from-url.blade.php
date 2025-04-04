@@ -6,9 +6,9 @@
     <div>
         @if($pages->blocks[0]->active)
             <x-block-renderer :pages="$pages"/>
-{{--             shop --}}
+            <x-shop-component :advertisements="$advertisements" :types="$types" :adTypes="$adTypes" :bindings="$bindings"/>
         @else
-            {{-- shop --}}
+            <x-shop-component :advertisements="$advertisements" :types="$types" :adTypes="$adTypes" :bindings="$bindings"/>
             <x-block-renderer :pages="$pages"/>
         @endif
     </div>

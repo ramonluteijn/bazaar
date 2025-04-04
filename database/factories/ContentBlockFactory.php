@@ -17,11 +17,11 @@ class ContentBlockFactory extends Factory
     public function definition(): array
     {
         return [
-            'type' => $this->faker->randomElement(['text', 'cta', 'quote', 'hero']),
+            'type' => $this->faker->randomElement(['text', 'cta', 'hero', 'quote']),
             'active' => $this->faker->boolean,
             'title' => $this->faker->sentence,
             'text' => $this->faker->paragraph,
-            'image' => 'images/banner-2.jpg',
+            'image' => $this->faker->randomElement(['images/banner-1.jpg', 'images/banner-2.jpg']),
             'button_text' => $this->faker->word,
             'button_link' => $this->faker->url,
         ];

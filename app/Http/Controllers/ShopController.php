@@ -10,6 +10,7 @@ class ShopController
 {
     private AdvertisementService $advertisementService;
     private $types = ['newest' => 'New to old', 'oldest' => 'Old to new', 'highest' => 'High to low', 'lowest' => 'Low to high'];
+    private $adTypes = ['hire' => 'hire', 'sale' => 'sale', 'bid' => 'bid'];
 
     public function __construct(AdvertisementService $advertisementService)
     {
@@ -18,15 +19,22 @@ class ShopController
 
     public function index(Request $request): View
     {
-        if($request->selectSorting)
-        {
-            $advertisements = $this->advertisementService->getSortedAdvertisements($request->selectSorting);
+        $advertisements = $this->advertisementService->getSortedAdvertisements($request->selectSorting ?? 'newest');
+
+        if ($request->has('type') && $request->type != '') {
+            $advertisements = $advertisements->where('type', $request->type);
         }
-        else
-        {
-            $advertisements = $this->advertisementService->getSortedAdvertisements('newest');
-        }
+
+        $advertisements = $advertisements->paginate(12)->appends(request()->query());
+        $bindings = array_keys(request()->query());
+
         $advertisers = $this->advertisementService->getAdvertisers();
-        return view('shop.index', ['advertisers' => $advertisers, 'advertisements' => $advertisements, 'types' => $this->types]);
+        return view('shop.index', [
+            'advertisers' => $advertisers,
+            'advertisements' => $advertisements,
+            'types' => $this->types,
+            'adTypes' => $this->adTypes,
+            'bindings' => $bindings,
+        ]);
     }
 }
