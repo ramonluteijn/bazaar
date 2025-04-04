@@ -3,6 +3,7 @@
 <head>
     <title>{{config('app.name')}} | @yield('title')</title>
     @vite(['resources/js/app.js'])
+    @livewireStyles
 </head>
 @php
     if (strpos(Route::current()->getName(), '.') !== false) {
@@ -30,5 +31,6 @@
     </main>
 
     <x-footer />
+    @livewireScripts
 </body>
 </html>
