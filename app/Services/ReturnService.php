@@ -31,6 +31,9 @@ class ReturnService
                 $wear += $setting->percentage;
             }
         }
+        if ($wear > 100) {
+            $wear = 100;
+        }
         return $wear;
     }
 }
