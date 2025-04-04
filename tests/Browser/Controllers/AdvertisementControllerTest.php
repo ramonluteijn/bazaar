@@ -74,8 +74,8 @@ class AdvertisementControllerTest extends DuskTestCase
                     ->type('title', 'Test Advertisement Updated')
                     ->type('description', 'This is a test advertisement updated')
                     ->type('price', 200)
-                    ->type('expires_at', '01-01-2027')
-                    ->select('type', 'hire')
+                ->select('type', 'hire')
+                ->type('expires_at', '01-01-2027')
                     ->press('Update advertisement')
                     ->assertSee('Advertisements');
         });
@@ -89,8 +89,8 @@ class AdvertisementControllerTest extends DuskTestCase
                 ->type('title', 'Test Advertisement Updated')
                 ->type('description', 'This is a test advertisement updated')
                 ->type('price', 123456789123456789)
-                ->type('expires_at', '01-01-2024')
                 ->select('type', 'hire')
+                ->type('expires_at', '01-01-2024')
                 ->press('Update advertisement')
                 ->assertSee('Price is too high')
                 ->assertSee('Expires at must be after today');
