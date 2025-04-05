@@ -272,5 +272,6 @@
     "Business advertiser": "Zakelijke adverteerder",
 
     "by": "door",
-    "Search": "Zoeken"
+    "Search": "Zoeken",
+    "The URL may not be greater than 255 characters.": "De URL mag niet groter zijn dan 255 karakters."
 }

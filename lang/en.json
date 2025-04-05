@@ -270,5 +270,6 @@
     "Business advertiser": "Business advertiser",
 
     "by": "by",
-    "Search": "Search"
+    "Search": "Search",
+    "The URL may not be greater than 255 characters.": "The URL may not be greater than 255 characters."
 }

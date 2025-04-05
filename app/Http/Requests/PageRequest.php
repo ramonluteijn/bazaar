@@ -25,8 +25,8 @@ class PageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required',
-            'url' => ['required', 'regex:/^\S*$/', Rule::unique('content_pages')->ignore($this->route('id')),new UrlCreation()],
+            'title' => 'required|max:255',
+            'url' => ['required', 'max:255' , 'regex:/^\S*$/', Rule::unique('content_pages')->ignore($this->route('id')),new UrlCreation()],
             'header_font' => 'nullable',
             'body_font' => 'nullable',
             'primary_color' => 'nullable|hex_color',
@@ -43,8 +43,10 @@ class PageRequest extends FormRequest
     {
         return [
             'title.required' => __('The title is required.'),
+            'title.max' => __('The title may not be greater than 255 characters.'),
             'url.required' => __('The URL is required.'),
             'url.regex' => __('The URL must not contain spaces.'),
+            'url.max' => __('The URL may not be greater than 255 characters.'),
             'url.unique' => __('The URL is already in use.'),
             'header_font.nullable' => __('The header font must be a valid font.'),
             'body_font.nullable' => __('The body font must be a valid font.'),
