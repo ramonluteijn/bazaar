@@ -57,6 +57,7 @@ Route::group(['middleware' => 'Authenticate', 'prefix' => 'profile'], function (
         Route::put('/update/{id}', [AdvertisementController::class, 'update'])->name('advertisements.update');
         Route::delete('/delete/{id}', [AdvertisementController::class, 'delete'])->name('advertisements.delete');
         Route::post('/upload', [AdvertisementController::class, 'upload'])->name('advertisements.upload');
+        Route::post('/bid', [AdvertisementController::class, 'bid'])->name('advertisements.bid');
     });
 
     Route::prefix('/contracts')->group(function () {

@@ -24,7 +24,7 @@ class BasketController extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                ->cookie('basket', json_encode([1 => 1]));
+                ->cookie('basket', json_encode([2 => 2]));
             $browser->loginAs(1)
                 ->visit(route('basket.show'))
                 ->assertSee('Basket')
@@ -41,7 +41,7 @@ class BasketController extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                ->cookie('basket', json_encode([1 => 1]));
+                ->cookie('basket', json_encode([2 => 2]));
             $browser->loginAs(1)
                 ->visit(route('basket.checkout'))
                 ->assertSee('Checkout');
@@ -52,7 +52,7 @@ class BasketController extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                ->cookie('basket', json_encode([1 => 1]));
+                ->cookie('basket', json_encode([2 => 2]));
             $browser->loginAs(1)
                 ->visit(route('basket.checkout'))
                 ->assertSee('Checkout')
@@ -76,7 +76,7 @@ class BasketController extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                ->cookie('basket', json_encode([1 => 1]));
+                ->cookie('basket', json_encode([2 => 2]));
             $browser->loginAs(1)
                 ->visit(route('basket.checkout'))
                 ->assertSee('Checkout')

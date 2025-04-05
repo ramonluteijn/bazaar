@@ -19,13 +19,11 @@ class ShopController
 
     public function index(Request $request): View
     {
-        $advertisements = $this->advertisementService->getSortedAdvertisements($request->selectSorting ?? 'newest');
+        $query = $this->advertisementService->getSortedAdvertisements($request->selectSorting ?? 'newest');
 
-        if ($request->has('type') && $request->type != '') {
-            $advertisements = $advertisements->where('type', $request->type);
-        }
+        $this->advertisementService->applyFilters($request, $query);
 
-        $advertisements = $advertisements->paginate(12)->appends(request()->query());
+        $advertisements = $query->paginate(12)->appends(request()->query());
         $bindings = array_keys(request()->query());
 
         $advertisers = $this->advertisementService->getAdvertisers();

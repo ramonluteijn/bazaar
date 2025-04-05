@@ -26,6 +26,7 @@ class AdvertisementRequest extends FormRequest
         return [
             'title' => 'required|max:255',
             'price' => 'required|numeric|min:0|max:2147483647',
+            'buyout_price' => 'nullable|numeric|min:0|max:2147483647|gt:price',
             'description' => 'nullable|max:65535',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'type' => ['required', new MaxAmountOfAdvertisementsRule()],
@@ -49,6 +50,10 @@ class AdvertisementRequest extends FormRequest
             'price.numeric' => __('Price must be a number'),
             'price.min' => __('Price must be at least 0'),
             'price.max' => __('Price is too high'),
+            'buyout_price.numeric' => __('Buyout price must be a number'),
+            'buyout_price.min' => __('Buyout price must be at least 0'),
+            'buyout_price.max' => __('Buyout price is too high'),
+            'buyout_price.gt' => __('Buyout price must be greater than the price'),
             'description.max' => __('Description is too long'),
             'image.image' => __('Image must be an image'),
             'image.mimes' => __('Image must be a jpeg, png, jpg, gif, or svg'),

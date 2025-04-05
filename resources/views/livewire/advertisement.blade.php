@@ -21,15 +21,37 @@
                                 <p>{{__('Return date')}}: {{ $advertisement->return_date }}</p>
                             @endif
                         </div>
-                        @auth
-                            <button wire:click="addToCart({{ $advertisement->id }})" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute bottom-0 w-full h-[50px]">
+
+                        @if($advertisement->type === 'bid')
+                            <div id="countdown" class="text-red-600 font-bold text-lg mb-4"></div>
+                            <div class="mt-6">
+                                <h2 class="text-2xl font-bold mb-2">{{__('Bids')}}</h2>
+                                <ul class="list-disc pl-5">
+                                    @foreach($advertisement->bids as $bid)
+                                        <li class="mb-2">
+                                            <span class="font-semibold">{{ \Carbon\Carbon::parse($bid->created_at)->format('Y-m-d H:i') }}</span>: ${{ $bid->amount }}                                </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <form method="POST" action="{{ auth()->check() ? route('advertisements.bid', ['advertisement' => $advertisement->id]) : route('login.show') }}" class="absolute bottom-0 w-full flex items-center justify-between p-4 bg-gray-100 rounded-lg shadow-md">
+                                @csrf
+                                <input type="hidden" name="advertisement_id" value="{{ $advertisement->id }}">
+                                <x-forms.input-field type="number" name="bid_amount" label="{{__('Enter your bid')}}" value="{{ old('bid_amount') }}" class="w-3/4 py-2 px-4 rounded-l border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:border-transparent"/>
+                                @if(auth()->check())
+                                    <button type="submit" class="w-1/4 py-2 px-4 bg-yellow-600 hover:bg-yellow-700 text-white font-bold rounded-r focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50">
+                                        {{__('Place a bid')}}
+                                    </button>
+                                @else
+                                    <button type="button" onclick="window.location.href='{{ route('login.show') }}'" class="w-1/4 py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-r focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50">
+                                        {{__('Login to bid')}}
+                                    </button>
+                                @endif
+                            </form>
+                        @else
+                            <button onclick="window.location.href='{{ auth()->check() ? '#' : route('login.show') }}'" wire:click="{{ auth()->check() ? 'addToCart(' . $advertisement->id . ')' : '' }}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute bottom-0 w-full h-[50px]">
                                 {{__('Add to cart')}}
                             </button>
-                        @else
-                            <a href="{{ route('login.show') }}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute bottom-0 w-full h-[50px] text-center">
-                                {{__('Add to cart')}}
-                            </a>
-                        @endauth
+                        @endif
                     </div>
                 </div>
                 <div class="mt-4">
@@ -58,3 +80,29 @@
         <x-reviews.review-form :advertisement_id="$advertisement->id"/>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const expiresAt = new Date("{{ $advertisement->expires_at }}").getTime();
+        const countdownElement = document.getElementById('countdown');
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = expiresAt - now;
+
+            if (distance < 0) {
+                countdownElement.innerHTML = "{{ __('Expired') }}";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        setInterval(updateCountdown, 1000);
+    });
+</script>

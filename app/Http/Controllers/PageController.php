@@ -53,14 +53,12 @@ class PageController
             return to_route('home.index');
         }
 
-        $advertisements = $this->advertisementService->getSortedAdvertisements($request->selectSorting ?? 'newest')->where('user_id', $pages->user_id);
+        $query = $this->advertisementService->getSortedAdvertisements($request->selectSorting ?? 'newest')->where('user_id', $pages->user_id);
 
-        if ($request->has('type') && $request->type != '') {
-            $advertisements = $advertisements->where('type', $request->type);
-        }
+        $this->advertisementService->applyFilters($request, $query);
 
-        $advertisements = $advertisements->paginate(12)->appends(request()->query());
-        $bindings = array_keys($request->query(), $url);
+        $advertisements = $query->paginate(12)->appends(request()->query());
+        $bindings = array_keys($request->query());
 
         return view('pages.show-from-url', ['pages' => $pages, 'advertisements' => $advertisements, 'types' => $this->types, 'adTypes' => $this->adTypes, 'bindings' => $bindings]);
     }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 
 class Advertisement extends Model
@@ -23,12 +24,19 @@ class Advertisement extends Model
         'title',
         'description',
         'price',
+        'buyout_price',
         'image',
         'type',
         'user_id',
         'expires_at',
         'collection_date',
         'return_date',
+    ];
+
+    protected $searchable = [
+        'title',
+        'price',
+        'type',
     ];
 
     public function user(): BelongsTo
@@ -53,5 +61,19 @@ class Advertisement extends Model
         return $this->userWhoWishlisted()
             ->where('users.id', auth()->id())
             ->exists();
+    }
+
+    public function bids(): HasMany
+    {
+        return $this->hasMany(Bid::class);
+    }
+    public function orderDetails(): HasMany
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
+
+    public function getSearchable()
+    {
+        return $this->searchable;
     }
 }

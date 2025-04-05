@@ -17,6 +17,31 @@ class AdvertisementControllerTest extends DuskTestCase
         });
     }
 
+    public function testAdvertisementsUploadWithInvalidData()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs(1)
+                ->visitRoute('advertisements.index')
+                ->attach('csv_file', storage_path('app/public/images/banner-2.jpg'));
+
+            $browser->script('window.scrollTo(0, 1000);');
+
+            $browser->press('Upload')
+                ->assertSee('The CSV file must be a file of type: csv, txt.');
+        });
+    }
+
+    public function testAdvertisementsUpload()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs(1)
+                ->visitRoute('advertisements.index')
+                ->attach('csv_file', storage_path('app/public/advertisements.csv'))
+                ->press('Upload')
+                ->assertRouteIs('advertisements.index');
+        });
+    }
+
     public function testAdvertisementsCreate()
     {
         $this->browse(function (Browser $browser) {
@@ -49,8 +74,8 @@ class AdvertisementControllerTest extends DuskTestCase
                 ->type('title', 'test title')
                 ->type('description', 'This is a test advertisement')
                 ->type('price', '123456789123456789')
-                ->type('expires_at', '01-01-2024')
                 ->select('type', 'sale')
+                ->type('expires_at', '01-01-2024')
                 ->press('Add advertisement')
                 ->assertSee('Price is too high')
                 ->assertSee('Expires at must be after today');
@@ -66,21 +91,6 @@ class AdvertisementControllerTest extends DuskTestCase
         });
     }
 
-    public function testAdvertisementsUpdate()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs(1)
-                    ->visitRoute('advertisements.show', 1)
-                    ->type('title', 'Test Advertisement Updated')
-                    ->type('description', 'This is a test advertisement updated')
-                    ->type('price', 200)
-                    ->type('expires_at', '01-01-2027')
-                    ->select('type', 'hire')
-                    ->press('Update advertisement')
-                    ->assertSee('Advertisements');
-        });
-    }
-
     public function testAdvertisementsUpdateWithInvalidData()
     {
         $this->browse(function (Browser $browser) {
@@ -89,11 +99,30 @@ class AdvertisementControllerTest extends DuskTestCase
                 ->type('title', 'Test Advertisement Updated')
                 ->type('description', 'This is a test advertisement updated')
                 ->type('price', 123456789123456789)
-                ->type('expires_at', '01-01-2024')
                 ->select('type', 'hire')
-                ->press('Update advertisement')
+                ->type('expires_at', '01-01-2024');
+            $browser->script('window.scrollTo(0, 500);');
+            $browser->press('Update advertisement')
                 ->assertSee('Price is too high')
                 ->assertSee('Expires at must be after today');
+        });
+    }
+
+    public function testAdvertisementsUpdate()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs(1)
+                    ->visitRoute('advertisements.show', 1)
+                    ->type('title', 'Test Advertisement Updated')
+                    ->type('description', 'This is a test advertisement updated')
+                    ->type('price', 200)
+                    ->select('type', 'hire')
+                    ->type('expires_at', '01-01-2027')
+                    ->type('collection_date', '02-01-2027')
+                    ->type('return_date', '04-01-2027');
+            $browser->script('window.scrollTo(0, 500);');
+            $browser->press('Update advertisement')
+                    ->assertRouteIs('advertisements.index');
         });
     }
 
@@ -110,34 +139,10 @@ class AdvertisementControllerTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs(1)
-                    ->visitRoute('advertisements.show', 1)
-                    ->press('Delete advertisement')
-                    ->assertSee('Advertisements');
-        });
-    }
-
-    public function testAdvertisementsUpload()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs(1)
-                    ->visitRoute('advertisements.index')
-                    ->attach('csv_file', storage_path('app/public/advertisements.csv'))
-                    ->press('Upload')
-                    ->assertSee('Advertisements');
-        });
-    }
-
-    public function testAdvertisementsUploadWithInvalidData()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs(1)
-                ->visitRoute('advertisements.index')
-                ->attach('csv_file', storage_path('app/public/images/banner-2.jpg'));
-
+                    ->visitRoute('advertisements.show', 1);
             $browser->script('window.scrollTo(0, 500);');
-
-            $browser->press('Upload')
-                ->assertSee('The CSV file must be a file of type: csv, txt.');
+            $browser->press('Delete advertisement')
+                    ->assertNotPresent('Test Advertisement Updated');
         });
     }
 }

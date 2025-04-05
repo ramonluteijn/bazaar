@@ -29,15 +29,4 @@ class WishlistController extends DuskTestCase
                     ->assertPathIs('/advertisement/1');
         });
     }
-//
-//    public function testWishlistDelete()
-//    {
-//        $this->browse(function (Browser $browser) {
-//            $browser->loginAs(1)
-//                    ->visitRoute('wishlist.index')
-//                ->screenshot('Wishlist')
-//                    ->press('@wishlist-delete')
-//                    ->assertPathIs('/wishlist.index');
-//        });
-//    }
 }

@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advertisement;
+use App\Services\BasketService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
 class BasketController
 {
+    private BasketService $basketService;
+    public function __construct()
+    {
+        $this->basketService = new BasketService();
+    }
+
     public function show()
     {
         $basket = json_decode(Cookie::get('basket'), true) ?? [];
@@ -25,14 +32,7 @@ class BasketController
 
     public function update(Request $request, $id)
     {
-        $basket = json_decode(Cookie::get('basket'), true) ?? [];
-        if ($request->action === 'increase') {
-            $basket[$id]++;
-        } elseif ($request->action === 'decrease' && $basket[$id] > 1) {
-            $basket[$id]--;
-        } elseif ($request->action === 'delete') {
-            unset($basket[$id]);
-        }
+        $basket = $this->basketService->updateBasket($id, $request->action);
         Cookie::queue('basket', json_encode($basket), 10080); // Store for 7 days
         return redirect()->route('basket.show');
     }
@@ -42,5 +42,12 @@ class BasketController
         $basket = json_decode(Cookie::get('basket'), true) ?? [];
         session(['basket' => $basket]);
         return view('basket.checkout');
+    }
+
+    public function addExpiredBidsToCart()
+    {
+        $expiredBids = $this->basketService->checkExpiredBids(auth()->id());
+        $basket = $this->basketService->addExpiredBidToCart($expiredBids);
+        Cookie::queue('basket', json_encode($basket), 10080);
     }
 }

@@ -5,10 +5,18 @@ namespace App\Services;
 use App\Http\Requests\AdvertisementRequest;
 use App\Models\Advertisement;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class AdvertisementService
 {
+    private SearchService $searchService;
+
+    public function __construct(SearchService $searchService)
+    {
+        $this->searchService = $searchService;
+    }
+
     public function updateAdvertisement(AdvertisementRequest $request, $id): void
     {
         $data = $request->validated();
@@ -100,5 +108,16 @@ class AdvertisementService
                 return Advertisement::query()->where('expires_at', '>', now())->orderBy('price', 'asc');
         }
         return Advertisement::query()->where('expires_at', '>', now())->orderBy('created_at', 'desc');
+    }
+
+    public function applyFilters(Request $request, Builder $query)
+    {
+        if ($request->has('type') && $request->type != '') {
+            $query->where('type', $request->type);
+        }
+
+        if ($request->has("search") && $request->search != '') {
+            $this->searchService->search($query, $request->search, Advertisement::class);
+        }
     }
 }

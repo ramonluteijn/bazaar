@@ -116,9 +116,25 @@
     "title": "title",
     "description": "description",
     "price": "price",
+    "buyout price": "buyout price",
     "expires at": "expires at",
     "collection date": "collection date",
     "return date": "return date",
+    "Login to bid": "Login to bid",
+    "Bid amount is too high": "Bid amount is too high",
+    "Bid amount must be at least 0.01": "Bid amount must be at least 0.01",
+    "Bid amount must be a number": "Bid amount must be a number",
+    "Bid amount is required": "Bid amount is required",
+    "Enter your bid" : "Enter your bid",
+    "Place a bid" : "Place a bid",
+    "Bids" : "Bids",
+    "auction ends at": "auction ends at",
+    "Buyout price must be a number": "Buyout price must be a number",
+    "Buyout price must be at least 0": "Buyout price must be at least 0",
+    "Buyout price is too high": "Buyout price is too high",
+    "Buyout price must be greater than the price": "Buyout price must be greater than the price",
+    "Auction ends at must be a date": "Auction ends at must be a date",
+    "Auction ends at must be after today": "Auction ends at must be after today",
     "image": "image",
     "email": "email",
     "password": "password",
@@ -253,5 +269,6 @@
     "Private advertiser": "Private advertiser",
     "Business advertiser": "Business advertiser",
 
-    "by": "by"
+    "by": "by",
+    "Search": "Search"
 }

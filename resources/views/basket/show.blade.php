@@ -22,6 +22,7 @@
                         <p class="text-gray-700">{{__('Quantity')}}: {{ $item['count'] }}</p>
                         <p class="text-gray-700">{{__('Total')}}: ${{ $item['advertisement']->price * $item['count'] }}</p>
                         <div class="flex space-x-2 mt-2">
+                            @if($item['advertisement']->type != 'bid')
                             <form action="{{ route('basket.update', $item['advertisement']->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
@@ -40,16 +41,19 @@
                                 <input type="hidden" name="action" value="delete">
                                 <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">{{__('Delete')}}</button>
                             </form>
+                            @endif
                         </div>
                     </div>
                 </li>
             @endforeach
         </ul>
-        <div class="mt-4">
-            <h2 class="text-xl font-bold">{{__('Total Amount')}}: ${{ $totalAmount }}</h2>
-            <form action="{{ route('basket.checkout') }}" method="GET">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">{{__('Checkout')}}</button>
-            </form>
-        </div>
+        @if(!$advertisements->isEmpty())
+            <div class="mt-4">
+                <h2 class="text-xl font-bold">{{__('Total Amount')}}: ${{ $totalAmount }}</h2>
+                <form action="{{ route('basket.checkout') }}" method="GET">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">{{__('Checkout')}}</button>
+                </form>
+            </div>
+        @endif
     </div>
 @stop
