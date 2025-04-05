@@ -15,7 +15,6 @@ class ReviewController
         $this->reviewService = $reviewService;
     }
 
-
     public function store(ReviewRequest $request)
     {
         $this->reviewService->createReview($request);
