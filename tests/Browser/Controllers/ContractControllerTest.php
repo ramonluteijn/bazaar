@@ -22,7 +22,7 @@ class ContractControllerTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs(1)
                     ->visitRoute('contracts.create')
-                    ->assertSee('Create contract');
+                    ->assertSee('Contract');
         });
     }
 

@@ -4,7 +4,7 @@
   "enum" => null,
   "label" => "",
   "default" => "",
-  "params" => []
+  "params" => [],
 ])
 
 <form method="GET" action="{{ url()->current() }}">

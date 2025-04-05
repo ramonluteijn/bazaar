@@ -50,18 +50,6 @@ class SettingController extends DuskTestCase
         });
     }
 
-    public function testSettingUpdate()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs(1)
-                ->visitRoute('settings.show', 1)
-                ->type('name', 'Test Setting')
-                ->type('percentage', 10)
-                ->press('Update setting')
-                ->assertRouteIs('settings.index');
-        });
-    }
-
     public function testSettingUpdateWithInvalidData()
     {
         $this->browse(function (Browser $browser) {
@@ -71,6 +59,18 @@ class SettingController extends DuskTestCase
                 ->type('percentage', 101)
                 ->press('Update setting')
                 ->assertSee('Percentage must be between 0 and 100');
+        });
+    }
+
+    public function testSettingUpdate()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs(1)
+                ->visitRoute('settings.show', 1)
+                ->type('name', 'Test Setting')
+                ->type('percentage', 10)
+                ->press('Update setting')
+                ->assertRouteIs('settings.index');
         });
     }
 

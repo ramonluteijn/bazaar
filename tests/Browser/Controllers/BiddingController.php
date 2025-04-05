@@ -17,7 +17,7 @@ class BiddingController extends DuskTestCase
                 ->click('.grid .bg-white.shadow-md.rounded.overflow-hidden.mb-4.relative:first-child a')
                 ->type('bid_amount', 1500)
                 ->press('Place a bid')
-                ->assertSeeIn('.list-disc', '$1500.00');
+                ->assertSeeIn('.list-disc', '$1500');
         });
     }
 

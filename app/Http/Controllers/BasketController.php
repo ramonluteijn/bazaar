@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Cookie;
 class BasketController
 {
     private BasketService $basketService;
-    public function __construct(BasketService $basketService)
+    public function __construct()
     {
-        $this->basketService = $basketService;
+        $this->basketService = new BasketService();
     }
 
     public function show()

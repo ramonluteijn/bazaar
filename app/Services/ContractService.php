@@ -15,7 +15,11 @@ class ContractService
     public function updateContract(ContractRequest $request, $id): void
     {
         $data = $request->validated();
-        $data['contract'] = $request->file('contract')->storeAs('contracts', 'Contract-'.$data['title']."-".date('d-m-Y'), 'public');
+        if ($request->hasFile('contract')) {
+            $data['contract'] = $request->file('contract')->storeAs('contracts', 'Contract-'.$data['title']."-".date('d-m-Y'), 'public');
+        } else {
+            $data['contract'] = Contract::findOrFail($id)->contract;
+        }
         $contract = Contract::findOrFail($id);
         $contract->update($data);
     }

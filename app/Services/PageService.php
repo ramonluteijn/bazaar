@@ -33,6 +33,18 @@ class PageService
             $block->active = $request->input($field) === 'on';
 
             if (isset($blockFields[$field])) {
+                $rules = [];
+                foreach ($blockFields[$field] as $blockField) {
+                    if ($blockField === 'image') {
+                        $rules["{$field}_{$blockField}"] = 'nullable|image';
+                    } elseif ($blockField === 'text') {
+                        $rules["{$field}_{$blockField}"] = 'nullable|max:65535';
+                    } else {
+                        $rules["{$field}_{$blockField}"] = 'nullable|string|max:255';
+                    }
+                }
+                $validatedBlockData = $request->validate($rules);
+
                 foreach ($blockFields[$field] as $blockField) {
                     if ($blockField === 'image') {
                         $imageFieldName = "{$field}_{$blockField}";
@@ -42,7 +54,7 @@ class PageService
                             $block->$blockField = $request->input($imageFieldName);
                         }
                     } else {
-                        $block->$blockField = $request->input("{$field}_{$blockField}");
+                        $block->$blockField = $validatedBlockData["{$field}_{$blockField}"];
                     }
                 }
             }

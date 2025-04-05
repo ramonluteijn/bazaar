@@ -47,11 +47,13 @@
                 </li>
             @endforeach
         </ul>
-        <div class="mt-4">
-            <h2 class="text-xl font-bold">{{__('Total Amount')}}: ${{ $totalAmount }}</h2>
-            <form action="{{ route('basket.checkout') }}" method="GET">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">{{__('Checkout')}}</button>
-            </form>
-        </div>
+        @if(!$advertisements->isEmpty())
+            <div class="mt-4">
+                <h2 class="text-xl font-bold">{{__('Total Amount')}}: ${{ $totalAmount }}</h2>
+                <form action="{{ route('basket.checkout') }}" method="GET">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">{{__('Checkout')}}</button>
+                </form>
+            </div>
+        @endif
     </div>
 @stop
