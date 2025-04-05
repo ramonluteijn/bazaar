@@ -16,11 +16,6 @@ class ReviewService
         return Review::where('advertisement_id', $id)->get();
     }
 
-    public function getReview($id)
-    {
-        return Review::find($id);
-    }
-
     public function createReview(ReviewRequest $request)
     {
         $data = $request->validated();

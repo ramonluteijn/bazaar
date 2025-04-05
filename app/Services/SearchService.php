@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use App\Enums\EventCategoryEnum;
-
 class SearchService
 {
     protected $translatedAdvertisementTypes = [

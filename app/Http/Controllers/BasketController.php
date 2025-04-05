@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advertisement;
+use App\Services\BasketService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
 class BasketController
 {
+    private BasketService $basketService;
+    public function __construct(BasketService $basketService)
+    {
+        $this->basketService = $basketService;
+    }
+
     public function show()
     {
         $basket = json_decode(Cookie::get('basket'), true) ?? [];
@@ -25,14 +32,7 @@ class BasketController
 
     public function update(Request $request, $id)
     {
-        $basket = json_decode(Cookie::get('basket'), true) ?? [];
-        if ($request->action === 'increase') {
-            $basket[$id]++;
-        } elseif ($request->action === 'decrease' && $basket[$id] > 1) {
-            $basket[$id]--;
-        } elseif ($request->action === 'delete') {
-            unset($basket[$id]);
-        }
+        $basket = $this->basketService->updateBasket($id, $request->action);
         Cookie::queue('basket', json_encode($basket), 10080); // Store for 7 days
         return redirect()->route('basket.show');
     }
@@ -44,44 +44,10 @@ class BasketController
         return view('basket.checkout');
     }
 
-    public function checkExpiredBids()
-    {
-        $userId = auth()->id();
-        $basket = json_decode(Cookie::get('basket'), true) ?? [];
-
-        $expiredBids = Advertisement::where('type', 'bid')
-            ->where('expires_at', '<', now())
-            ->whereHas('bids', function ($query) use ($userId) {
-                $query->where('user_id', $userId)
-                    ->orderBy('amount', 'desc')
-                    ->limit(1);
-            })
-            ->whereDoesntHave('orderDetails', function ($query) use ($userId) {
-                $query->where('user_id', $userId)
-                    ->whereDoesntHave('advertisement', function ($query) {
-                        $query->whereColumn('advertisement_id', 'advertisements.id');
-                    });
-            })
-            ->get()
-            ->filter(function ($advertisement) use ($basket) {
-                return !isset($basket[$advertisement->id]);
-            });
-
-        return $expiredBids;
-    }
-
     public function addExpiredBidsToCart()
     {
-        $expiredBids = $this->checkExpiredBids();
-        $basket = json_decode(Cookie::get('basket'), true) ?? [];
-
-        foreach ($expiredBids as $bid) {
-            $advertisementId = $bid->id;
-            if (!isset($basket[$advertisementId])) {
-                $basket[$advertisementId] = 1;
-            }
-        }
-
+        $expiredBids = $this->basketService->checkExpiredBids(auth()->id());
+        $basket = $this->basketService->addExpiredBidToCart($expiredBids);
         Cookie::queue('basket', json_encode($basket), 10080);
     }
 }

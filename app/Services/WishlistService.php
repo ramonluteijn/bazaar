@@ -14,5 +14,5 @@ class WishlistService
     public function removeWishlist($advertisement_id)
     {
         Auth::User()->fetchWishlistProducts()->detach($advertisement_id);
-        }
+    }
 }
