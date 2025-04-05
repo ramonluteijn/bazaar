@@ -1,6 +1,6 @@
-@props(['label' => 'Zoeken', 'placeholder' => 'Zoeken...', 'params' => []])
+@props(['label' => '', 'placeholder' => '', 'params' => []])
 
-<form method="GET" action="{{ route(Route::currentRouteName()) }}">
+<form method="GET" action="{{ url()->current() }}">
     @foreach($params as $name)
         @if($name === 'search')
             @continue

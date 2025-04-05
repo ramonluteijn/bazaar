@@ -33,6 +33,12 @@ class Advertisement extends Model
         'return_date',
     ];
 
+    protected $searchable = [
+        'title',
+        'price',
+        'type',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -64,5 +70,10 @@ class Advertisement extends Model
     public function orderDetails(): HasMany
     {
         return $this->hasMany(OrderDetail::class);
+    }
+
+    public function getSearchable()
+    {
+        return $this->searchable;
     }
 }
