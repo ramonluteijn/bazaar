@@ -11,7 +11,8 @@ class PageService
     public function saveCustomPage($request): void
     {
         $data = $request->validated();
-        $page = $request->route('id') ? ContentPage::find($request->route('id')) : new ContentPage();
+        $isNewPage = !$request->route('id');
+        $page = $isNewPage ? new ContentPage() : ContentPage::find($request->route('id'));
         $page->user_id = Auth::id();
         $page->fill($data);
         $page->save();
@@ -30,31 +31,32 @@ class PageService
                 'content_page_id' => $page->id,
                 'type' => $field,
             ]);
-            $block->active = $request->input($field) === 'on';
-
-            if (isset($blockFields[$field])) {
-                $rules = [];
-                foreach ($blockFields[$field] as $blockField) {
-                    if ($blockField === 'image') {
-                        $rules["{$field}_{$blockField}"] = 'nullable|image';
-                    } elseif ($blockField === 'text') {
-                        $rules["{$field}_{$blockField}"] = 'nullable|max:65535';
-                    } else {
-                        $rules["{$field}_{$blockField}"] = 'nullable|string|max:255';
-                    }
-                }
-                $validatedBlockData = $request->validate($rules);
-
-                foreach ($blockFields[$field] as $blockField) {
-                    if ($blockField === 'image') {
-                        $imageFieldName = "{$field}_{$blockField}";
-                        if ($request->hasFile($imageFieldName)) {
-                            $block->$blockField = ImageService::StoreImage($request, $imageFieldName)[$imageFieldName] ?? $request->input($imageFieldName);
+            if(!$isNewPage) {
+                $block->active = $request->input($field) === 'on';
+                if (isset($blockFields[$field])) {
+                    $rules = [];
+                    foreach ($blockFields[$field] as $blockField) {
+                        if ($blockField === 'image') {
+                            $rules["{$field}_{$blockField}"] = 'nullable|image';
+                        } elseif ($blockField === 'text') {
+                            $rules["{$field}_{$blockField}"] = 'nullable|max:65535';
                         } else {
-                            $block->$blockField = $request->input($imageFieldName);
+                            $rules["{$field}_{$blockField}"] = 'nullable|string|max:255';
                         }
-                    } else {
-                        $block->$blockField = $validatedBlockData["{$field}_{$blockField}"];
+                    }
+                    $validatedBlockData = $request->validate($rules);
+
+                    foreach ($blockFields[$field] as $blockField) {
+                        if ($blockField === 'image') {
+                            $imageFieldName = "{$field}_{$blockField}";
+                            if ($request->hasFile($imageFieldName)) {
+                                $block->$blockField = ImageService::StoreImage($request, $imageFieldName)[$imageFieldName] ?? $request->input($imageFieldName);
+                            } else {
+                                $block->$blockField = $request->input($imageFieldName);
+                            }
+                        } else {
+                            $block->$blockField = $validatedBlockData["{$field}_{$blockField}"];
+                        }
                     }
                 }
             }
