@@ -2,12 +2,41 @@
 
 namespace Tests\Browser\Controllers;
 
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
 class AdvertisementControllerTest extends DuskTestCase
 {
 
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->runFakeDatabaseSeeder();
+
+    }
+    function runFakeDatabaseSeeder()
+    {
+        // Disable foreign key checks to avoid constraint violations
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+        // Truncate all tables
+        foreach (DB::select('SHOW TABLES') as $table) {
+            $tableName = array_values((array)$table)[0];
+            DB::table($tableName)->truncate();
+        }
+
+        // Re-enable foreign key checks
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        // Run the database seeder
+        Artisan::call('db:seed', [
+            '--class' => 'DatabaseSeeder',
+            '--force' => true, // Force the operation to run when in production
+        ]);
+    }
     public function testAdvertisementsIndex()
     {
         $this->browse(function (Browser $browser) {
@@ -77,6 +106,7 @@ class AdvertisementControllerTest extends DuskTestCase
                 ->select('type', 'sale')
                 ->type('expires_at', '01-01-2024')
                 ->press('Add advertisement')
+                ->screenshot('store-advertisement-invalid')
                 ->assertSee('Price is too high')
                 ->assertSee('Expires at must be after today');
         });
